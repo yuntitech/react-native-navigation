@@ -16,6 +16,7 @@ public class StatusBarBackground extends View {
     @Nullable private TitleBarBackground background;
     private StyleParams.Color backgroundColor = new StyleParams.Color();
     private StyleParams.Color secondaryBackgroundColor = new StyleParams.Color();
+    private int topBarColorAnimationOffset;
 
     public StatusBarBackground(Context context) {
         super(context);
@@ -23,8 +24,9 @@ public class StatusBarBackground extends View {
         setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, ViewUtils.getStatusBarHeight()));
     }
 
-    public void setStyle(StyleParams.Color backgroundColor, StyleParams.Color secondaryBackgroundColor) {
+    public void setStyle(StyleParams.Color backgroundColor, StyleParams.Color secondaryBackgroundColor, int offset) {
         if (colorsChanged(backgroundColor, secondaryBackgroundColor)) {
+            topBarColorAnimationOffset = offset;
             this.backgroundColor = backgroundColor;
             this.secondaryBackgroundColor = secondaryBackgroundColor;
             createBackground(backgroundColor, secondaryBackgroundColor);
@@ -49,7 +51,7 @@ public class StatusBarBackground extends View {
 
     public void onScroll(int scrollY) {
         // TODO navBarColorAnimationOffset - TitleBar height - StatusBar height
-        if (scrollY > 1000 - 224 - ViewUtils.getStatusBarHeight()) {
+        if (scrollY > topBarColorAnimationOffset - 224 - ViewUtils.getStatusBarHeight()) {
             if (background != null) background.showSolidBackground();
         } else {
             if (background != null) background.showTranslucentBackground();

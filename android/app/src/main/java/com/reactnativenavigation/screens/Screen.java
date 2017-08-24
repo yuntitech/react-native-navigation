@@ -113,7 +113,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     public void setStyle() {
-        setStatusBarColor(styleParams.statusBarColor, styleParams.secondaryStatusBarColor);
+        setStatusBarColor(styleParams.statusBarColor, styleParams.secondaryStatusBarColor, styleParams.topBarColorAnimationOffset);
         setStatusBarTextColorScheme(styleParams.statusBarTextColorScheme);
         setNavigationBarColor(styleParams.navigationBarColor);
         topBar.setStyle(styleParams);
@@ -200,9 +200,9 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setStatusBarColor(StyleParams.Color statusBarColor, StyleParams.Color secondaryStatusBarColor) {
+    private void setStatusBarColor(StyleParams.Color statusBarColor, StyleParams.Color secondaryStatusBarColor, int offset) {
         if (statusBarBackground != null) {
-            statusBarBackground.setStyle(statusBarColor, secondaryStatusBarColor);
+            statusBarBackground.setStyle(statusBarColor, secondaryStatusBarColor, offset);
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
 
@@ -394,7 +394,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
 
     public void showContextualMenu(ContextualMenuParams params, Callback onButtonClicked) {
         topBar.showContextualMenu(params, styleParams, onButtonClicked);
-        setStatusBarColor(styleParams.contextualMenuStatusBarColor, new StyleParams.Color());
+        setStatusBarColor(styleParams.contextualMenuStatusBarColor, new StyleParams.Color(), -1);
     }
 
     public void dismissContextualMenu() {

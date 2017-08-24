@@ -149,6 +149,7 @@ function convertStyleParams(originalStyleObject) {
     topBarReactViewInitialProps: originalStyleObject.navBarCustomViewInitialProps,
     topBarColor: processColor(originalStyleObject.navBarBackgroundColor),
     secondaryTopBarColor: processColor(originalStyleObject.secondaryNavBarBackgroundColor),
+    topBarColorAnimationOffset: originalStyleObject.navBarColorAnimationOffset,
     topBarTransparent: originalStyleObject.navBarTransparent,
     topBarTranslucent: originalStyleObject.navBarTranslucent,
     topBarElevationShadowEnabled: originalStyleObject.topBarElevationShadowEnabled,

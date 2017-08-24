@@ -39,6 +39,7 @@ public class StyleParamsParser {
 
         result.topBarColor = getColor("topBarColor", getDefaultTopBarColor());
         result.secondaryTopBarColor = getColor("secondaryTopBarColor", getDefaultSecondaryTopBarColor());
+        result.topBarColorAnimationOffset = (int) ViewUtils.convertDpToPixel(getInt("topBarColorAnimationOffset", getDefaultTopBarColorAnimationOffset()));
         result.topBarReactView = params.getString("topBarReactView");
         result.topBarReactViewAlignment = params.getString("topBarReactViewAlignment");
         result.topBarReactViewInitialProps = getBundle("topBarReactViewInitialProps");
@@ -270,6 +271,10 @@ public class StyleParamsParser {
 
     private StyleParams.Color getDefaultSecondaryTopBarColor() {
         return AppStyle.appStyle == null ? new StyleParams.Color() : AppStyle.appStyle.secondaryTopBarColor;
+    }
+
+    private int getDefaultTopBarColorAnimationOffset() {
+        return AppStyle.appStyle == null ? -1 : AppStyle.appStyle.topBarColorAnimationOffset;
     }
 
     private StyleParams.Color getDefaultStatusBarColor() {

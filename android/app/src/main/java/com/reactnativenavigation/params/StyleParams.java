@@ -89,6 +89,7 @@ public class StyleParams {
 
     public Color topBarColor;
     public Color secondaryTopBarColor;
+    public int topBarColorAnimationOffset;
     public Color topBarBorderColor;
     public float topBarBorderWidth;
     public String topBarReactView;
