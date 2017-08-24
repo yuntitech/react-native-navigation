@@ -53,6 +53,7 @@ Navigation.startTabBasedApp({
     navBarBackgroundColor: '#003a66',
     statusBarColor: '#002b4c',
     tabFontFamily: 'BioRhyme-Bold',
+    immersiveModeSupported: true
   },
   drawer: {
     left: {

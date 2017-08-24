@@ -14,6 +14,7 @@ import CustomButtonScreen from './types/CustomButtonScreen';
 import TopTabs from './types/TopTabs';
 import TabOne from './types/tabs/TabOne';
 import TabTwo from './types/tabs/TabTwo';
+import ImmersiveModeScreen from './types/ImmersiveModeScreen';
 
 import CollapsingHeader from './transitions/CollapsingHeader';
 import SharedElementTransitions from './transitions/SharedElementTransitions';
@@ -40,6 +41,7 @@ export function registerScreens() {
   Navigation.registerComponent('example.Types.TopTabs', () => TopTabs);
   Navigation.registerComponent('example.Types.TopTabs.TabOne', () => TabOne);
   Navigation.registerComponent('example.Types.TopTabs.TabTwo', () => TabTwo);
+  Navigation.registerComponent('example.Types.ImmersiveModeScreen', () => ImmersiveModeScreen);
 
   Navigation.registerComponent('example.Transitions.CollapsingHeader', () => CollapsingHeader);
   Navigation.registerComponent('example.Transitions.SharedElementTransitions', () => SharedElementTransitions);

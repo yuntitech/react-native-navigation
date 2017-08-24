@@ -94,9 +94,16 @@ class NavigationTypes extends React.Component {
     });
   };
 
+  pushImmersiveModeScreen = () => {
+    this.props.navigator.push({
+      screen: 'example.Types.ImmersiveModeScreen'
+    });
+  };
+
   render() {
     return (
       <ScrollView style={styles.container}>
+        <Row title={'Immersive Mode Screen'} onPress={this.pushImmersiveModeScreen} platform={'android'}/>
         <Row title={'Toggle Drawer'} onPress={this.toggleDrawer}/>
         <Row title={'Push Screen'} testID={'pushScreen'} onPress={this.pushScreen}/>
         <Row title={'Custom TopBar'} onPress={this.pushCustomTopBarScreen}/>
