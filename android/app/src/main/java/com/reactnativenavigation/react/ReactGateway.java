@@ -2,6 +2,7 @@ package com.reactnativenavigation.react;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.facebook.react.ReactInstanceManager;
@@ -20,7 +21,7 @@ public interface ReactGateway {
 
     NavigationReactEventEmitter getReactEventEmitter();
 
-    EventDispatcher getEventDispatcher();
+    @Nullable EventDispatcher getEventDispatcher();
 
     ReactInstanceManager getReactInstanceManager();
 

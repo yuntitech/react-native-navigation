@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.uimanager.events.EventDispatcher;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.controllers.NavigationActivity;
 import com.reactnativenavigation.events.ContextualMenuHiddenEvent;
@@ -401,11 +402,11 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     public void destroy() {
-            // TODO
-//        if (scrollEventListener != null) {
-//            NavigationApplication.instance.getReactGateway().getEventDispatcher().removeListener(scrollEventListener);
-//            scrollEventListener = null;
-//        }
+        if (scrollEventListener != null) {
+            EventDispatcher eventDispatcher = NavigationApplication.instance.getReactGateway().getEventDispatcher();
+            if (eventDispatcher != null) eventDispatcher.removeListener(scrollEventListener);
+            scrollEventListener = null;
+        }
         unmountReactView();
         EventBus.instance.unregister(this);
         sharedElements.destroy();

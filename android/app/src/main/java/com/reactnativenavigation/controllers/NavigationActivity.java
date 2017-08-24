@@ -149,8 +149,8 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     @Override
     protected void onDestroy() {
         destroyLayouts();
-        destroyJsIfNeeded();
         NavigationApplication.instance.getActivityCallbacks().onActivityDestroyed(this);
+        destroyJsIfNeeded();
         super.onDestroy();
     }
 
