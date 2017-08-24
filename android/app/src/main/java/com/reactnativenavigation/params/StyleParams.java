@@ -48,6 +48,11 @@ public class StyleParams {
         public int getColor(int defaultColor) {
             return hasColor() ? getColor() : defaultColor;
         }
+
+        public boolean equals(Color color) {
+            return (!hasColor() && !color.hasColor()) ||
+                   (((hasColor() && color.hasColor()) && (getColor() == color.getColor())));
+        }
     }
 
     public static class Font {
@@ -74,12 +79,16 @@ public class StyleParams {
 
     public Orientation orientation;
     public StatusBarTextColorScheme statusBarTextColorScheme;
+    public boolean immersiveModeSupported;
+    public boolean drawScreenBellowStatusBar;
     public Color statusBarColor;
+    public Color secondaryStatusBarColor;
     public Color contextualMenuStatusBarColor;
     public Color contextualMenuButtonsColor;
     public Color contextualMenuBackgroundColor;
 
     public Color topBarColor;
+    public Color secondaryTopBarColor;
     public Color topBarBorderColor;
     public float topBarBorderWidth;
     public String topBarReactView;

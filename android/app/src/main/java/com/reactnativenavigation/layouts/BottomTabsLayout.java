@@ -55,9 +55,7 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
     private final SideMenuParams leftSideMenuParams;
     private final SideMenuParams rightSideMenuParams;
     private final SlidingOverlaysQueue slidingOverlaysQueue = new SlidingOverlaysQueue();
-    private
-    @Nullable
-    SideMenu sideMenu;
+    @Nullable private SideMenu sideMenu;
     private int currentStackIndex = 0;
     private LightBox lightBox;
 

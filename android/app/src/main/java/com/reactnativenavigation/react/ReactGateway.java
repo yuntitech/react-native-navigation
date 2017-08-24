@@ -7,6 +7,7 @@ import android.view.View;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
+import com.facebook.react.uimanager.events.EventDispatcher;
 import com.reactnativenavigation.bridge.NavigationReactEventEmitter;
 
 public interface ReactGateway {
@@ -18,6 +19,8 @@ public interface ReactGateway {
     ReactContext getReactContext();
 
     NavigationReactEventEmitter getReactEventEmitter();
+
+    EventDispatcher getEventDispatcher();
 
     ReactInstanceManager getReactInstanceManager();
 

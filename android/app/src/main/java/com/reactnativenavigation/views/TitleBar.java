@@ -4,8 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +21,7 @@ import com.reactnativenavigation.params.StyleParams;
 import com.reactnativenavigation.params.TitleBarButtonParams;
 import com.reactnativenavigation.params.TitleBarLeftButtonParams;
 import com.reactnativenavigation.utils.ViewUtils;
+import com.reactnativenavigation.views.utils.TitleBarStyleHelper;
 
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class TitleBar extends Toolbar {
     private LeftButton leftButton;
     private ActionMenuView actionMenuView;
     private List<TitleBarButtonParams> rightButtons;
+    protected TitleBarBackground titleBarBackground;
+    private TitleBarStyleHelper styleHelper = new TitleBarStyleHelper();
 
     public TitleBar(Context context) {
         super(context);
@@ -117,6 +120,18 @@ public class TitleBar extends Toolbar {
 
     protected void setBackground(StyleParams params) {
         setTranslucent(params);
+        setCollapsingBackground(params);
+    }
+
+    private void setCollapsingBackground(StyleParams params) {
+        if (!params.secondaryTopBarColor.hasColor()) return;
+        if (titleBarBackground == null || styleHelper.colorsChanged(params.topBarColor, params.secondaryTopBarColor)) {
+            titleBarBackground = styleHelper.setBackground(this, params);
+        }
+    }
+
+    public void onScroll(int scrollY) {
+        styleHelper.onScroll(titleBarBackground, scrollY);
     }
 
     protected void setTranslucent(StyleParams params) {

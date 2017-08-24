@@ -28,13 +28,17 @@ public class StyleParamsParser {
 
         StyleParams result = new StyleParams(params);
         result.orientation = Orientation.fromString(params.getString("orientation", getDefaultOrientation()));
+        result.immersiveModeSupported = getBoolean("immersiveModeSupported", getDefaultImmersiveModeSupported());
+        result.drawScreenBellowStatusBar = getBoolean("drawScreenBellowStatusBar", getDefaultDrawScreenBellowStatusBar());
         result.statusBarColor = getColor("statusBarColor", getDefaultStatusBarColor());
+        result.secondaryStatusBarColor = getColor("secondaryStatusBarColor", getDefaultSecondaryStatusBarColor());
         result.statusBarTextColorScheme = StatusBarTextColorScheme.fromString(params.getString("statusBarTextColorScheme"));
         result.contextualMenuStatusBarColor = getColor("contextualMenuStatusBarColor", getDefaultContextualMenuStatusBarColor());
         result.contextualMenuButtonsColor = getColor("contextualMenuButtonsColor", getDefaultContextualMenuButtonsColor());
         result.contextualMenuBackgroundColor = getColor("contextualMenuBackgroundColor", getDefaultContextualMenuBackgroundColor());
 
         result.topBarColor = getColor("topBarColor", getDefaultTopBarColor());
+        result.secondaryTopBarColor = getColor("secondaryTopBarColor", getDefaultSecondaryTopBarColor());
         result.topBarReactView = params.getString("topBarReactView");
         result.topBarReactViewAlignment = params.getString("topBarReactViewAlignment");
         result.topBarReactViewInitialProps = getBundle("topBarReactViewInitialProps");
@@ -100,6 +104,14 @@ public class StyleParamsParser {
 
     private String getDefaultOrientation() {
         return AppStyle.appStyle == null ? null : AppStyle.appStyle.orientation.name;
+    }
+
+    private boolean getDefaultImmersiveModeSupported() {
+        return AppStyle.appStyle != null && AppStyle.appStyle.immersiveModeSupported;
+    }
+
+    private boolean getDefaultDrawScreenBellowStatusBar() {
+        return AppStyle.appStyle == null || AppStyle.appStyle.drawScreenBellowStatusBar;
     }
 
     private StyleParams createDefaultStyleParams() {
@@ -256,8 +268,16 @@ public class StyleParamsParser {
         return AppStyle.appStyle == null ? new StyleParams.Color() : AppStyle.appStyle.topBarColor;
     }
 
+    private StyleParams.Color getDefaultSecondaryTopBarColor() {
+        return AppStyle.appStyle == null ? new StyleParams.Color() : AppStyle.appStyle.secondaryTopBarColor;
+    }
+
     private StyleParams.Color getDefaultStatusBarColor() {
         return AppStyle.appStyle == null ? new StyleParams.Color() : AppStyle.appStyle.statusBarColor;
+    }
+
+    private StyleParams.Color getDefaultSecondaryStatusBarColor() {
+        return AppStyle.appStyle == null ? new StyleParams.Color(Color.TRANSPARENT) : AppStyle.appStyle.secondaryStatusBarColor;
     }
 
     private StyleParams.Font getDefaultBottomTabsFontFamily() {

@@ -19,7 +19,6 @@ public class CollapsingTitleBar extends TitleBar implements View.OnTouchListener
     private int collapsedHeight;
     private final ScrollListener scrollListener;
     private final CollapsingTopBarParams params;
-    private TitleBarBackground titleBarBackground;
 
     public CollapsingTitleBar(Context context, int collapsedHeight, ScrollListener scrollListener, CollapsingTopBarParams params) {
         super(context);

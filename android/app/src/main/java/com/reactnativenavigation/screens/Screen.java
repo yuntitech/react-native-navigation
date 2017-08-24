@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,7 @@ import com.reactnativenavigation.events.EventBus;
 import com.reactnativenavigation.events.FabSetEvent;
 import com.reactnativenavigation.events.Subscriber;
 import com.reactnativenavigation.events.ViewPagerScreenChangedEvent;
+import com.reactnativenavigation.params.AppStyle;
 import com.reactnativenavigation.params.BaseScreenParams;
 import com.reactnativenavigation.params.ContextualMenuParams;
 import com.reactnativenavigation.params.FabParams;
@@ -28,11 +30,14 @@ import com.reactnativenavigation.params.StyleParams;
 import com.reactnativenavigation.params.TitleBarButtonParams;
 import com.reactnativenavigation.params.TitleBarLeftButtonParams;
 import com.reactnativenavigation.params.parsers.StyleParamsParser;
+import com.reactnativenavigation.utils.ImmersiveModeUtils;
 import com.reactnativenavigation.views.ContentView;
 import com.reactnativenavigation.views.LeftButtonOnClickListener;
+import com.reactnativenavigation.views.StatusBarBackground;
 import com.reactnativenavigation.views.TopBar;
 import com.reactnativenavigation.views.sharedElementTransition.SharedElementTransition;
 import com.reactnativenavigation.views.sharedElementTransition.SharedElements;
+import com.reactnativenavigation.views.utils.ScrollEventListener;
 
 import java.util.List;
 import java.util.Map;
@@ -42,12 +47,15 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public abstract class Screen extends RelativeLayout implements Subscriber {
 
+    private ScrollEventListener scrollEventListener;
+
     public interface OnDisplayListener {
         void onDisplay();
     }
 
     protected final AppCompatActivity activity;
     protected final ScreenParams screenParams;
+    @Nullable protected StatusBarBackground statusBarBackground;
     protected TopBar topBar;
     private final LeftButtonOnClickListener leftButtonOnClickListener;
     private ScreenAnimator screenAnimator;
@@ -104,7 +112,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     public void setStyle() {
-        setStatusBarColor(styleParams.statusBarColor);
+        setStatusBarColor(styleParams.statusBarColor, styleParams.secondaryStatusBarColor);
         setStatusBarTextColorScheme(styleParams.statusBarTextColorScheme);
         setNavigationBarColor(styleParams.navigationBarColor);
         topBar.setStyle(styleParams);
@@ -114,9 +122,32 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     private void createViews() {
+        createStatusBarBackground();
         createAndAddTopBar();
         createTitleBar();
         createContent();
+    }
+
+    private void createStatusBarBackground() {
+        if (AppStyle.appStyle.immersiveModeSupported) {
+            statusBarBackground = new StatusBarBackground(getContext());
+            addView(statusBarBackground);
+            ImmersiveModeUtils.showSystemUI(((NavigationActivity) getContext()).getScreenWindow());
+            registerScrollEventListener();
+        }
+    }
+
+    private void registerScrollEventListener() {
+        scrollEventListener = new ScrollEventListener(new ScrollEventListener.OnVerticalScrollListener() {
+            @Override
+            public void onVerticalScroll(int scrollY) {
+                if (statusBarBackground != null) {
+                    statusBarBackground.onScroll(scrollY);
+                    topBar.onScroll(scrollY);
+                }
+            }
+        });
+        NavigationApplication.instance.getReactGateway().getEventDispatcher().addListener(scrollEventListener);
     }
 
     protected abstract void createContent();
@@ -160,11 +191,18 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     private void addTopBar() {
-        addView(topBar, new LayoutParams(MATCH_PARENT, WRAP_CONTENT));
+        LayoutParams lp = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+        if (statusBarBackground != null) {
+            lp.addRule(RelativeLayout.BELOW, statusBarBackground.getId());
+        }
+        addView(topBar, lp);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setStatusBarColor(StyleParams.Color statusBarColor) {
+    private void setStatusBarColor(StyleParams.Color statusBarColor, StyleParams.Color secondaryStatusBarColor) {
+        if (statusBarBackground != null) {
+            statusBarBackground.setStyle(statusBarColor, secondaryStatusBarColor);
+        }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
 
         final Window window = ((NavigationActivity) activity).getScreenWindow();
@@ -355,7 +393,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
 
     public void showContextualMenu(ContextualMenuParams params, Callback onButtonClicked) {
         topBar.showContextualMenu(params, styleParams, onButtonClicked);
-        setStatusBarColor(styleParams.contextualMenuStatusBarColor);
+        setStatusBarColor(styleParams.contextualMenuStatusBarColor, new StyleParams.Color());
     }
 
     public void dismissContextualMenu() {
@@ -363,6 +401,11 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     public void destroy() {
+            // TODO
+//        if (scrollEventListener != null) {
+//            NavigationApplication.instance.getReactGateway().getEventDispatcher().removeListener(scrollEventListener);
+//            scrollEventListener = null;
+//        }
         unmountReactView();
         EventBus.instance.unregister(this);
         sharedElements.destroy();

@@ -138,12 +138,17 @@ function convertStyleParams(originalStyleObject) {
 
   let ret = {
     orientation: originalStyleObject.orientation,
+    immersiveModeSupported: originalStyleObject.immersiveModeSupported,
+    drawScreenBellowStatusBar: !originalStyleObject.drawUnderStatusBar,
+    colorStatusBarOnScrollThreshold: originalStyleObject.colorStatusBarOnScrollThreshold,
+    secondaryStatusBarColor: processColor(originalStyleObject.secondaryStatusBarColor),
     statusBarColor: processColor(originalStyleObject.statusBarColor),
     statusBarTextColorScheme: originalStyleObject.statusBarTextColorScheme,
     topBarReactView: originalStyleObject.navBarCustomView,
     topBarReactViewAlignment: originalStyleObject.navBarComponentAlignment,
     topBarReactViewInitialProps: originalStyleObject.navBarCustomViewInitialProps,
     topBarColor: processColor(originalStyleObject.navBarBackgroundColor),
+    secondaryTopBarColor: processColor(originalStyleObject.secondaryNavBarBackgroundColor),
     topBarTransparent: originalStyleObject.navBarTransparent,
     topBarTranslucent: originalStyleObject.navBarTranslucent,
     topBarElevationShadowEnabled: originalStyleObject.topBarElevationShadowEnabled,

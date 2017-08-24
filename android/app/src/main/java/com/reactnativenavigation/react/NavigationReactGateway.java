@@ -10,6 +10,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.uimanager.events.EventDispatcher;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.bridge.NavigationReactEventEmitter;
 import com.reactnativenavigation.bridge.NavigationReactPackage;
@@ -53,6 +55,11 @@ public class NavigationReactGateway implements ReactGateway {
 	public NavigationReactEventEmitter getReactEventEmitter() {
 		return reactEventEmitter;
 	}
+
+	@Override
+    public EventDispatcher getEventDispatcher() {
+        return getReactContext().getNativeModule(UIManagerModule.class).getEventDispatcher();
+    }
 
 	@Override
 	public ReactInstanceManager getReactInstanceManager() {
