@@ -12,10 +12,6 @@ export default class ImmersiveModeScreen extends React.Component {
     navBarTextColor: 'white',
     statusBarTextColorScheme: 'light',
     statusBarColor: 'transparent',
-    secondaryStatusBarColor: '#002b4c',
-    navBarBackgroundColor: '#003a66',
-    secondaryNavBarBackgroundColor: 'transparent',
-    navBarColorAnimationOffset: 250 // TODO: implement
   };
 
   constructor(props) {
