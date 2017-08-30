@@ -113,7 +113,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     public void setStyle() {
-        setStatusBarColor(styleParams.statusBarColor, styleParams.secondaryStatusBarColor, styleParams.topBarColorAnimationOffset);
+        setStatusBarColor(styleParams.statusBarColor);
         setStatusBarTextColorScheme(styleParams.statusBarTextColorScheme);
         setNavigationBarColor(styleParams.navigationBarColor);
         topBar.setStyle(styleParams);
@@ -134,21 +134,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
             statusBarBackground = new StatusBarBackground(getContext());
             addView(statusBarBackground);
             ImmersiveModeUtils.showSystemUI(((NavigationActivity) getContext()).getScreenWindow());
-            registerScrollEventListener();
         }
-    }
-
-    private void registerScrollEventListener() {
-        scrollEventListener = new ScrollEventListener(new ScrollEventListener.OnVerticalScrollListener() {
-            @Override
-            public void onVerticalScroll(int scrollY) {
-                if (statusBarBackground != null) {
-                    statusBarBackground.onScroll(scrollY);
-                    topBar.onScroll(scrollY);
-                }
-            }
-        });
-        NavigationApplication.instance.getReactGateway().getEventDispatcher().addListener(scrollEventListener);
     }
 
     protected abstract void createContent();
@@ -200,9 +186,9 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setStatusBarColor(StyleParams.Color statusBarColor, StyleParams.Color secondaryStatusBarColor, int offset) {
+    private void setStatusBarColor(StyleParams.Color statusBarColor) {
         if (statusBarBackground != null) {
-            statusBarBackground.setStyle(statusBarColor, secondaryStatusBarColor, offset);
+            statusBarBackground.setStyle(statusBarColor);
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
 
@@ -394,7 +380,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
 
     public void showContextualMenu(ContextualMenuParams params, Callback onButtonClicked) {
         topBar.showContextualMenu(params, styleParams, onButtonClicked);
-        setStatusBarColor(styleParams.contextualMenuStatusBarColor, new StyleParams.Color(), -1);
+        setStatusBarColor(styleParams.contextualMenuStatusBarColor);
     }
 
     public void dismissContextualMenu() {

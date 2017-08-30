@@ -82,14 +82,11 @@ public class StyleParams {
     public boolean immersiveModeSupported;
     public boolean drawScreenBellowStatusBar;
     public Color statusBarColor;
-    public Color secondaryStatusBarColor;
     public Color contextualMenuStatusBarColor;
     public Color contextualMenuButtonsColor;
     public Color contextualMenuBackgroundColor;
 
     public Color topBarColor;
-    public Color secondaryTopBarColor;
-    public int topBarColorAnimationOffset;
     public Color topBarBorderColor;
     public float topBarBorderWidth;
     public String topBarReactView;

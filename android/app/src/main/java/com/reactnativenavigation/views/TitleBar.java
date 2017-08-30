@@ -21,7 +21,6 @@ import com.reactnativenavigation.params.StyleParams;
 import com.reactnativenavigation.params.TitleBarButtonParams;
 import com.reactnativenavigation.params.TitleBarLeftButtonParams;
 import com.reactnativenavigation.utils.ViewUtils;
-import com.reactnativenavigation.views.utils.TitleBarStyleHelper;
 
 import java.util.List;
 
@@ -31,7 +30,6 @@ public class TitleBar extends Toolbar {
     private ActionMenuView actionMenuView;
     private List<TitleBarButtonParams> rightButtons;
     protected TitleBarBackground titleBarBackground;
-    private TitleBarStyleHelper styleHelper = new TitleBarStyleHelper();
 
     public TitleBar(Context context) {
         super(context);
@@ -120,18 +118,6 @@ public class TitleBar extends Toolbar {
 
     protected void setBackground(StyleParams params) {
         setTranslucent(params);
-        setCollapsingBackground(params);
-    }
-
-    private void setCollapsingBackground(StyleParams params) {
-        if (!params.secondaryTopBarColor.hasColor()) return;
-        if (titleBarBackground == null || styleHelper.colorsChanged(params.topBarColor, params.secondaryTopBarColor)) {
-            titleBarBackground = styleHelper.setBackground(this, params);
-        }
-    }
-
-    public void onScroll(int scrollY) {
-        styleHelper.onScroll(titleBarBackground, scrollY);
     }
 
     protected void setTranslucent(StyleParams params) {

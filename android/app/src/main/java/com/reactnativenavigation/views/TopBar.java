@@ -157,7 +157,7 @@ public class TopBar extends AppBarLayout {
     public void setStyle(StyleParams styleParams) {
         if (styleParams.topBarBorderColor.hasColor()) {
             setBackground(new TopBarBorder(styleParams));
-        } else if (styleParams.topBarColor.hasColor() && !styleParams.secondaryTopBarColor.hasColor()) {
+        } else if (styleParams.topBarColor.hasColor()) {
             setBackgroundColor(styleParams.topBarColor.getColor());
         }
         if (styleParams.topBarTransparent) {
@@ -262,9 +262,5 @@ public class TopBar extends AppBarLayout {
     public void setVisible(boolean visible, boolean animate) {
         titleBar.setVisibility(!visible);
         visibilityAnimator.setVisible(visible, animate);
-    }
-
-    public void onScroll(int scrollY) {
-        titleBar.onScroll(scrollY);
     }
 }
