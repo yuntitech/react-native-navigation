@@ -13,10 +13,10 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 public class StatusBarBackground extends View {
     private StyleParams.Color backgroundColor = new StyleParams.Color();
 
-    public StatusBarBackground(Context context) {
+    public StatusBarBackground(Context context, StyleParams styleParams) {
         super(context);
         setId(ViewUtils.generateViewId());
-        setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, ViewUtils.getStatusBarHeight()));
+        setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, styleParams.drawScreenBellowStatusBar ? ViewUtils.getStatusBarHeight() : 1));
     }
 
     public void setStyle(StyleParams.Color backgroundColor) {

@@ -114,11 +114,18 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
 
     public void setStyle() {
         setStatusBarColor(styleParams.statusBarColor);
+        setImmersiveMode(styleParams.drawScreenBellowStatusBar);
         setStatusBarTextColorScheme(styleParams.statusBarTextColorScheme);
         setNavigationBarColor(styleParams.navigationBarColor);
         topBar.setStyle(styleParams);
         if (styleParams.screenBackgroundColor.hasColor()) {
             setBackgroundColor(styleParams.screenBackgroundColor.getColor());
+        }
+    }
+
+    private void setImmersiveMode(boolean drawScreenBellowStatusBar) {
+        if (drawScreenBellowStatusBar) {
+            ImmersiveModeUtils.showSystemUI(((NavigationActivity) getContext()).getScreenWindow());
         }
     }
 
@@ -131,9 +138,9 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
 
     private void createStatusBarBackground() {
         if (AppStyle.appStyle.immersiveModeSupported) {
-            statusBarBackground = new StatusBarBackground(getContext());
+            statusBarBackground = new StatusBarBackground(getContext(), styleParams);
             addView(statusBarBackground);
-            ImmersiveModeUtils.showSystemUI(((NavigationActivity) getContext()).getScreenWindow());
+//            ImmersiveModeUtils.showSystemUI(((NavigationActivity) getContext()).getScreenWindow());
         }
     }
 
