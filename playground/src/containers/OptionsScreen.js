@@ -48,6 +48,7 @@ class OptionsScreen extends Component {
         <Button title="Show Top Bar" onPress={this.onClickShowTopBar} />
         <Button title="Hide Top Bar" onPress={this.onClickHideTopBar} />
         <Button title="scrollView Screen" onPress={this.onClickScrollViewScreen} />
+        <Button title="Show alert" onPress={this.onClickAlert} />
         <Text style={styles.footer}>{`this.props.containerId = ${this.props.containerId}`}</Text>
       </View>
     );
@@ -100,13 +101,21 @@ class OptionsScreen extends Component {
 
   onClickShowTopBar() {
     Navigation.setOptions(this.props.containerId, {
-      topBarHidden: false
+      topBarHidden: false,
+      animateTopBarHide: true
     });
   }
 
   onClickHideTopBar() {
     Navigation.setOptions(this.props.containerId, {
-      topBarHidden: true
+      topBarHidden: true,
+      animateTopBarHide: true
+    });
+  }
+
+  onClickAlert() {
+    Navigation.showOverlay('alert', {
+      text: 'test!'
     });
   }
 }

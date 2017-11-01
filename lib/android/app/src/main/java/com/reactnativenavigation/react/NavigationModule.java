@@ -13,9 +13,12 @@ import com.reactnativenavigation.parse.LayoutNode;
 import com.reactnativenavigation.parse.NavigationOptions;
 import com.reactnativenavigation.parse.JSONParser;
 import com.reactnativenavigation.parse.LayoutNodeParser;
+import com.reactnativenavigation.parse.OverlayOptions;
 import com.reactnativenavigation.utils.UiThread;
 import com.reactnativenavigation.viewcontrollers.Navigator;
 import com.reactnativenavigation.viewcontrollers.ViewController;
+
+import org.json.JSONObject;
 
 public class NavigationModule extends ReactContextBaseJavaModule {
 	private static final String NAME = "RNNBridgeModule";
@@ -124,6 +127,17 @@ public class NavigationModule extends ReactContextBaseJavaModule {
 			@Override
 			public void run() {
 				navigator().dismissAllModals();
+			}
+		});
+	}
+
+	@ReactMethod
+	public void showOverlay(final String type, final ReadableMap options) {
+		final OverlayOptions overlayOptions = OverlayOptions.parse(JSONParser.parse(options));
+		handle(new Runnable() {
+			@Override
+			public void run() {
+				navigator().showOverlay(type, overlayOptions);
 			}
 		});
 	}
