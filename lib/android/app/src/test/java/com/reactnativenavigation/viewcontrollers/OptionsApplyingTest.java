@@ -93,7 +93,11 @@ public class OptionsApplyingTest extends BaseTest {
 
 		assertThat(((ColorDrawable) uut.getTopBar().getTitleBar().getBackground()).getColor()).isEqualTo(Color.RED);
 	}
+
+	@Test
+	public void appliesTopBarTextColor() throws Exception {
 		assertThat(uut.getNavigationOptions()).isSameAs(initialNavigationOptions);
+		initialNavigationOptions.title = "the title";
 		uut.onViewAppeared();
 		assertThat(uut.getTopBar().getTitleTextView().getCurrentTextColor()).isNotEqualTo(Color.RED);
 
