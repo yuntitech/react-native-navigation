@@ -108,9 +108,4 @@ public class ContainerViewController extends ViewController {
 	public ContainerView getContainerView() {
 		return containerView;
 	}
-
-	private void applyOptions() {
-		OptionsPresenter presenter = new OptionsPresenter(getParentStackController());
-		presenter.applyOptions(navigationOptions);
-	}
 }
