@@ -5,6 +5,8 @@ const { View, Text, Button } = require('react-native');
 
 const Navigation = require('react-native-navigation');
 
+import MyImageView from '../../../lib/src/containers/test/MyImageView'
+
 const BUTTON_ONE = 'buttonOne';
 const BUTTON_TWO = 'buttonTwo';
 const BUTTON_LEFT = 'buttonLeft';
@@ -50,6 +52,7 @@ class OptionsScreen extends Component {
         <Button title="scrollView Screen" onPress={this.onClickScrollViewScreen} />
         <Button title="Show alert" onPress={this.onClickAlert} />
         <Text style={styles.footer}>{`this.props.containerId = ${this.props.containerId}`}</Text>
+        <MyImageView style={{ width: 100, height: 100, backgroundColor: 'red' }} />
       </View>
     );
   }

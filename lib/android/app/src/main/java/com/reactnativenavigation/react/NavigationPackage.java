@@ -6,6 +6,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.reactnativenavigation.test.MyImageViewManager;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,6 +33,6 @@ public class NavigationPackage implements ReactPackage {
 
 	@Override
 	public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-		return Collections.emptyList();
+		return Collections.<ViewManager>singletonList(new MyImageViewManager());
 	}
 }
