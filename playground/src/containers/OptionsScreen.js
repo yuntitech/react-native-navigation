@@ -5,7 +5,7 @@ const { View, Text, Button } = require('react-native');
 
 const Navigation = require('react-native-navigation');
 
-import MyImageView from '../../../lib/src/containers/test/MyImageView'
+import MyLinearLayout from '../../../lib/src/containers/test/MyLinearLayout'
 
 const BUTTON_ONE = 'buttonOne';
 const BUTTON_TWO = 'buttonTwo';
@@ -44,16 +44,15 @@ class OptionsScreen extends Component {
 
   render() {
     return (
-      <View style={styles.root}>
+      <MyLinearLayout orientation='vertical'>
         <Text style={styles.h1}>{`Options Screen`}</Text>
-        <Button title="Dynamic Options" onPress={this.onClickDynamicOptions} />
-        <Button title="Show Top Bar" onPress={this.onClickShowTopBar} />
-        <Button title="Hide Top Bar" onPress={this.onClickHideTopBar} />
-        <Button title="scrollView Screen" onPress={this.onClickScrollViewScreen} />
-        <Button title="Show alert" onPress={this.onClickAlert} />
+        <Button style={styles.button} title="Dynamic Options" onPress={this.onClickDynamicOptions} />
+        <Button style={styles.button} title="Show Top Bar" onPress={this.onClickShowTopBar} />
+        <Button style={styles.button} title="Hide Top Bar" onPress={this.onClickHideTopBar} />
+        <Button style={styles.button} title="scrollView Screen" onPress={this.onClickScrollViewScreen} />
+        <Button style={styles.button} title="Show alert" onPress={this.onClickAlert} />
         <Text style={styles.footer}>{`this.props.containerId = ${this.props.containerId}`}</Text>
-        <MyImageView style={{ width: 100, height: 100, backgroundColor: 'red' }} />
-      </View>
+      </MyLinearLayout>
     );
   }
 
@@ -125,9 +124,13 @@ class OptionsScreen extends Component {
 
 const styles = {
   root: {
-    flexGrow: 1,
-    justifyContent: 'center',
+    flex: 1,
+    alignContent: 'center',
     alignItems: 'center'
+  },
+  button: {
+    heigth: 50,
+    flex: 1
   },
   h1: {
     fontSize: 24,
