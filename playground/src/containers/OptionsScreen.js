@@ -1,7 +1,7 @@
 const React = require('react');
 const { Component } = require('react');
 
-const { View, Text, Button } = require('react-native');
+const { View, Text, Button, TouchableOpacity} = require('react-native');
 
 const Navigation = require('react-native-navigation');
 
@@ -44,7 +44,7 @@ class OptionsScreen extends Component {
 
   render() {
     return (
-      <MyLinearLayout orientation='vertical'>
+      <MyLinearLayout style={styles.root} orientation='vertical'>
         <Text style={styles.h1}>{`Options Screen`}</Text>
         <Button style={styles.button} title="Dynamic Options" onPress={this.onClickDynamicOptions} />
         <Button style={styles.button} title="Show Top Bar" onPress={this.onClickShowTopBar} />
@@ -129,8 +129,7 @@ const styles = {
     alignItems: 'center'
   },
   button: {
-    heigth: 50,
-    flex: 1
+    height: 50
   },
   h1: {
     fontSize: 24,
