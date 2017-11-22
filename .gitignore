@@ -212,3 +212,14 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+AndroidE2E/.settings
+AndroidE2E/app/.settings
+AndroidE2E/app/.classpath
+AndroidE2E/app/.project
+AndroidE2E/.project
+lib/android/.settings
+lib/android/.project
+playground/android/.settings
+playground/android/.project
+lib/android/app/.settings
+playground/android/app/.settings
