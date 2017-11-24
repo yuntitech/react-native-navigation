@@ -5,6 +5,7 @@ const { View, Text, Button } = require('react-native');
 const Navigation = require('react-native-navigation');
 
 class WelcomeScreen extends Component {
+
   constructor(props) {
     super(props);
     this.onClickPush = this.onClickPush.bind(this);
@@ -12,6 +13,7 @@ class WelcomeScreen extends Component {
     this.onClickLifecycleScreen = this.onClickLifecycleScreen.bind(this);
     this.onClickPushOptionsScreen = this.onClickPushOptionsScreen.bind(this);
     this.onClickPushOrientationMenuScreen = this.onClickPushOrientationMenuScreen.bind(this);
+    this.onClickFab = this.onClickFab.bind(this);
   }
 
   render() {
@@ -26,6 +28,7 @@ class WelcomeScreen extends Component {
         <Button title="Show Modal" onPress={this.onClickShowModal} />
         <Button title="Show Redbox" onPress={this.onClickShowRedbox} />
         <Button title="Orientation" onPress={this.onClickPushOrientationMenuScreen} />
+        <Button title="Fab" onPress={this.onClickFab} />
         <Text style={styles.footer}>{`this.props.containerId = ${this.props.containerId}`}</Text>
       </View>
     );
@@ -138,6 +141,12 @@ class WelcomeScreen extends Component {
     Navigation.push(this.props.containerId, {
       name: 'navigation.playground.OrientationSelectScreen'
     });
+  }
+
+  onClickFab() {
+    Navigation.push(this.props.containerId, {
+      name: 'navigation.playground.FabScreen'
+    })
   }
 }
 

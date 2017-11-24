@@ -1,11 +1,9 @@
 const React = require('react');
 const { Component } = require('react');
 
-const { View, Text, Button, TouchableOpacity } = require('react-native');
+const { View, Text, Button } = require('react-native');
 
 const Navigation = require('react-native-navigation');
-
-import MyNestedScrollView from '../../../lib/src/containers/test/MyLinearLayout'
 
 const BUTTON_ONE = 'buttonOne';
 const BUTTON_TWO = 'buttonTwo';
@@ -44,19 +42,15 @@ class OptionsScreen extends Component {
 
   render() {
     return (
-      <MyNestedScrollView contentContainerStyle={styles.contentContainer}>
-        <View testID={"NIGA"}>
-          <Text style={styles.h1} >{`Options Screen`}</Text>
-          <Text style={styles.h1} >{`Options Screen`}</Text>
-          <Text style={styles.h1} >{`Options Screen`}</Text>
-          <Text style={styles.h1} >{`Options Screen`}</Text>
-          <Text style={styles.h1} >{`Options Screen`}</Text>
-          <Text style={styles.h1} >{`Options Screen`}</Text>
-          <Text style={styles.h1} >{`Options Screen`}</Text>
-          <Text style={styles.h1} >{`Options Screen`}</Text>
-          <Text style={styles.h1} >{`Options Screen`}</Text>
-        </View>
-      </MyNestedScrollView>
+      <View style={styles.root}>
+        <Text style={styles.h1}>{`Options Screen`}</Text>
+        <Button title="Dynamic Options" onPress={this.onClickDynamicOptions} />
+        <Button title="Show Top Bar" onPress={this.onClickShowTopBar} />
+        <Button title="Hide Top Bar" onPress={this.onClickHideTopBar} />
+        <Button title="scrollView Screen" onPress={this.onClickScrollViewScreen} />
+        <Button title="Show alert" onPress={this.onClickAlert} />
+        <Text style={styles.footer}>{`this.props.containerId = ${this.props.containerId}`}</Text>
+      </View>
     );
   }
 
@@ -127,22 +121,10 @@ class OptionsScreen extends Component {
 }
 
 const styles = {
-  contentContainer: {
-    paddingVertical: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 1000
-  },
   root: {
-    // flex: 1,
-    // justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    height: 1000,
-    width: 1000
-  },
-  button: {
-    height: 50
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   h1: {
     fontSize: 24,
@@ -162,12 +144,3 @@ const styles = {
 };
 
 module.exports = OptionsScreen;
-
-/*
-<Button style={styles.button} title="Dynamic Options" onPress={this.onClickDynamicOptions} />
-          <Button style={styles.button} title="Show Top Bar" onPress={this.onClickShowTopBar} />
-          <Button style={styles.button} title="Hide Top Bar" onPress={this.onClickHideTopBar} />
-          <Button style={styles.button} title="scrollView Screen" onPress={this.onClickScrollViewScreen} />
-          <Button style={styles.button} title="Show alert" onPress={this.onClickAlert} />
-          <Text style={styles.footer}>{`this.props.containerId = ${this.props.containerId}`}</Text>
-*/
