@@ -2,12 +2,24 @@ package com.reactnativenavigation.react.coordinator;
 
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 
+import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper;
 import com.reactnativenavigation.R;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class FloatingActionButtonView extends FloatingActionButton {
 
@@ -27,4 +39,37 @@ public class FloatingActionButtonView extends FloatingActionButton {
 		setClickable(true);
 	}
 
+	public void setIcon(String path) {
+		//TODO: implement after buttons
+	}
+
+	public void setBackground(int color) {
+		setBackgroundTintList(ColorStateList.valueOf(color));
+	}
+
+	public void setHidden(boolean hidden) {
+		if (hidden) {
+			hide();
+		} else {
+			show();
+		}
+	}
+
+	public void setFabElevation(float elevation) {
+		if (android.os.Build.VERSION.SDK_INT >= 21) {
+			setElevation(elevation);
+		}
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent ev) {
+		boolean result = super.onTouchEvent(ev);
+		if (!result) {
+			if (ev.getAction() == MotionEvent.ACTION_UP) {
+				cancelLongPress();
+			}
+			setPressed(false);
+		}
+		return result;
+	}
 }

@@ -29,19 +29,26 @@ class FabScreen extends Component {
   render() {
 
     return (
-      <View style={{ flex: 1 }}>
-        <TouchableOpacity onPress={this.onMoveClick} >
-          <Text style={{ backgroundColor: 'red' }}>test</Text>
-        </TouchableOpacity>
+      // <View style={{ flex: 1 }}>
+        // <TouchableOpacity onPress={this.onMoveClick} >
+          // <Text style={{ backgroundColor: 'red' }}>test</Text>
+        // </TouchableOpacity>
         <CoordinatorLayout>
           <FlatList
             data={this.getData()}
             keyExtractor={(item, index) => { return "niga " + index }}
             renderItem={({ item }) => <Text>{item.key}</Text>}
           />
-          <FloatingActionButton icon={"test"} gravityBottom gravityRight={this.state.right} gravityLeft={!this.state.right} />
+          <FloatingActionButton
+            icon='md-navigate'
+            elevation={20}
+            gravityBottom
+            gravityRight={this.state.right}
+            gravityLeft={!this.state.right}
+            backgroundColor='red'
+          />
         </CoordinatorLayout>
-      </View>
+      // </View>
     );
   }
 
