@@ -66,10 +66,11 @@ v2 is written in Test Driven Development. We have a test for every feature inclu
 | showModal              |  ✅        |	✅|
 | dismissModal           |     ✅       |	✅|
 | showOverlay             |  [Contribute](/docs/docs/CONTRIBUTING.md)         |	WIP @cool04ek |
-| dismissOverlay             |  [Contribute](/docs/docs/CONTRIBUTING.md)         |	[Contribute](/docs/docs/CONTRIBUTING.md) |
+| dismissOverlay             |  [Contribute](/docs/docs/CONTRIBUTING.md)         |	WIP @cool04ek |
 | customTransition            |   ✅        |	[Contribute](/docs/docs/CONTRIBUTING.md) |
 | Screen Visibility        | ✅     |✅|
-| async commands (await push)     |  [Contribute](/docs/docs/CONTRIBUTING.md)        |[Contribute](/docs/docs/CONTRIBUTING.md)   |
+| async commands (await push)     |  [Contribute](/docs/docs/CONTRIBUTING.md)        | ✅   |
+
 
 ### Navigation Options
 
@@ -205,3 +206,4 @@ Note:  v1 properties with names beginning with 'navBar' are replaced in v2 with 
 | splitViewScreen       |     :x:  |    [Contribute](/docs/docs/CONTRIBUTING.md)      | [Contribute](/docs/docs/CONTRIBUTING.md)|
 
 Element transitions, adding buttons and styles are not yet implemented. [Contribute](/docs/docs/CONTRIBUTING.md)  
+
