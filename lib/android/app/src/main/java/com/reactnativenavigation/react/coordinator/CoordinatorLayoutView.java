@@ -22,6 +22,9 @@ public class CoordinatorLayoutView extends CoordinatorLayout {
 		this.setFitsSystemWindows(false);
 	}
 
+	/**
+	 * Measuring fix. Based on this issue - https://github.com/cesardeazevedo/react-native-bottom-sheet-behavior/issues/21
+	 */
 	private final Runnable measureAndLayout = new Runnable() {
 		@Override
 		public void run() {
