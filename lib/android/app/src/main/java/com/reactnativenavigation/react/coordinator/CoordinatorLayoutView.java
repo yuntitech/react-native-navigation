@@ -15,20 +15,6 @@ public class CoordinatorLayoutView extends CoordinatorLayout {
 
 	public CoordinatorLayoutView(Context context) {
 		super(context);
-		init();
-	}
-
-	public CoordinatorLayoutView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init();
-	}
-
-	public CoordinatorLayoutView(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-		init();
-	}
-
-	private void init() {
 		LayoutParams params =
 				new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		params.setBehavior(new AppBarLayout.ScrollingViewBehavior());

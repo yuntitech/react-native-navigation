@@ -36,50 +36,22 @@ public class FloatingActionButtonManager extends SimpleViewManager<FloatingActio
 
 	@ReactProp(name = "gravityTop")
 	public void setGravityTop(FloatingActionButtonView fab, boolean gravityTop) {
-		if (gravityTop) {
-			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-			if ((params.gravity & Gravity.BOTTOM) == Gravity.BOTTOM) {
-				params.gravity = params.gravity & ~Gravity.BOTTOM;
-			}
-			params.gravity = params.gravity | Gravity.TOP;
-			fab.setLayoutParams(params);
-		}
+		fab.setGravityTop(gravityTop);
 	}
 
-	@ReactProp(name = "gravityBottom" , defaultBoolean = true)
+	@ReactProp(name = "gravityBottom", defaultBoolean = true)
 	public void setGravityBottom(FloatingActionButtonView fab, boolean gravityBottom) {
-		if (gravityBottom) {
-			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-			if ((params.gravity & Gravity.TOP) == Gravity.TOP) {
-				params.gravity = params.gravity & ~Gravity.TOP;
-			}
-			params.gravity = params.gravity | Gravity.BOTTOM;
-			fab.setLayoutParams(params);
-		}
+		fab.setGravityBottom(gravityBottom);
 	}
 
 	@ReactProp(name = "gravityRight", defaultBoolean = true)
 	public void setGravityRight(final FloatingActionButtonView fab, boolean gravityRight) {
-		if (gravityRight) {
-			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-			if ((params.gravity & Gravity.LEFT) == Gravity.LEFT) {
-				params.gravity = params.gravity & ~Gravity.LEFT;
-			}
-			params.gravity = params.gravity | Gravity.RIGHT;
-			fab.setLayoutParams(params);
-		}
+		fab.setGravityRight(gravityRight);
 	}
 
 	@ReactProp(name = "gravityLeft")
 	public void setGravityLeft(final FloatingActionButtonView fab, boolean gravityLeft) {
-		if (gravityLeft) {
-			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-			if ((params.gravity & Gravity.RIGHT) == Gravity.RIGHT) {
-				params.gravity = params.gravity & ~Gravity.RIGHT;
-			}
-			params.gravity = params.gravity | Gravity.LEFT;
-			fab.setLayoutParams(params);
-		}
+		fab.setGravityLeft(gravityLeft);
 	}
 
 	@ReactProp(name = "icon")

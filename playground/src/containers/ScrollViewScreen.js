@@ -3,7 +3,7 @@ const { Component } = require('react');
 
 const { StyleSheet, ScrollView, View, Button } = require('react-native');
 
-const { Navigation } = require('react-native-navigation');
+const Navigation = require('react-native-navigation');
 
 class ScrollViewScreen extends Component {
   static get navigationOptions() {

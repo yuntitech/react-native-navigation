@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 
@@ -71,5 +72,51 @@ public class FloatingActionButtonView extends FloatingActionButton {
 			setPressed(false);
 		}
 		return result;
+	}
+
+	public void setGravityLeft(boolean enabled) {
+		if (enabled) {
+			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) getLayoutParams();
+			removeGravityParam(params, Gravity.RIGHT);
+			setGravityParam(params, Gravity.LEFT);
+			setLayoutParams(params);
+		}
+	}
+
+	public void setGravityRight(boolean enabled) {
+		if (enabled) {
+			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) getLayoutParams();
+			removeGravityParam(params, Gravity.LEFT);
+			setGravityParam(params, Gravity.RIGHT);
+			setLayoutParams(params);
+		}
+	}
+
+	public void setGravityBottom(boolean enabled) {
+		if (enabled) {
+			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) getLayoutParams();
+			removeGravityParam(params, Gravity.TOP);
+			setGravityParam(params, Gravity.BOTTOM);
+			setLayoutParams(params);
+		}
+	}
+
+	public void setGravityTop(boolean enabled) {
+		if (enabled) {
+			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) getLayoutParams();
+			removeGravityParam(params, Gravity.BOTTOM);
+			setGravityParam(params, Gravity.TOP);
+			setLayoutParams(params);
+		}
+	}
+
+	private void setGravityParam(CoordinatorLayout.LayoutParams params, int gravityParam) {
+		params.gravity = params.gravity | gravityParam;
+	}
+
+	private void removeGravityParam(CoordinatorLayout.LayoutParams params, int gravityParam) {
+		if ((params.gravity & gravityParam) == gravityParam) {
+			params.gravity = params.gravity & ~gravityParam;
+		}
 	}
 }

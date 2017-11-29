@@ -3,7 +3,9 @@ const { Component } = require('react');
 
 const { Text, FlatList } = require('react-native');
 
-const { CoordinatorLayout, FloatingActionButton } = require('react-native-navigation');
+const Navigation = require('react-native-navigation');
+const FloatingActionButton = Navigation.FloatingActionButton;
+const CoordinatorLayout = Navigation.CoordinatorLayout;
 
 class FabScreen extends Component {
 
