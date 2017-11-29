@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 
+import com.facebook.react.uimanager.PixelUtil;
 import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper;
 import com.reactnativenavigation.R;
 
@@ -24,6 +25,8 @@ import java.net.URL;
 
 public class FloatingActionButtonView extends FloatingActionButton {
 
+	private final static int FAB_MARGIN = 16;
+
 	public FloatingActionButtonView(Context context) {
 		super(context);
 
@@ -31,10 +34,10 @@ public class FloatingActionButtonView extends FloatingActionButton {
 				new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
-		params.bottomMargin = context.getResources().getDimensionPixelSize(R.dimen.margin);
-		params.topMargin = context.getResources().getDimensionPixelSize(R.dimen.margin);
-		params.rightMargin = context.getResources().getDimensionPixelSize(R.dimen.margin);
-		params.leftMargin = context.getResources().getDimensionPixelSize(R.dimen.margin);
+		params.bottomMargin = (int) PixelUtil.toPixelFromDIP(FAB_MARGIN);
+		params.topMargin = (int) PixelUtil.toPixelFromDIP(FAB_MARGIN);
+		params.rightMargin = (int) PixelUtil.toPixelFromDIP(FAB_MARGIN);
+		params.leftMargin = (int) PixelUtil.toPixelFromDIP(FAB_MARGIN);
 		this.setLayoutParams(params);
 
 		setClickable(true);
