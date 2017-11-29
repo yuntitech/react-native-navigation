@@ -2,7 +2,7 @@ const React = require('react');
 const { Component } = require('react');
 const { View, Text, Button } = require('react-native');
 
-const Navigation = require('react-native-navigation');
+const { Navigation } = require('react-native-navigation');
 
 class WelcomeScreen extends Component {
 
@@ -146,7 +146,7 @@ class WelcomeScreen extends Component {
   onClickFab() {
     Navigation.push(this.props.containerId, {
       name: 'navigation.playground.FabScreen'
-    })
+    });
   }
 }
 

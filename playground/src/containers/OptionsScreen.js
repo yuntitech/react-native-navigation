@@ -3,7 +3,7 @@ const { Component } = require('react');
 
 const { View, Text, Button } = require('react-native');
 
-const Navigation = require('react-native-navigation');
+const { Navigation } = require('react-native-navigation');
 
 const BUTTON_ONE = 'buttonOne';
 const BUTTON_TWO = 'buttonTwo';

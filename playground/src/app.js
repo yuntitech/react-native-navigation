@@ -1,4 +1,4 @@
-const Navigation = require('react-native-navigation');
+const { Navigation } = require('react-native-navigation');
 const { registerContainers } = require('./containers');
 
 function start() {

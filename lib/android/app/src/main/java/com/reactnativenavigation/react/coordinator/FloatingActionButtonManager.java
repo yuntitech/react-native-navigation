@@ -46,7 +46,7 @@ public class FloatingActionButtonManager extends SimpleViewManager<FloatingActio
 		}
 	}
 
-	@ReactProp(name = "gravityBottom")
+	@ReactProp(name = "gravityBottom" , defaultBoolean = true)
 	public void setGravityBottom(FloatingActionButtonView fab, boolean gravityBottom) {
 		if (gravityBottom) {
 			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
@@ -58,7 +58,7 @@ public class FloatingActionButtonManager extends SimpleViewManager<FloatingActio
 		}
 	}
 
-	@ReactProp(name = "gravityRight")
+	@ReactProp(name = "gravityRight", defaultBoolean = true)
 	public void setGravityRight(final FloatingActionButtonView fab, boolean gravityRight) {
 		if (gravityRight) {
 			CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();

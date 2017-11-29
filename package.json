@@ -45,7 +45,8 @@
     "react-native": "*"
   },
   "dependencies": {
-    "lodash": "4.x.x"
+    "lodash": "4.x.x",
+    "prop-types": "^15.6.0"
   },
   "devDependencies": {
     "xo": "0.18.x",
@@ -154,6 +155,7 @@
       "react/jsx-no-bind": 0,
       "react/jsx-handler-names": 0,
       "react/forbid-component-props": 0,
+      "react/require-default-props": 0,
       "capitalized-comments": 0,
       "no-use-before-define": [
         2,
