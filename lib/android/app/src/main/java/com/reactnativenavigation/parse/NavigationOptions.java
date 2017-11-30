@@ -1,17 +1,23 @@
 package com.reactnativenavigation.parse;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NavigationOptions {
 
-	private static final String NO_VALUE = "";
-	private static final int NO_INT_VALUE = Integer.MIN_VALUE;
-	private static final float NO_FLOAT_VALUE = Float.MIN_VALUE;
-	private static final int NO_COLOR_VALUE = Color.TRANSPARENT;
+	protected static final String NO_VALUE = "";
+	protected static final int NO_INT_VALUE = Integer.MIN_VALUE;
+	protected static final float NO_FLOAT_VALUE = Float.MIN_VALUE;
+	protected static final int NO_COLOR_VALUE = Color.TRANSPARENT;
 
 	public enum BooleanOptions {
 		True,
@@ -39,6 +45,13 @@ public class NavigationOptions {
 		result.topBarHidden = BooleanOptions.parse(json.optString("topBarHidden"));
 		result.animateTopBarHide = BooleanOptions.parse(json.optString("animateTopBarHide"));
 
+		try {
+//			result.leftButtons = json.getJSONArray("leftButtons");
+			result.rightButtons =  Button.parseJsonArray(json.optJSONArray("rightButtons"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
 		return result;
 	}
 
@@ -51,6 +64,8 @@ public class NavigationOptions {
 	public String topBarTextFontFamily;
 	public BooleanOptions topBarHidden = BooleanOptions.False;
 	public BooleanOptions animateTopBarHide = BooleanOptions.False;
+//	public ArrayList<Button> leftButtons;
+	public ArrayList<Button> rightButtons;
 
 	public void mergeWith(final NavigationOptions other) {
 		if (!NO_VALUE.equals(other.title)) title = other.title;
@@ -67,6 +82,9 @@ public class NavigationOptions {
 		}
 		if (other.animateTopBarHide != BooleanOptions.NoValue) {
 			animateTopBarHide = other.animateTopBarHide;
+		}
+		if(!other.rightButtons.isEmpty()) {
+			rightButtons = other.rightButtons;
 		}
 	}
 }

@@ -25,6 +25,7 @@ public class OptionsPresenter {
 			controller.getTopBar().setBackgroundColor(options.topBarBackgroundColor);
 			controller.getTopBar().setTitleTextColor(options.topBarTextColor);
 			controller.getTopBar().setTitleFontSize(options.topBarTextFontSize);
+			controller.getTopBar().setButtons(options.rightButtons, options.rightButtons);
 			TypefaceLoader typefaceLoader = new TypefaceLoader();
 			controller.getTopBar().setTitleTypeface(typefaceLoader.getTypeFace(controller.getActivity(), options.topBarTextFontFamily));
 			applyTopbarHiddenOptions(options);

@@ -13,7 +13,7 @@ public class TestContainerView extends View implements ContainerViewController.C
 
 	public TestContainerView(final Context context) {
 		super(context);
-		topBar = new TopBar(context);
+		topBar = new TopBar(context, this);
 
 	}
 
@@ -37,5 +37,14 @@ public class TestContainerView extends View implements ContainerViewController.C
 
 	@Override
 	public void sendContainerStop() {
+	}
+
+	@Override
+	public void sendOnNavigationButtonPressed(String id, String buttonId) {
+	}
+
+	@Override
+	public String getContainerId() {
+		return null;
 	}
 }

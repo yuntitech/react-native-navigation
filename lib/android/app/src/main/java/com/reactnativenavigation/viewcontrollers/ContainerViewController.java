@@ -14,7 +14,6 @@ import com.reactnativenavigation.views.TopbarContainerView;
 public class ContainerViewController extends ViewController {
 
 	public interface ContainerViewCreator {
-
 		ContainerView create(Activity activity, String containerId, String containerName);
 	}
 
@@ -30,6 +29,9 @@ public class ContainerViewController extends ViewController {
 
 		void sendContainerStop();
 
+		void sendOnNavigationButtonPressed(String id, String buttonId);
+
+		String getContainerId();
 	}
 
 	private final String containerName;

@@ -14,8 +14,8 @@ public class TopbarContainerView extends LinearLayout implements ContainerViewCo
 
 	public TopbarContainerView(Context context, ContainerViewController.ContainerView containerView) {
 		super(context);
-		this.topBar = new TopBar(context);
 		this.containerView = containerView;
+		this.topBar = new TopBar(context, this.containerView);
 
 		initViews();
 	}
@@ -23,7 +23,7 @@ public class TopbarContainerView extends LinearLayout implements ContainerViewCo
 	private void initViews() {
 		setOrientation(LinearLayout.VERTICAL);
 		addView(topBar);
-		addView(containerView.asView());
+		addView(this.containerView.asView());
 	}
 
 	public TopbarContainerView(Context context) {
@@ -32,7 +32,7 @@ public class TopbarContainerView extends LinearLayout implements ContainerViewCo
 
 	@Override
 	public boolean isReady() {
-		return containerView.isReady();
+		return this.containerView.isReady();
 	}
 
 	@Override
@@ -42,17 +42,27 @@ public class TopbarContainerView extends LinearLayout implements ContainerViewCo
 
 	@Override
 	public void destroy() {
-		containerView.destroy();
+		this.containerView.destroy();
 	}
 
 	@Override
 	public void sendContainerStart() {
-		containerView.sendContainerStart();
+		this.containerView.sendContainerStart();
 	}
 
 	@Override
 	public void sendContainerStop() {
-		containerView.sendContainerStop();
+		this.containerView.sendContainerStop();
+	}
+
+	@Override
+	public void sendOnNavigationButtonPressed(String id, String buttonId) {
+		this.containerView.sendOnNavigationButtonPressed(id, buttonId);
+	}
+
+	@Override
+	public String getContainerId() {
+		return this.containerView.getContainerId();
 	}
 
 	public TopBar getTopBar() {
@@ -60,6 +70,6 @@ public class TopbarContainerView extends LinearLayout implements ContainerViewCo
 	}
 
 	public ContainerViewController.ContainerView getContainerView() {
-		return containerView;
+		return this.containerView;
 	}
 }
