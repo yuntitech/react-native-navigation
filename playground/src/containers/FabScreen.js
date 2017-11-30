@@ -1,9 +1,8 @@
 const React = require('react');
 const { Component } = require('react');
-
 const { Text, FlatList } = require('react-native');
-
 const Navigation = require('react-native-navigation');
+
 const FloatingActionButton = Navigation.FloatingActionButton;
 const CoordinatorLayout = Navigation.CoordinatorLayout;
 
