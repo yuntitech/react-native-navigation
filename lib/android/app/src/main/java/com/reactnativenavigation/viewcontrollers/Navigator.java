@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import com.facebook.react.bridge.Promise;
 import com.reactnativenavigation.parse.NavigationOptions;
 import com.reactnativenavigation.parse.OverlayOptions;
+import com.reactnativenavigation.presentation.NavigationOptionsListener;
 import com.reactnativenavigation.presentation.OverlayPresenter;
 import com.reactnativenavigation.utils.CompatUtils;
 
@@ -20,6 +21,7 @@ public class Navigator extends ParentController {
 
 	private final ModalStack modalStack = new ModalStack();
 	private ViewController root;
+	private OverlayPresenter overlayPresenter;
 
 	public Navigator(final Activity activity) {
 		super(activity, "navigator" + CompatUtils.generateViewId());
@@ -70,8 +72,11 @@ public class Navigator extends ParentController {
 
 	public void setOptions(final String containerId, NavigationOptions options) {
 		ViewController target = findControllerById(containerId);
-		if (target instanceof ContainerViewController) {
-			((ContainerViewController) target).mergeNavigationOptions(options);
+		if (target instanceof NavigationOptionsListener) {
+			((NavigationOptionsListener) target).mergeNavigationOptions(options);
+		}
+		if (root instanceof NavigationOptionsListener) {
+			((NavigationOptionsListener) root).mergeNavigationOptions(options);
 		}
 	}
 
@@ -166,8 +171,13 @@ public class Navigator extends ParentController {
 	}
 
 	public void showOverlay(String type, OverlayOptions options, Promise promise) {
-		new OverlayPresenter(getActivity(), type, options).show();
+		overlayPresenter = new OverlayPresenter(root, type, options);
+		overlayPresenter.show();
 		promise.resolve(true);
+	}
+
+	public void dismissOverlay() {
+		overlayPresenter.dismiss();
 	}
 
 	static void rejectPromise(Promise promise) {

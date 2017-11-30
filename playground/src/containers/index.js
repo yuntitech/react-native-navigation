@@ -8,6 +8,7 @@ const OptionsScreen = require('./OptionsScreen');
 const OrientationSelectScreen = require('./OrientationSelectScreen');
 const OrientationDetectScreen = require('./OrientationDetectScreen');
 const ScrollViewScreen = require('./ScrollViewScreen');
+const CustomDialog = require('./CustomDialog');
 const FabScreen = require('./FabScreen');
 
 function registerContainers() {
@@ -20,6 +21,7 @@ function registerContainers() {
   Navigation.registerContainer(`navigation.playground.OptionsScreen`, () => OptionsScreen);
   Navigation.registerContainer(`navigation.playground.OrientationSelectScreen`, () => OrientationSelectScreen);
   Navigation.registerContainer(`navigation.playground.OrientationDetectScreen`, () => OrientationDetectScreen);
+  Navigation.registerContainer('navigation.playground.CustomDialog', () => CustomDialog);
   Navigation.registerContainer(`navigation.playground.FabScreen`, () => FabScreen);
 }
 
