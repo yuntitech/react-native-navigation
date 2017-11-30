@@ -3,11 +3,6 @@ package com.reactnativenavigation.react.coordinator;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -15,13 +10,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 
-import com.facebook.react.uimanager.PixelUtil;
-import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper;
-import com.reactnativenavigation.R;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.reactnativenavigation.utils.UiUtils;
 
 public class FloatingActionButtonView extends FloatingActionButton {
 
@@ -34,10 +23,10 @@ public class FloatingActionButtonView extends FloatingActionButton {
 				new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
-		params.bottomMargin = (int) PixelUtil.toPixelFromDIP(FAB_MARGIN);
-		params.topMargin = (int) PixelUtil.toPixelFromDIP(FAB_MARGIN);
-		params.rightMargin = (int) PixelUtil.toPixelFromDIP(FAB_MARGIN);
-		params.leftMargin = (int) PixelUtil.toPixelFromDIP(FAB_MARGIN);
+		params.bottomMargin = UiUtils.dpToPx(getContext(), FAB_MARGIN);
+		params.topMargin = UiUtils.dpToPx(getContext(), FAB_MARGIN);
+		params.rightMargin = UiUtils.dpToPx(getContext(), FAB_MARGIN);
+		params.leftMargin = UiUtils.dpToPx(getContext(), FAB_MARGIN);
 		this.setLayoutParams(params);
 
 		setClickable(true);
