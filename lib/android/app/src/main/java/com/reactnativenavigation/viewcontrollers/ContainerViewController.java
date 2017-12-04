@@ -7,11 +7,12 @@ import android.view.View;
 
 import com.reactnativenavigation.anim.StackAnimator;
 import com.reactnativenavigation.parse.NavigationOptions;
+import com.reactnativenavigation.presentation.NavigationOptionsListener;
 import com.reactnativenavigation.presentation.OptionsPresenter;
 import com.reactnativenavigation.views.TopBar;
 import com.reactnativenavigation.views.TopbarContainerView;
 
-public class ContainerViewController extends ViewController {
+public class ContainerViewController extends ViewController implements NavigationOptionsListener {
 
 	public interface ContainerViewCreator {
 		ContainerView create(Activity activity, String containerId, String containerName);
@@ -89,7 +90,8 @@ public class ContainerViewController extends ViewController {
 		return containerView.asView();
 	}
 
-	void mergeNavigationOptions(NavigationOptions options) {
+	@Override
+	public void mergeNavigationOptions(NavigationOptions options) {
 		navigationOptions.mergeWith(options);
 		applyOptions();
 	}
