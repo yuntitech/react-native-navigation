@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,25 +35,26 @@ public class NavigationOptions implements DEFAULT_VALUES {
 		result.topBarOptions = TopBarOptions.parse(json.optJSONObject("topBar"));
 		result.bottomTabsOptions = BottomTabsOptions.parse(json.optJSONObject("tabBar"));
 
-		try {
-//			result.leftButtons = json.getJSONArray("leftButtons");
-			result.rightButtons =  Button.parseJsonArray(json.optJSONArray("rightButtons"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		result.leftButtons = Button.parseJsonArray(json.optJSONArray("leftButtons"));
+		result.rightButtons =  Button.parseJsonArray(json.optJSONArray("rightButtons"));
 
 		return result;
 	}
 
 	public TopBarOptions topBarOptions = new TopBarOptions();
 	public BottomTabsOptions bottomTabsOptions = new BottomTabsOptions();
-	//	public ArrayList<Button> leftButtons;
+	public ArrayList<Button> leftButtons;
 	public ArrayList<Button> rightButtons;
 
 	public void mergeWith(final NavigationOptions other) {
 		topBarOptions.mergeWith(other.topBarOptions);
 		bottomTabsOptions.mergeWith(other.bottomTabsOptions);
-		if(!other.rightButtons.isEmpty()) {
+
+		if(other.leftButtons != null) {
+			leftButtons = other.leftButtons;
+		}
+
+		if(other.rightButtons != null) {
 			rightButtons = other.rightButtons;
 		}
 	}

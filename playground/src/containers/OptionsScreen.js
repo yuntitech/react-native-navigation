@@ -28,6 +28,7 @@ class OptionsScreen extends Component {
       leftButtons: [{
         id: BUTTON_LEFT,
         testID: BUTTON_LEFT,
+        icon: require('../../img/navicon_add.png'),
         title: 'Left',
         buttonColor: 'purple'
       }]
@@ -71,7 +72,8 @@ class OptionsScreen extends Component {
           buttonColor: 'green',
           buttonFontSize: 28,
           buttonFontWeight: '800'
-        }]
+        }],
+        leftButtons: []
       });
     } else if (id === BUTTON_TWO) {
       Navigation.setOptions(this.props.containerId, {
@@ -80,6 +82,13 @@ class OptionsScreen extends Component {
           testID: BUTTON_ONE,
           title: 'One',
           buttonColor: 'red'
+        }],
+        leftButtons: [{
+          id: BUTTON_LEFT,
+          testID: BUTTON_LEFT,
+          icon: require('../../img/navicon_add.png'),
+          title: 'Left',
+          buttonColor: 'purple'
         }]
       });
     } else if (id === BUTTON_LEFT) {

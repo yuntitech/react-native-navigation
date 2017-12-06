@@ -1,17 +1,24 @@
 package com.reactnativenavigation.views;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.reactnativenavigation.parse.Button;
+import com.reactnativenavigation.parse.NavigationOptions;
+import com.reactnativenavigation.utils.ImageUtils;
+import com.reactnativenavigation.utils.UiUtils;
 import com.reactnativenavigation.viewcontrollers.ContainerViewController;
 
 import java.util.ArrayList;
@@ -24,6 +31,9 @@ public class TopBar extends AppBarLayout {
 		super(context);
 
 		this.titleBar = new Toolbar(context);
+
+
+
 		this.containerView = containerView;
 		addView(titleBar);
     }
@@ -55,13 +65,8 @@ public class TopBar extends AppBarLayout {
 	}
 
 	public void setButtons(ArrayList<Button> leftButtons, ArrayList<Button> rightButtons) {
-        Menu menu = getTitleBar().getMenu();
-        if(rightButtons.isEmpty()) {
-            menu.clear();
-        } else {
-            setRightButtons(getContext(), menu, rightButtons);
-        }
-
+		setLeftButtons(leftButtons);
+		setRightButtons(rightButtons);
     }
 
 	public TextView getTitleTextView() {
@@ -71,6 +76,10 @@ public class TopBar extends AppBarLayout {
 	@Override
 	public void setBackgroundColor(@ColorInt int color) {
 		titleBar.setBackgroundColor(color);
+	}
+
+	public Toolbar getTitleBar() {
+		return titleBar;
 	}
 
 	@Nullable
@@ -87,17 +96,73 @@ public class TopBar extends AppBarLayout {
 		return null;
 	}
 
-	private void setRightButtons(Context context, Menu menu, ArrayList<Button> rightButtons) {
+	private void setLeftButtons(ArrayList<Button> leftButtons) {
+		if(leftButtons == null || leftButtons.isEmpty()) {
+			titleBar.setNavigationIcon(null);
+			return;
+		}
+
+		if(leftButtons.size() > 1) {
+			Log.w("RNN", "Use a custom TopBar to have more than one left button");
+		}
+
+		Button leftButton = leftButtons.get(0);
+		setLeftButton(leftButton);
+	}
+
+	private void setLeftButton(final Button button) {
+		TitleBarButton leftBarButton = new TitleBarButton(this.containerView, this.titleBar, button);
+		leftBarButton.setNavigationIcon(getContext());
+//		ImageUtils.tryLoadIcon(getContext(), button.icon, new ImageUtils.ImageLoadingListener() {
+//			@Override
+//			public void onComplete(@NonNull final Drawable drawable) {
+//				UiUtils.runOnMainThread(new Runnable() {
+//					@Override
+//					public void run() {
+//						if (button.disabled == NavigationOptions.BooleanOptions.False || button.disabled == NavigationOptions.BooleanOptions.NoValue) {
+//							UiUtils.tintDrawable(drawable, button.buttonColor);
+//						} else if (button.disableIconTint == NavigationOptions.BooleanOptions.True) {
+//							UiUtils.tintDrawable(drawable, button.buttonColor);
+//						} else {
+//							UiUtils.tintDrawable(drawable, Color.LTGRAY);
+//						}
+//
+//						titleBar.setNavigationOnClickListener(new OnClickListener() {
+//							@Override
+//							public void onClick(View view) {
+//								containerView.sendOnNavigationButtonPressed(containerView.getContainerId(), button.id);
+//							}
+//						});
+//
+//						titleBar.setNavigationIcon(drawable);
+//
+//
+//					}
+//				});
+//			}
+//
+//			@Override
+//			public void onError(Throwable error) {
+//				//TODO: handle
+//				error.printStackTrace();
+//			}
+//		});
+	}
+
+	private void setRightButtons(ArrayList<Button> rightButtons) {
+		if(rightButtons == null || rightButtons.size() == 0) {
+			return;
+		}
+
+		Menu menu = getTitleBar().getMenu();
 		menu.clear();
 
 		for (int i = 0; i < rightButtons.size(); i++){
 	   		Button button = rightButtons.get(i);
 			TitleBarButton titleBarButton = new TitleBarButton(this.containerView, this.titleBar, button);
-			titleBarButton.addToMenu(context, menu);
+			titleBarButton.addToMenu(getContext(), menu);
        }
     }
 
-	public Toolbar getTitleBar() {
-		return titleBar;
-	}
+
 }
