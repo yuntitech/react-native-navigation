@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class NavigationOptions implements DEFAULT_VALUES {
 
-	public enum BooleanOptions {
+    public enum BooleanOptions {
 		True,
 		False,
 		NoValue;
@@ -27,8 +27,13 @@ public class NavigationOptions implements DEFAULT_VALUES {
 		}
 	}
 
+    @NonNull
+    public static NavigationOptions parse(JSONObject json) {
+        return parse(json, new NavigationOptions());
+    }
+
 	@NonNull
-	public static NavigationOptions parse(JSONObject json) {
+	public static NavigationOptions parse(JSONObject json, @NonNull NavigationOptions defaultOptions) {
 		NavigationOptions result = new NavigationOptions();
 		if (json == null) return result;
 
@@ -38,7 +43,7 @@ public class NavigationOptions implements DEFAULT_VALUES {
 		result.leftButtons = Button.parseJsonArray(json.optJSONArray("leftButtons"));
 		result.rightButtons =  Button.parseJsonArray(json.optJSONArray("rightButtons"));
 
-		return result;
+		return result.withDefaultOptions(defaultOptions);
 	}
 
 	public TopBarOptions topBarOptions = new TopBarOptions();
@@ -47,7 +52,7 @@ public class NavigationOptions implements DEFAULT_VALUES {
 	public ArrayList<Button> rightButtons;
 
 	public void mergeWith(final NavigationOptions other) {
-		topBarOptions.mergeWith(other.topBarOptions);
+        topBarOptions.mergeWith(other.topBarOptions);
 		bottomTabsOptions.mergeWith(other.bottomTabsOptions);
 
 		if(other.leftButtons != null) {
@@ -58,4 +63,10 @@ public class NavigationOptions implements DEFAULT_VALUES {
 			rightButtons = other.rightButtons;
 		}
 	}
+
+    NavigationOptions withDefaultOptions(final NavigationOptions other) {
+        topBarOptions.mergeWithDefault(other.topBarOptions);
+        bottomTabsOptions.mergeWithDefault(other.bottomTabsOptions);
+        return this;
+    }
 }
