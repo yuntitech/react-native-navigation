@@ -113,40 +113,6 @@ public class TopBar extends AppBarLayout {
 	private void setLeftButton(final Button button) {
 		TitleBarButton leftBarButton = new TitleBarButton(this.containerView, this.titleBar, button);
 		leftBarButton.setNavigationIcon(getContext());
-//		ImageUtils.tryLoadIcon(getContext(), button.icon, new ImageUtils.ImageLoadingListener() {
-//			@Override
-//			public void onComplete(@NonNull final Drawable drawable) {
-//				UiUtils.runOnMainThread(new Runnable() {
-//					@Override
-//					public void run() {
-//						if (button.disabled == NavigationOptions.BooleanOptions.False || button.disabled == NavigationOptions.BooleanOptions.NoValue) {
-//							UiUtils.tintDrawable(drawable, button.buttonColor);
-//						} else if (button.disableIconTint == NavigationOptions.BooleanOptions.True) {
-//							UiUtils.tintDrawable(drawable, button.buttonColor);
-//						} else {
-//							UiUtils.tintDrawable(drawable, Color.LTGRAY);
-//						}
-//
-//						titleBar.setNavigationOnClickListener(new OnClickListener() {
-//							@Override
-//							public void onClick(View view) {
-//								containerView.sendOnNavigationButtonPressed(containerView.getContainerId(), button.id);
-//							}
-//						});
-//
-//						titleBar.setNavigationIcon(drawable);
-//
-//
-//					}
-//				});
-//			}
-//
-//			@Override
-//			public void onError(Throwable error) {
-//				//TODO: handle
-//				error.printStackTrace();
-//			}
-//		});
 	}
 
 	private void setRightButtons(ArrayList<Button> rightButtons) {
