@@ -4,12 +4,10 @@ package com.reactnativenavigation.react.coordinator;
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.view.ViewParent;
 
 public class CoordinatorLayoutView extends CoordinatorLayout {
 
@@ -17,7 +15,7 @@ public class CoordinatorLayoutView extends CoordinatorLayout {
 		super(context);
 		LayoutParams params =
 				new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+
 		this.setLayoutParams(params);
 		this.setFitsSystemWindows(false);
 	}
