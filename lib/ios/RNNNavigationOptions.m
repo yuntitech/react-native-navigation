@@ -3,6 +3,7 @@
 #import "RNNNavigationController.h"
 #import "RNNTabBarController.h"
 #import "RNNTopBarOptions.h"
+#import "RNNSideMenuController.h"
 
 const NSInteger BLUR_STATUS_TAG = 78264801;
 const NSInteger BLUR_TOPBAR_TAG = 78264802;
@@ -26,6 +27,8 @@ const NSInteger TOP_BAR_TRANSPARENT_TAG = 78264803;
 	self.rightButtons = [navigationOptions objectForKey:@"rightButtons"];
 	self.topBar = [[RNNTopBarOptions alloc] initWithDict:[navigationOptions objectForKey:@"topBar"]];
 	self.bottomTabs = [[RNNTabBarOptions alloc] initWithDict:[navigationOptions objectForKey:@"bottomTabs"]];
+	self.leftSideMenu = [[RNNSideMenuOptions alloc] initWithDict:[[navigationOptions objectForKey:@"sideMenu"] objectForKey:@"left"]];
+	self.rightSideMenu = [[RNNSideMenuOptions alloc] initWithDict:[[navigationOptions objectForKey:@"sideMenu"] objectForKey:@"right"]];
 	
 	return self;
 }
@@ -36,6 +39,12 @@ const NSInteger TOP_BAR_TRANSPARENT_TAG = 78264803;
 			[self.topBar mergeWith:[otherOptions objectForKey:key]];
 		} else if ([key isEqualToString:@"bottomTabs"]) {
 			[self.bottomTabs mergeWith:[otherOptions objectForKey:key]];
+		} else if ([key isEqualToString:@"sideMenu"]) {
+			if ([[otherOptions objectForKey:@"sideMenu"] objectForKey:@"left"]) {
+				[self.leftSideMenu mergeWith:[[otherOptions objectForKey:@"sideMenu"] objectForKey:@"left"]];
+			} else if ([[otherOptions objectForKey:@"sideMenu"] objectForKey:@"right"]) {
+				[self.rightSideMenu mergeWith:[[otherOptions objectForKey:@"sideMenu"] objectForKey:@"right"]];
+			}
 		} else {
 			[self setValue:[otherOptions objectForKey:key] forKey:key];
 		}
@@ -206,6 +215,17 @@ const NSInteger TOP_BAR_TRANSPARENT_TAG = 78264803;
 			if (curBlurView) {
 				[curBlurView removeFromSuperview];
 			}
+		}
+	}
+	
+	UIViewController* rootViewController = UIApplication.sharedApplication.delegate.window.rootViewController;
+	if ([rootViewController isKindOfClass:[RNNSideMenuController class]]) {
+		if (self.leftSideMenu) {
+			[(RNNSideMenuController*)rootViewController showSideMenu:[self.leftSideMenu.visible boolValue] side:MMDrawerSideLeft animated:YES];
+		}
+		
+		if (self.rightSideMenu) {
+			[(RNNSideMenuController*)rootViewController showSideMenu:[self.leftSideMenu.visible boolValue] side:MMDrawerSideRight animated:YES];
 		}
 	}
 }

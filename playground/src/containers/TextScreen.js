@@ -18,6 +18,7 @@ class TextScreen extends Component {
         <Button title={'Switch To Tab 2'} testID={testIDs.SWITCH_SECOND_TAB_BUTTON} onPress={() => this.onClickSwitchToTab()} />
         <Button title="Hide Tab Bar" onPress={() => this.hideTabBar(true)} />
         <Button title="Show Tab Bar" onPress={() => this.hideTabBar(false)} />
+        <Button title="Show Side Menu" testID={testIDs.SHOW_SIDE_MENU_BUTTON} onPress={() => this.showSideMenu()} />
       </View>
     );
   }
@@ -56,7 +57,18 @@ class TextScreen extends Component {
       }
     });
   }
+
+  showSideMenu() {
+    Navigation.setOptions(this.props.containerId, {
+      sideMenu: {
+        left: {
+          visible: true
+        }
+      }
+    });
+  }
 }
+
 module.exports = TextScreen;
 
 const styles = {

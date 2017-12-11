@@ -18,9 +18,9 @@ describe('top level api', () => {
     await expect(elementByLabel('Hello from a function!')).toBeVisible();
   });
 
-  it('switch to tabs with side menus', async () => {
+  it.only('switch to tabs with side menus', async () => {
     await elementById(testIDs.TAB_BASED_APP_SIDE_BUTTON).tap();
-    await elementByLabel('This is a side menu center screen tab 1').swipe('right');
+    await elementById(testIDs.SHOW_SIDE_MENU_BUTTON).tap();
     await expect(elementByLabel('This is a left side menu screen')).toBeVisible();
   });
 

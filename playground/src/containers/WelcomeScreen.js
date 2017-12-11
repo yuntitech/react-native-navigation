@@ -97,7 +97,7 @@ class WelcomeScreen extends Component {
       sideMenu: {
         left: {
           container: {
-            name: 'navigation.playground.TextScreen',
+            name: 'navigation.playground.SideMenuScreen',
             passProps: {
               text: 'This is a left side menu screen'
             }
@@ -105,7 +105,7 @@ class WelcomeScreen extends Component {
         },
         right: {
           container: {
-            name: 'navigation.playground.TextScreen',
+            name: 'navigation.playground.SideMenuScreen',
             passProps: {
               text: 'This is a right side menu screen'
             }

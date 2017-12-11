@@ -21,6 +21,11 @@ class OptionsScreen extends Component {
         textFontSize: 16,
         textFontFamily: 'HelveticaNeue-Italic'
       },
+      // sideMenu: {
+      //   visible: true,
+      //   animated: true,
+      //   side: 'left'
+      // },
       rightButtons: [{
         id: BUTTON_ONE,
         testID: BUTTON_ONE,
