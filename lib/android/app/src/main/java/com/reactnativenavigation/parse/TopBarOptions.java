@@ -13,7 +13,7 @@ public class TopBarOptions implements DEFAULT_VALUES {
 
 		options.title = json.optString("title", NO_VALUE);
 		options.backgroundColor = json.optInt("backgroundColor", NO_COLOR_VALUE);
-		options.textColor = json.optInt("textColor", NO_INT_VALUE);
+		options.textColor = json.optInt("textColor", NO_COLOR_VALUE);
 		options.textFontSize = (float) json.optDouble("textFontSize", NO_FLOAT_VALUE);
 		options.textFontFamily = json.optString("textFontFamily", NO_VALUE);
 		options.hidden = NavigationOptions.BooleanOptions.parse(json.optString("hidden"));
@@ -36,7 +36,7 @@ public class TopBarOptions implements DEFAULT_VALUES {
 		if (!NO_VALUE.equals(other.title)) title = other.title;
 		if (other.backgroundColor != NO_COLOR_VALUE)
 			backgroundColor = other.backgroundColor;
-		if (other.textColor != NO_INT_VALUE)
+		if (other.textColor != NO_COLOR_VALUE)
 			textColor = other.textColor;
 		if (other.textFontSize != NO_FLOAT_VALUE)
 			textFontSize = other.textFontSize;
@@ -49,4 +49,21 @@ public class TopBarOptions implements DEFAULT_VALUES {
 			animateHide = other.animateHide;
 		}
 	}
+
+    void mergeWithDefault(TopBarOptions defaultOptions) {
+        if (NO_VALUE.equals(title))
+            title = defaultOptions.title;
+        if (backgroundColor == NO_COLOR_VALUE)
+            backgroundColor = defaultOptions.backgroundColor;
+        if (textColor == NO_COLOR_VALUE)
+            textColor = defaultOptions.textColor;
+        if (textFontSize == NO_FLOAT_VALUE)
+            textFontSize = defaultOptions.textFontSize;
+        if (NO_VALUE.equals(textFontFamily))
+            textFontFamily = defaultOptions.textFontFamily;
+        if (hidden == NavigationOptions.BooleanOptions.NoValue)
+            hidden = defaultOptions.hidden;
+        if (animateHide == NavigationOptions.BooleanOptions.NoValue)
+            animateHide = defaultOptions.animateHide;
+    }
 }

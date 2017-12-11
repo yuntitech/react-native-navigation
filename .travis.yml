@@ -44,6 +44,7 @@ jobs:
           - $HOME/.android/build-cache
 
     - stage: deploy
+      if: NOT type = pull_request
       env: TYPE=deploy
       os: linux
       language: generic
