@@ -2,23 +2,22 @@ package com.reactnativenavigation.views;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.facebook.react.ReactRootView;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.params.NavigationParams;
 import com.reactnativenavigation.screens.SingleScreen;
-import com.reactnativenavigation.utils.ViewUtils;
 import com.reactnativenavigation.views.utils.ViewMeasurer;
 
-public class ContentView extends ReactRootView {
+public class ContentView extends ReactRootView implements ReactRootView.ReactRootViewEventListener, ViewTreeObserver.OnGlobalLayoutListener {
     private final String screenId;
     private final NavigationParams navigationParams;
     private Bundle initialProps;
 
-    boolean isContentVisible = false;
     private SingleScreen.OnDisplayListener onDisplayListener;
     protected ViewMeasurer viewMeasurer;
+    private boolean isAttachedToReactInstance;
 
     public void setOnDisplayListener(SingleScreen.OnDisplayListener onDisplayListener) {
         this.onDisplayListener = onDisplayListener;
@@ -35,6 +34,8 @@ public class ContentView extends ReactRootView {
         this.initialProps = initialProps;
         attachToJS();
         viewMeasurer = new ViewMeasurer();
+        setEventListener(this);
+        getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     public void setViewMeasurer(ViewMeasurer viewMeasurer) {
@@ -61,6 +62,8 @@ public class ContentView extends ReactRootView {
     }
 
     public void unmountReactView() {
+        getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        setEventListener(null);
         unmountReactApplication();
     }
 
@@ -72,23 +75,15 @@ public class ContentView extends ReactRootView {
     }
 
     @Override
-    public void onViewAdded(final View child) {
-        super.onViewAdded(child);
-        detectContentViewVisible(child);
+    public void onAttachedToReactInstance(ReactRootView rootView) {
+        isAttachedToReactInstance = true;
     }
 
-    private void detectContentViewVisible(View child) {
-        if (onDisplayListener != null) {
-            ViewUtils.runOnPreDraw(child, new Runnable() {
-                @Override
-                public void run() {
-                    if (!isContentVisible) {
-                        isContentVisible = true;
-                        onDisplayListener.onDisplay();
-                        onDisplayListener = null;
-                    }
-                }
-            });
+    @Override
+    public void onGlobalLayout() {
+        if (isAttachedToReactInstance && onDisplayListener != null && getChildCount() > 0) {
+            onDisplayListener.onDisplay();
+            onDisplayListener = null;
         }
     }
 }
