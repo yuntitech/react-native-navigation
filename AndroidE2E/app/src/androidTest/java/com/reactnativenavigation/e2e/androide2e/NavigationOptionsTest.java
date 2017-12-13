@@ -1,7 +1,7 @@
 package com.reactnativenavigation.e2e.androide2e;
 
 import android.support.test.uiautomator.By;
-
+import android.view.MenuItem;
 import org.junit.Test;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -37,6 +37,5 @@ public class NavigationOptionsTest extends BaseTest {
 	public void testRightButtons() throws Exception {
 		elementByText("PUSH OPTIONS SCREEN").click();
 		assertExists(By.text("ONE"));
-		elementByText("ONE").click();
 	}
 }
