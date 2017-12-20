@@ -54,9 +54,4 @@ public class TestContainerLayout extends View implements ReactContainer {
     public void sendOnNavigationButtonPressed(String buttonId) {
 
     }
-
-    @Override
-    public String getContainerId() {
-        return "containerId";
-    }
 }

@@ -57,11 +57,6 @@ public class ContainerLayout extends LinearLayout implements ReactContainer {
 	}
 
     @Override
-    public String getContainerId() {
-        return reactView.getContainerId();
-    }
-
-    @Override
     public void applyOptions(NavigationOptions options) {
         optionsPresenter.applyOptions(options);
     }

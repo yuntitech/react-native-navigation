@@ -30,8 +30,6 @@ public class ContainerViewController extends ViewController implements Navigatio
 		void sendContainerStop();
 
         void sendOnNavigationButtonPressed(String buttonId);
-
-        String getContainerId();
 	}
 
 	private final String containerName;

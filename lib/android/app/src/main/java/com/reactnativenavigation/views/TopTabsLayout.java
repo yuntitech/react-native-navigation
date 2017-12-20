@@ -24,7 +24,7 @@ public class TopTabsLayout extends LinearLayout implements Container {
 
     public TopTabsLayout(Context context, List<TopTabController> tabs) {
         super(context);
-        topBar = new TopBar(context);
+        topBar = new TopBar(context, this);
         this.tabs = tabs;
         viewPager = new TopTabsViewPager(context, tabs);
         optionsPresenter = new OptionsPresenter(topBar, this);
@@ -41,6 +41,13 @@ public class TopTabsLayout extends LinearLayout implements Container {
     @Override
     public void applyOptions(NavigationOptions options) {
         optionsPresenter.applyOptions(options);
+    }
+
+    @Override
+    public void sendOnNavigationButtonPressed(String buttonId) {
+        performOnCurrentTab((topTabController) -> {
+            topTabController.sendOnNavigationButtonPressed(buttonId);
+        });
     }
 
     @Override

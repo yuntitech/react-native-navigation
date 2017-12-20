@@ -35,17 +35,16 @@ public class NavigationOptions implements DEFAULT_VALUES {
 		result.topTabsOptions = TopTabsOptions.parse(json.optJSONObject("topTabs"));
         result.topTabOptions = TopTabOptions.parse(json.optJSONObject("topTab"));
 		result.bottomTabsOptions = BottomTabsOptions.parse(json.optJSONObject("bottomTabs"));
-
 		result.leftButtons = Button.parseJsonArray(json.optJSONArray("leftButtons"));
 		result.rightButtons =  Button.parseJsonArray(json.optJSONArray("rightButtons"));
 
 		return result.withDefaultOptions(defaultOptions);
 	}
 
-	public TopBarOptions topBarOptions = new TopBarOptions();
-    public TopTabsOptions topTabsOptions = new TopTabsOptions();
-    public TopTabOptions topTabOptions = new TopTabOptions();
-    public BottomTabsOptions bottomTabsOptions = new BottomTabsOptions();
+	@NonNull public TopBarOptions topBarOptions = new TopBarOptions();
+    @NonNull public TopTabsOptions topTabsOptions = new TopTabsOptions();
+    @NonNull public TopTabOptions topTabOptions = new TopTabOptions();
+    @NonNull public BottomTabsOptions bottomTabsOptions = new BottomTabsOptions();
     public ArrayList<Button> leftButtons;
     public ArrayList<Button> rightButtons;
 
