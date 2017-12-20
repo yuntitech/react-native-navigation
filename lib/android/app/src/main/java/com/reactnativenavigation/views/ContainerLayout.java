@@ -19,7 +19,7 @@ public class ContainerLayout extends LinearLayout implements ReactContainer {
 
 	public ContainerLayout(Context context, IReactView reactView) {
 		super(context);
-		this.topBar = new TopBar(context);
+		this.topBar = new TopBar(context, this);
 		this.reactView = reactView;
         optionsPresenter = new OptionsPresenter(topBar, this);
         initViews();
@@ -57,8 +57,18 @@ public class ContainerLayout extends LinearLayout implements ReactContainer {
 	}
 
     @Override
+    public String getContainerId() {
+        return reactView.getContainerId();
+    }
+
+    @Override
     public void applyOptions(NavigationOptions options) {
         optionsPresenter.applyOptions(options);
+    }
+
+    @Override
+    public void sendOnNavigationButtonPressed(String buttonId) {
+        reactView.sendOnNavigationButtonPressed(buttonId);
     }
 
     @Override

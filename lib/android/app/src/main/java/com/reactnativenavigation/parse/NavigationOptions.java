@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class NavigationOptions implements DEFAULT_VALUES {
 
     public enum BooleanOptions {
@@ -34,6 +36,9 @@ public class NavigationOptions implements DEFAULT_VALUES {
         result.topTabOptions = TopTabOptions.parse(json.optJSONObject("topTab"));
 		result.bottomTabsOptions = BottomTabsOptions.parse(json.optJSONObject("bottomTabs"));
 
+		result.leftButtons = Button.parseJsonArray(json.optJSONArray("leftButtons"));
+		result.rightButtons =  Button.parseJsonArray(json.optJSONArray("rightButtons"));
+
 		return result.withDefaultOptions(defaultOptions);
 	}
 
@@ -41,11 +46,21 @@ public class NavigationOptions implements DEFAULT_VALUES {
     public TopTabsOptions topTabsOptions = new TopTabsOptions();
     public TopTabOptions topTabOptions = new TopTabOptions();
     public BottomTabsOptions bottomTabsOptions = new BottomTabsOptions();
+    public ArrayList<Button> leftButtons;
+    public ArrayList<Button> rightButtons;
 
 	public void mergeWith(final NavigationOptions other) {
         topBarOptions.mergeWith(other.topBarOptions);
         topTabsOptions.mergeWith(other.topTabsOptions);
-        bottomTabsOptions.mergeWith(other.bottomTabsOptions);
+		bottomTabsOptions.mergeWith(other.bottomTabsOptions);
+
+		if(other.leftButtons != null) {
+			leftButtons = other.leftButtons;
+		}
+
+		if(other.rightButtons != null) {
+			rightButtons = other.rightButtons;
+		}
 	}
 
     NavigationOptions withDefaultOptions(final NavigationOptions other) {

@@ -117,4 +117,3 @@ No PR will be accepted without adequate test coverage.
 | `npm run test-e2e-ios` | runs the ios e2e suite (with detox) in debug/release <br> **Options:** `-- --release`|
 | `npm run test-e2e-android` | runs the android e2e suite (with uiautomator) in debug/release on running devices/emulators <br> **Options:** `-- [--release] [--just com.TestClass#testMethod]` |
 | `npm run test-all` | runs all tests in parallel |
-

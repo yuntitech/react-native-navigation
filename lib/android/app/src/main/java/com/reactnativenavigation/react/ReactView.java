@@ -26,14 +26,10 @@ public class ReactView extends ReactRootView implements ContainerViewController.
 	}
 
 	private void start() {
-		setEventListener(new ReactRootView.ReactRootViewEventListener() {
-
-			@Override
-			public void onAttachedToReactInstance(final ReactRootView reactRootView) {
-				reactRootView.setEventListener(null);
-				isAttachedToReactInstance = true;
-			}
-		});
+		setEventListener(reactRootView -> {
+            reactRootView.setEventListener(null);
+            isAttachedToReactInstance = true;
+        });
 		final Bundle opts = new Bundle();
 		opts.putString("containerId", containerId);
 		startReactApplication(reactInstanceManager, containerName, opts);
@@ -62,5 +58,15 @@ public class ReactView extends ReactRootView implements ContainerViewController.
 	@Override
 	public void sendContainerStop() {
 		new NavigationEvent(reactInstanceManager.getCurrentReactContext()).containerDidDisappear(containerId);
+	}
+
+	@Override
+	public void sendOnNavigationButtonPressed(String buttonId) {
+		new NavigationEvent(reactInstanceManager.getCurrentReactContext()).sendOnNavigationButtonPressed(containerId, buttonId);
+	}
+
+	@Override
+	public String getContainerId() {
+		return containerId;
 	}
 }

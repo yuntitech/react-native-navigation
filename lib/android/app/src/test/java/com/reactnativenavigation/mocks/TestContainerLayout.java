@@ -15,7 +15,7 @@ public class TestContainerLayout extends View implements ReactContainer {
 
     public TestContainerLayout(final Context context) {
 		super(context);
-        topBar = new TopBar(context);
+        topBar = new TopBar(context, this);
         optionsPresenter = new OptionsPresenter(topBar, this);
     }
 
@@ -48,5 +48,15 @@ public class TestContainerLayout extends View implements ReactContainer {
     @Override
     public void applyOptions(NavigationOptions options) {
         optionsPresenter.applyOptions(options);
+    }
+
+    @Override
+    public void sendOnNavigationButtonPressed(String buttonId) {
+
+    }
+
+    @Override
+    public String getContainerId() {
+        return "containerId";
     }
 }
