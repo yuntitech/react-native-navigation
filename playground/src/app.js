@@ -46,7 +46,7 @@ function start() {
             interpolation: 'decelerate',
           }
         },
-        pop : {
+        dismissModal : {
           rotationY: {
             from: 0,
             to: -360,
