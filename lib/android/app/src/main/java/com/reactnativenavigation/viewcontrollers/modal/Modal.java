@@ -1,13 +1,16 @@
 package com.reactnativenavigation.viewcontrollers.modal;
 
+import android.animation.AnimatorSet;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
 
 import com.facebook.react.bridge.Promise;
 import com.reactnativenavigation.R;
+import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.viewcontrollers.ViewController;
 
 import static android.view.View.MeasureSpec.EXACTLY;
@@ -30,8 +33,12 @@ public class Modal implements DialogInterface.OnKeyListener, DialogInterface.OnD
 
     public void show() {
         preMeasureView();
-        dialog.setContentView(viewController.getView());
+        View contentView = viewController.getView();
+        dialog.setContentView(contentView);
+        //TODO: I expect animation to be in options here
+        AnimatorSet animation = viewController.options.animationsOptions.showModal.getAnimation(contentView);
         dialog.show();
+        animation.start();
     }
 
     public void dismiss(Promise promise) {

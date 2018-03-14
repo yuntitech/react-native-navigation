@@ -24,8 +24,8 @@ function start() {
   registerScreens();
   Navigation.events().onAppLaunched(() => {
     Navigation.setDefaultOptions({
-      _animations: {
-        push: {
+      animations: {
+        showModal: {
           y: {
             from: 1000,
             to: 0,
