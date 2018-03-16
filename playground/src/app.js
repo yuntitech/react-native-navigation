@@ -24,8 +24,8 @@ function start() {
   registerScreens();
   Navigation.events().onAppLaunched(() => {
     Navigation.setDefaultOptions({
-      animations: {
-        showModal: {
+      _animations: {
+        push: {
           y: {
             from: 1000,
             to: 0,
@@ -38,7 +38,9 @@ function start() {
             duration: 500,
             interpolation: 'decelerate',
             startDelay: 100
-          },
+          }
+        },
+        showModal: {
           scaleY: {
             from: 0,
             to: 1,
@@ -46,7 +48,7 @@ function start() {
             interpolation: 'decelerate',
           }
         },
-        dismissModal : {
+        pop: {
           rotationY: {
             from: 0,
             to: -360,
