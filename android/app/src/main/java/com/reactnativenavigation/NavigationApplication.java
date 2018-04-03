@@ -48,6 +48,7 @@ public abstract class NavigationApplication extends Application implements React
             ).toBundle();
             super.startActivity(intent, bundle);
         } else {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             super.startActivity(intent);
         }
     }
