@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Window;
@@ -21,6 +22,7 @@ import com.reactnativenavigation.events.Event;
 import com.reactnativenavigation.events.EventBus;
 import com.reactnativenavigation.events.JsDevReloadEvent;
 import com.reactnativenavigation.events.ModalDismissedEvent;
+import com.reactnativenavigation.events.NavigationBroadcastReceiver;
 import com.reactnativenavigation.events.Subscriber;
 import com.reactnativenavigation.layouts.BottomTabsLayout;
 import com.reactnativenavigation.layouts.Layout;
@@ -62,6 +64,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     private Layout layout;
     @Nullable
     private PermissionListener mPermissionListener;
+    private NavigationBroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,9 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
             finish();
             return;
         }
-
+        NavigationBroadcastReceiver.killActivity(getClass().getSimpleName());
+        receiver = new NavigationBroadcastReceiver(this);
+        receiver.registerReceiver();
         activityParams = NavigationCommandsHandler.parseActivityParams(getIntent());
         disableActivityShowAnimationIfNeeded();
         setOrientation();
@@ -171,6 +176,9 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
 
     @Override
     protected void onDestroy() {
+        if (receiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        }
         destroyLayouts();
         destroyJsIfNeeded();
         NavigationApplication.instance.getActivityCallbacks().onActivityDestroyed(this);
@@ -489,5 +497,16 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
 
     public static void setStartAppPromise(Promise promise) {
         NavigationActivity.startAppPromise = promise;
+    }
+
+    private String getScreenId() {
+        if (activityParams != null && activityParams.screenParams != null) {
+            return activityParams.screenParams.screenId;
+        }
+        return null;
+    }
+
+    public boolean isLoadingScreen() {
+        return "cn.bookln.InitialScreen".equals(getScreenId());
     }
 }
