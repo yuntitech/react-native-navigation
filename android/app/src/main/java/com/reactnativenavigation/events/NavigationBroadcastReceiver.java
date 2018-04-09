@@ -40,8 +40,7 @@ public class NavigationBroadcastReceiver extends BroadcastReceiver {
         if (getFinishAction().equals(action)) {
             String simpleName = intent.getStringExtra(getFinishAction());
             if (activity != null
-                    && activity.getClass().getSimpleName().equals(simpleName)
-                    && activity.isLoadingScreen()) {
+                    && activity.getClass().getSimpleName().equals(simpleName)) {
                 activity.finish();
             }
         }
