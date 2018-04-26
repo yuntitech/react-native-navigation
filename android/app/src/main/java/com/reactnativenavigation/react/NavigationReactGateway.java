@@ -51,6 +51,9 @@ public class NavigationReactGateway implements ReactGateway {
 	}
 
 	public NavigationReactEventEmitter getReactEventEmitter() {
+	    if(reactEventEmitter == null && isInitialized()){
+	        onReactContextInitialized(getReactContext());
+        }
 		return reactEventEmitter;
 	}
 
