@@ -115,6 +115,13 @@ class TitleBarButton implements MenuItem.OnMenuItemClickListener {
     private ArrayList<View> findActualTextViewInMenuByLabel() {
         ArrayList<View> outViews = new ArrayList<>();
         parent.findViewsWithText(outViews, buttonParams.label, View.FIND_VIEWS_WITH_TEXT);
+        //filter label not equal view
+        for (int n = outViews.size() - 1; n >= 0; n--) {
+            View item = outViews.get(n);
+            if (item instanceof TextView && !((TextView) item).getText().toString().equals(buttonParams.label)) {
+                outViews.remove(n);
+            }
+        }
         return outViews;
     }
 
