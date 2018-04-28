@@ -24,6 +24,7 @@ public class BaseTitleBarButtonParams {
     public String componentName;
     public Bundle componentProps;
     public StyleParams.Color color;
+    public int buttonFontSize;
     public StyleParams.Color disabledColor;
     public ShowAsAction showAsAction;
     public boolean enabled = true;

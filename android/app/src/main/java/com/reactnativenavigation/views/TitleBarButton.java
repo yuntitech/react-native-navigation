@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.ActionMenuView;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +42,7 @@ class TitleBarButton implements MenuItem.OnMenuItemClickListener {
         }
         setIcon(item, index);
         setColor();
+        setFontSize();
         setFont();
         item.setOnMenuItemClickListener(this);
         return item;
@@ -86,6 +88,15 @@ class TitleBarButton implements MenuItem.OnMenuItemClickListener {
             setIconColor();
         } else {
             setTextColor();
+        }
+    }
+
+    private void setFontSize() {
+        if (buttonParams.buttonFontSize > 0) {
+            ArrayList<View> buttons = findActualTextViewInMenuByLabel();
+            for (View button : buttons) {
+                ((TextView) button).setTextSize(TypedValue.COMPLEX_UNIT_SP, buttonParams.buttonFontSize);
+            }
         }
     }
 
