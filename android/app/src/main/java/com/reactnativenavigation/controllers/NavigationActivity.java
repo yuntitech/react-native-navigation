@@ -9,8 +9,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
@@ -208,8 +210,20 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         }
     }
 
+    private long mExitTime;
+
     @Override
     public void onBackPressed() {
+        //TAB页返回
+        if (isTabScreen()) {
+            if (System.currentTimeMillis() - mExitTime > 2000L) {
+                Toast toast = Toast.makeText(NavigationApplication.instance, "再按一次退出程序", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+                mExitTime = System.currentTimeMillis();
+                return;
+            }
+        }
         if (layout != null && layout.handleBackInJs()) {
             return;
         }
@@ -218,6 +232,20 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         } else {
             super.onBackPressed();
         }
+    }
+
+    private boolean isTabScreen() {
+        String curScreenId = layout != null ? layout.getCurrentlyVisibleScreenId() : null;
+        if (activityParams != null
+                && activityParams.tabParams != null
+                && curScreenId != null) {
+            for (ScreenParams each : activityParams.tabParams) {
+                if (curScreenId.equals(each.getScreenInstanceId())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
