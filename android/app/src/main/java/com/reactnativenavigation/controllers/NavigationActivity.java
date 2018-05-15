@@ -3,6 +3,7 @@ package com.reactnativenavigation.controllers;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -78,6 +79,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
             finish();
             return;
         }
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
         NavigationBroadcastReceiver.killActivity(getClass().getSimpleName());
         receiver = new NavigationBroadcastReceiver(this);
         receiver.registerReceiver();
