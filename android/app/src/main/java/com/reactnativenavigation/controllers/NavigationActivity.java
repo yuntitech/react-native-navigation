@@ -219,7 +219,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         //TAB页返回
         if (isTabScreen()) {
             if (System.currentTimeMillis() - mExitTime > 2000L) {
-                Toast toast = Toast.makeText(NavigationApplication.instance, "再按一次退出程序", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(NavigationApplication.instance.context(), "再按一次退出程序", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
                 mExitTime = System.currentTimeMillis();

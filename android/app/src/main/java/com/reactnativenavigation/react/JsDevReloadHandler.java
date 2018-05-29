@@ -23,13 +23,13 @@ class JsDevReloadHandler {
 
     void onResumeActivity() {
         if (getReactInstanceManager().getDevSupportManager().getDevSupportEnabled()) {
-            NavigationApplication.instance.registerReceiver(reloadReceiver, new IntentFilter("react.native.RELOAD"));
+            NavigationApplication.instance.context().registerReceiver(reloadReceiver, new IntentFilter("react.native.RELOAD"));
         }
     }
 
     void onPauseActivity() {
         if (getReactInstanceManager().getDevSupportManager().getDevSupportEnabled()) {
-            NavigationApplication.instance.unregisterReceiver(reloadReceiver);
+            NavigationApplication.instance.context().unregisterReceiver(reloadReceiver);
         }
     }
 

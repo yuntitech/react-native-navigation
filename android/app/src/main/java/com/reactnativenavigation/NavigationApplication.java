@@ -54,6 +54,7 @@ public class NavigationApplication implements ReactApplication {
         if (mINavigationAppProxy != null) {
             return mINavigationAppProxy.getReactGateway();
         }
+        return null;
     }
 
     public ActivityCallbacks getActivityCallbacks() {
@@ -83,7 +84,6 @@ public class NavigationApplication implements ReactApplication {
         // nothing
     }
 
-    @Override
     public ReactNativeHost getReactNativeHost() {
         if (mINavigationAppProxy != null) {
             return mINavigationAppProxy.getReactNativeHost();

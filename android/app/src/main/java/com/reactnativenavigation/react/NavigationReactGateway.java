@@ -120,7 +120,7 @@ public class NavigationReactGateway implements ReactGateway {
 	private static class ReactNativeHostImpl extends ReactNativeHost implements ReactInstanceManager.ReactInstanceEventListener {
 
 		ReactNativeHostImpl() {
-			super(NavigationApplication.instance);
+			super(NavigationApplication.instance.context());
 		}
 
 		@Override

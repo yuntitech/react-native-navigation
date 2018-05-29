@@ -30,10 +30,10 @@ public class ImageLoader {
 
     private static Drawable loadFile(Uri uri) {
         Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath());
-        return new BitmapDrawable(NavigationApplication.instance.getResources(), bitmap);
+        return new BitmapDrawable(NavigationApplication.instance.context().getResources(), bitmap);
     }
 
     private static Drawable loadResource(String iconSource) {
-        return ResourceDrawableIdHelper.instance.getResourceDrawable(NavigationApplication.instance, iconSource);
+        return ResourceDrawableIdHelper.instance.getResourceDrawable(NavigationApplication.instance.context(), iconSource);
     }
 }

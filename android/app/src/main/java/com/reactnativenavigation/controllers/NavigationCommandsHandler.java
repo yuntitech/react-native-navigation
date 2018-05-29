@@ -22,13 +22,13 @@ public class NavigationCommandsHandler {
     }
 
     public static void startApp(Bundle params, Promise promise) {
-        Intent intent = new Intent(NavigationApplication.instance, NavigationActivity.class);
+        Intent intent = new Intent(NavigationApplication.instance.context(), NavigationActivity.class);
         IntentDataHandler.onStartApp(intent);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(ACTIVITY_PARAMS_BUNDLE, params);
         intent.putExtra("animationType", params.getString("animationType"));
         NavigationActivity.setStartAppPromise(promise);
-        NavigationApplication.instance.startActivity(intent);
+        NavigationApplication.instance.context().startActivity(intent);
     }
 
     public static void push(Bundle screenParams, final Promise onPushComplete) {

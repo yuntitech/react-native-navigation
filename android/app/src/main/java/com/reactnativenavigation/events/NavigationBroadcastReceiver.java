@@ -49,7 +49,7 @@ public class NavigationBroadcastReceiver extends BroadcastReceiver {
     public static void killActivity(String simpleName) {
         Intent intent = new Intent(getFinishAction());
         intent.putExtra(getFinishAction(), simpleName);
-        LocalBroadcastManager.getInstance(NavigationApplication.instance).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(NavigationApplication.instance.context()).sendBroadcast(intent);
     }
 
     private NavigationActivity getActivity() {
@@ -57,6 +57,6 @@ public class NavigationBroadcastReceiver extends BroadcastReceiver {
     }
 
     private static String getFinishAction() {
-        return String.format("%s_FINISH_ACTIVITY", NavigationApplication.instance.getPackageName());
+        return String.format("%s_FINISH_ACTIVITY", NavigationApplication.instance.context().getPackageName());
     }
 }

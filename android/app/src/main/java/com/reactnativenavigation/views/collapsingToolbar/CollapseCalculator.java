@@ -41,7 +41,7 @@ public class CollapseCalculator {
     public CollapseCalculator(final CollapsingView collapsingView, CollapseBehaviour collapseBehaviour) {
         this.view = collapsingView;
         this.collapseBehaviour = collapseBehaviour;
-        ViewConfiguration vc = ViewConfiguration.get(NavigationApplication.instance);
+        ViewConfiguration vc = ViewConfiguration.get(NavigationApplication.instance.context());
         scaledTouchSlop = vc.getScaledTouchSlop();
         minimumFlingVelocity = vc.getScaledMinimumFlingVelocity();
         setFlingDetector();
@@ -50,7 +50,7 @@ public class CollapseCalculator {
     private void setFlingDetector() {
         if (collapseBehaviour.shouldCollapseOnFling()) {
             flingDetector =
-                    new GestureDetector(NavigationApplication.instance, new GestureDetector.SimpleOnGestureListener() {
+                    new GestureDetector(NavigationApplication.instance.context(), new GestureDetector.SimpleOnGestureListener() {
                         @Override
                         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, final float velocityY) {
                             final Direction direction = getScrollDirection(e1, e2);
