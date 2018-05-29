@@ -16,7 +16,7 @@ public class ReactDevPermission {
     public static boolean shouldAskPermission() {
         return NavigationApplication.instance.isDebug() &&
                 Build.VERSION.SDK_INT >= 23 &&
-                !Settings.canDrawOverlays(NavigationApplication.instance);
+                !Settings.canDrawOverlays(NavigationApplication.instance.context());
     }
 
     @TargetApi(23)
