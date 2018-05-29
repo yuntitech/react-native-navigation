@@ -2,6 +2,7 @@ package com.reactnativenavigation;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -158,6 +159,12 @@ public class NavigationApplication implements ReactApplication {
             return mINavigationAppProxy.createAdditionalReactPackages();
         }
         return null;
+    }
+
+    public void startActivity(Intent intent) {
+        if (mINavigationAppProxy != null) {
+            mINavigationAppProxy.startActivity(intent);
+        }
     }
 
     public Application context() {

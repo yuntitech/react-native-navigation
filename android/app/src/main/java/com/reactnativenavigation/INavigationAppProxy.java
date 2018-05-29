@@ -1,5 +1,7 @@
 package com.reactnativenavigation;
 
+import android.content.Intent;
+
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.ReactContext;
@@ -57,4 +59,6 @@ public interface INavigationAppProxy {
     boolean clearHostOnActivityDestroy();
 
     abstract List<ReactPackage> createAdditionalReactPackages();
+
+    void startActivity(Intent intent);
 }
