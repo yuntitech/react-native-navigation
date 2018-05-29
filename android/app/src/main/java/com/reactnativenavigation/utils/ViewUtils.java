@@ -51,17 +51,17 @@ public class ViewUtils {
     }
 
     public static float convertDpToPixel(float dp) {
-        float scale = NavigationApplication.instance.getResources().getDisplayMetrics().density;
+        float scale = NavigationApplication.instance.context().getResources().getDisplayMetrics().density;
         return dp * scale + 0.5f;
     }
 
     public static float convertPixelToSp(float pixels) {
-        float scaledDensity = NavigationApplication.instance.getResources().getDisplayMetrics().scaledDensity;
+        float scaledDensity = NavigationApplication.instance.context().getResources().getDisplayMetrics().scaledDensity;
         return pixels / scaledDensity;
     }
 
     public static float convertSpToPixel(float pixels) {
-        float scaledDensity = NavigationApplication.instance.getResources().getDisplayMetrics().scaledDensity;
+        float scaledDensity = NavigationApplication.instance.context().getResources().getDisplayMetrics().scaledDensity;
         return pixels * scaledDensity;
     }
 
@@ -174,7 +174,7 @@ public class ViewUtils {
         if (statusBarHeight > 0) {
             return statusBarHeight;
         }
-        final Resources resources = NavigationApplication.instance.getResources();
+        final Resources resources = NavigationApplication.instance.context().getResources();
         final int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         statusBarHeight = resourceId > 0 ?
                 resources.getDimensionPixelSize(resourceId) :
@@ -186,7 +186,7 @@ public class ViewUtils {
         if (toolBarHeight > 0) {
             return toolBarHeight;
         }
-        final Resources resources = NavigationApplication.instance.getResources();
+        final Resources resources = NavigationApplication.instance.context().getResources();
         final int resourceId = resources.getIdentifier("action_bar_size", "dimen", "android");
         toolBarHeight = resourceId > 0 ?
                 resources.getDimensionPixelSize(resourceId) :

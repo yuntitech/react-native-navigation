@@ -37,7 +37,7 @@ public class TypefaceLoader {
     }
 
     private Typeface load(String fontFamilyName) {
-        AssetManager assets = NavigationApplication.instance.getAssets();
+        AssetManager assets = NavigationApplication.instance.context().getAssets();
         try {
             List<String> fonts = Arrays.asList(assets.list("fonts"));
             if (fonts.contains(fontFamilyName + ".ttf")) {

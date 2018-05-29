@@ -1,11 +1,10 @@
 package com.reactnativenavigation;
 
 import android.app.Application;
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -19,82 +18,90 @@ import com.reactnativenavigation.react.ReactGateway;
 
 import java.util.List;
 
-public abstract class NavigationApplication extends Application implements ReactApplication {
+public class NavigationApplication implements ReactApplication {
 
     public static NavigationApplication instance;
+    private static INavigationAppProxy mINavigationAppProxy;
 
-    private NavigationReactGateway reactGateway;
-    private EventEmitter eventEmitter;
-    private Handler handler;
-    private ActivityCallbacks activityCallbacks;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        instance = this;
-        handler = new Handler(getMainLooper());
-        reactGateway = new NavigationReactGateway();
-        eventEmitter = new EventEmitter(reactGateway);
-        activityCallbacks = new ActivityCallbacks();
-    }
-
-    @Override
-    public void startActivity(Intent intent) {
-        String animationType = intent.getStringExtra("animationType");
-        if (animationType != null && animationType.equals("fade")) {
-            Bundle bundle = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(),
-                    android.R.anim.fade_in,
-                    android.R.anim.fade_out
-            ).toBundle();
-            super.startActivity(intent, bundle);
-        } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            super.startActivity(intent);
+    public static void initINavigationAppProxy(INavigationAppProxy iNavigationAppProxy) {
+        mINavigationAppProxy = iNavigationAppProxy;
+        if (instance == null) {
+            synchronized (NavigationApplication.class) {
+                instance = new NavigationApplication();
+            }
         }
     }
 
     public void startReactContextOnceInBackgroundAndExecuteJS() {
-        reactGateway.startReactContextOnceInBackgroundAndExecuteJS();
+        if (mINavigationAppProxy != null) {
+            mINavigationAppProxy.startReactContextOnceInBackgroundAndExecuteJS();
+        }
     }
 
     public void runOnMainThread(Runnable runnable) {
-        handler.post(runnable);
+        if (mINavigationAppProxy != null) {
+            mINavigationAppProxy.runOnMainThread(runnable);
+        }
     }
 
     public void runOnMainThread(Runnable runnable, long delay) {
-        handler.postDelayed(runnable, delay);
+        if (mINavigationAppProxy != null) {
+            mINavigationAppProxy.runOnMainThread(runnable, delay);
+        }
     }
 
     public ReactGateway getReactGateway() {
-        return reactGateway;
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.getReactGateway();
+        }
     }
 
     public ActivityCallbacks getActivityCallbacks() {
-        return activityCallbacks;
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.getActivityCallbacks();
+        }
+        return null;
     }
 
     protected void setActivityCallbacks(ActivityCallbacks activityLifecycleCallbacks) {
-        this.activityCallbacks = activityLifecycleCallbacks;
+        if (mINavigationAppProxy != null) {
+            mINavigationAppProxy.setActivityCallbacks(activityLifecycleCallbacks);
+        }
     }
 
     public boolean isReactContextInitialized() {
-        return reactGateway.isInitialized();
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.isReactContextInitialized();
+        }
+        return false;
     }
 
     public void onReactInitialized(ReactContext reactContext) {
+        if (mINavigationAppProxy != null) {
+            mINavigationAppProxy.onReactInitialized(reactContext);
+        }
         // nothing
     }
 
     @Override
     public ReactNativeHost getReactNativeHost() {
-        return reactGateway.getReactNativeHost();
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.getReactNativeHost();
+        }
+        return null;
     }
 
     public EventEmitter getEventEmitter() {
-        return eventEmitter;
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.getEventEmitter();
+        }
+        return null;
     }
 
     public UIManagerModule getUiManagerModule() {
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.getUiManagerModule();
+        }
         return getReactGateway()
                 .getReactInstanceManager()
                 .getCurrentReactContext()
@@ -106,6 +113,9 @@ public abstract class NavigationApplication extends Application implements React
      */
     @Nullable
     public String getJSMainModuleName() {
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.getJSMainModuleName();
+        }
         return null;
     }
 
@@ -114,6 +124,9 @@ public abstract class NavigationApplication extends Application implements React
      */
     @Nullable
     public String getJSBundleFile() {
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.getJSBundleFile();
+        }
         return null;
     }
 
@@ -122,15 +135,35 @@ public abstract class NavigationApplication extends Application implements React
      */
     @Nullable
     public String getBundleAssetName() {
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.getBundleAssetName();
+        }
         return null;
     }
 
-    public abstract boolean isDebug();
+    public boolean isDebug() {
+        return true;
+    }
 
     public boolean clearHostOnActivityDestroy() {
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.clearHostOnActivityDestroy();
+        }
         return true;
     }
 
     @Nullable
-    public abstract List<ReactPackage> createAdditionalReactPackages();
+    public List<ReactPackage> createAdditionalReactPackages() {
+        if (mINavigationAppProxy != null) {
+            return mINavigationAppProxy.createAdditionalReactPackages();
+        }
+        return null;
+    }
+
+    public Application context() {
+        if (mINavigationAppProxy != null) {
+            return (Application) mINavigationAppProxy;
+        }
+        return null;
+    }
 }
