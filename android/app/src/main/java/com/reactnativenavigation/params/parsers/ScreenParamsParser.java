@@ -32,20 +32,26 @@ public class ScreenParamsParser extends Parser {
         ScreenParams result = new ScreenParams();
         result.screenId = params.getString(KEY_SCREEN_ID);
         //
+        Field field = null;
         try {
-            Field field = params.getClass().getDeclaredField("mMap");
-            field.setAccessible(true);
-            Map<String, Object> map = (Map<String, Object>) field.get(params);
-            Object val = map.get(KEY_TIMESTAMP);
-            if (val != null) {
-                if (val instanceof Double) {
-                    result.timestamp = params.getDouble(KEY_TIMESTAMP);
-                } else if (val instanceof Integer) {
-                    result.timestamp = params.getInt(KEY_TIMESTAMP);
-                }
-            }
-        } catch (Exception e) {
+            field = params.getClass().getDeclaredField("mMap");
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
+        }
+        field.setAccessible(true);
+        Map<String, Object> map = null;
+        try {
+            map = (Map<String, Object>) field.get(params);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        Object val = map.get(KEY_TIMESTAMP);
+        if (val != null) {
+            if (val instanceof Double) {
+                result.timestamp = params.getDouble(KEY_TIMESTAMP);
+            } else if (val instanceof Integer) {
+                result.timestamp = params.getInt(KEY_TIMESTAMP);
+            }
         }
         //
         assertKeyExists(params, KEY_NAVIGATION_PARAMS);
