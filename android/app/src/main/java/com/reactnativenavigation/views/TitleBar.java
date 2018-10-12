@@ -4,16 +4,22 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.reactnativenavigation.params.BaseScreenParams;
@@ -28,6 +34,7 @@ import java.util.List;
 public class TitleBar extends Toolbar {
     private static final int TITLE_VISIBILITY_ANIMATION_DURATION = 320;
     private LeftButton leftButton;
+    private Drawable leftButtonIcon;
     private ActionMenuView actionMenuView;
     private List<TitleBarButtonParams> rightButtons;
 
@@ -71,10 +78,11 @@ public class TitleBar extends Toolbar {
     private void removeLeftButton() {
         setNavigationIcon(null);
         leftButton = null;
+        leftButtonIcon = null;
     }
 
     public void setStyle(StyleParams params) {
-        setVisibility(params.titleBarHidden);
+        setVisibility(params.titleBarHidden || params.topBarTransparent);
         setTitleTextColor(params);
         setTitleTextFont(params);
         setTitleTextFontSize(params);
@@ -260,6 +268,7 @@ public class TitleBar extends Toolbar {
         setNavigationOnClickListener(leftButton);
 
         if (leftButtonParams.hasCustomIcon()) {
+            leftButtonIcon = leftButtonParams.icon;
             setNavigationIcon(leftButtonParams.icon);
         } else {
             setNavigationIcon(leftButton);
@@ -409,5 +418,42 @@ public class TitleBar extends Toolbar {
                 ((ContentView) actionMenuView.getChildAt(i)).unmountReactView();
             }
         }
+    }
+
+
+    public void hideTitleBar(boolean titleBarHidden) {
+        if (titleBarHidden) {
+            setVisibility(GONE);
+            int[] index = new int[1];
+            ViewGroup parent = getContainerParent((ViewGroup) getParent(), index);
+            if (parent != null) {
+                //back button
+                ImageButton backBtn = new ImageButton(getContext());
+                int dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+                backBtn.setPadding(15 * dp, 15 * dp, 15 * dp, 15 * dp);
+                backBtn.setOnClickListener(leftButton);
+                backBtn.setBackgroundColor(Color.TRANSPARENT);
+                if (leftButtonIcon != null) {
+                    backBtn.setImageDrawable(leftButtonIcon);
+                } else {
+                    backBtn.setImageDrawable(leftButton);
+                }
+                parent.addView(backBtn);
+            }
+        } else {
+            setVisibility(VISIBLE);
+        }
+    }
+
+    private ViewGroup getContainerParent(ViewGroup viewGroup, int[] index) {
+        if (viewGroup == null) {
+            return null;
+        }
+        int i = index[0];
+        if (i != 0 && (viewGroup instanceof FrameLayout || viewGroup instanceof RelativeLayout)) {
+            return viewGroup;
+        }
+        index[0]++;
+        return getContainerParent((ViewGroup) viewGroup.getParent(), index);
     }
 }

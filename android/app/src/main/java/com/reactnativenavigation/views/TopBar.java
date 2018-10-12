@@ -8,10 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBar;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.facebook.react.bridge.Callback;
 import com.reactnativenavigation.animation.VisibilityAnimator;
@@ -166,9 +169,7 @@ public class TopBar extends AppBarLayout {
         } else if (styleParams.topBarColor.hasColor()) {
             setBackgroundColor(styleParams.topBarColor.getColor());
         }
-        if (styleParams.topBarTransparent) {
-            setTransparent();
-        }
+        titleBar.hideTitleBar(styleParams.topBarTransparent);
         titleBar.setStyle(styleParams);
         setReactView(styleParams);
         setTopTabsStyle(styleParams);
