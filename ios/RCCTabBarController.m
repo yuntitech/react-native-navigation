@@ -14,6 +14,13 @@
 
 @end
 
+@interface RCCTabBarController ()
+
+// 用来放置自定义的小badge组件
+@property (nonatomic,strong) NSMutableArray *dotArr;
+
+@end
+
 @implementation RCCTabBarController
 
 
@@ -76,6 +83,8 @@
   self = [super init];
   if (!self) return nil;
   
+  [self initializeDotArrWithTotalCount:children.count];
+  
   self.delegate = self;
   
   self.tabBar.translucent = YES; // default
@@ -119,13 +128,13 @@
       UIColor *color = tabBarBackgroundColor != (id)[NSNull null] ? [RCTConvert UIColor:tabBarBackgroundColor] : nil;
       self.tabBar.barTintColor = color;
     }
-
+    
     NSString *tabBarTranslucent = tabsStyle[@"tabBarTranslucent"];
     if (tabBarTranslucent)
     {
       self.tabBar.translucent = [tabBarTranslucent boolValue] ? YES : NO;
     }
-
+    
     NSString *tabBarHideShadow = tabsStyle[@"tabBarHideShadow"];
     if (tabBarHideShadow)
     {
@@ -204,21 +213,24 @@
     [viewController.tabBarItem setTitleTextAttributes:selectedAttributes forState:UIControlStateSelected];
     // create badge
     NSObject *badge = tabItemLayout[@"props"][@"badge"];
-    if (badge == nil || [badge isEqual:[NSNull null]])
-    {
-      viewController.tabBarItem.badgeValue = nil;
-    }
-    else
-    {
-      viewController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", badge];
-    }
+    /* annotation by：zyxiao @2019.3.15
+     if (badge == nil || [badge isEqual:[NSNull null]])
+     {
+     viewController.tabBarItem.badgeValue = nil;
+     }
+     else
+     {
+     viewController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", badge];
+     }
+     */
+    [self refreshBadgeWithValue:badge color:nil atIndex:[children indexOfObject:tabItemLayout]];
     
     [viewControllers addObject:viewController];
   }
   
   // replace the tabs
   self.viewControllers = viewControllers;
-
+  
   NSNumber *initialTab = tabsStyle[@"initialTabIndex"];
   if (initialTab)
   {
@@ -256,21 +268,25 @@
     if (viewController)
     {
       NSObject *badge = actionParams[@"badge"];
-      
-      if (badge == nil || [badge isEqual:[NSNull null]])
-      {
-        viewController.tabBarItem.badgeValue = nil;
-      }
-      else
-      {
-        NSString *badgeColor = actionParams[@"badgeColor"];
-        UIColor *color = badgeColor != (id)[NSNull null] ? [RCTConvert UIColor:badgeColor] : nil;
-        
-        if ([viewController.tabBarItem respondsToSelector:@selector(badgeColor)]) {
-          viewController.tabBarItem.badgeColor = color;
-        }
-        viewController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", badge];
-      }
+      NSString *badgeColor = actionParams[@"badgeColor"];
+      UIColor *color = badgeColor != (id)[NSNull null] ? [RCTConvert UIColor:badgeColor] : nil;
+      [self refreshBadgeWithValue:badge color:color atIndex:[tabIndex unsignedIntegerValue]];
+      /* annotation by：zyxiao @2019.3.15
+       if (badge == nil || [badge isEqual:[NSNull null]])
+       {
+       viewController.tabBarItem.badgeValue = nil;
+       }
+       else
+       {
+       NSString *badgeColor = actionParams[@"badgeColor"];
+       UIColor *color = badgeColor != (id)[NSNull null] ? [RCTConvert UIColor:badgeColor] : nil;
+       
+       if ([viewController.tabBarItem respondsToSelector:@selector(badgeColor)]) {
+       viewController.tabBarItem.badgeColor = color;
+       }
+       viewController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", badge];
+       }
+       */
     }
   }
   
@@ -419,6 +435,52 @@
   }
 }
 
+// 自定义小圆点（by：zyxiao @2019.3.15）
+- (void)initializeDotArrWithTotalCount:(NSUInteger)totalCount {
+  if (totalCount) {
+    self.dotArr = [NSMutableArray arrayWithCapacity:totalCount];
+    for (int i = 0; i < (int)totalCount; i ++) {
+      [self.dotArr addObject:[NSNull null]];
+    }
+  }
+}
+// 自定义小圆点（by：zyxiao @2019.3.15）
+- (void)refreshBadgeWithValue:(id)value color:(UIColor *)color atIndex:(NSUInteger)index {
+  UITabBarItem *tabBarItem = self.tabBar.items[index];
+  if (value == nil || [value isEqual:[NSNull null]]) {
+    tabBarItem.badgeValue = nil;
+    UIView *dot = self.dotArr[index];
+    if (![dot isEqual:[NSNull null]]) {
+      [dot removeFromSuperview];
+      [self.dotArr replaceObjectAtIndex:index withObject:[NSNull null]];
+    }
+  } else if ([value isEqualToString:@" "]) {
+    tabBarItem.badgeValue = nil;
+    UIView *dot = self.dotArr[index];
+    if ([dot isEqual:[NSNull null]]) {
+      UIView *dot = [self dotWithColor:color atIndex:index];
+      [self.tabBar addSubview:dot];
+      [self.dotArr replaceObjectAtIndex:index withObject:dot];
+    }
+  } else {
+    tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", value];
+    UIView *dot = self.dotArr[index];
+    if (![dot isEqual:[NSNull null]]) {
+      [dot removeFromSuperview];
+      [self.dotArr replaceObjectAtIndex:index withObject:[NSNull null]];
+    }
+  }
+}
+// 自定义小圆点（by：zyxiao @2019.3.15）
+- (UIView *)dotWithColor:(UIColor *)dotColor atIndex:(NSUInteger)index {
+  CGRect tabBounds = self.tabBar.bounds;
+  NSUInteger tabCount = self.dotArr.count;
+  UIView *dot = [[UIView alloc] initWithFrame:CGRectMake((tabBounds.size.width*(2*index+1))/(tabCount*2)+7.5, 3.5, 10, 10)];
+  dot.backgroundColor = dotColor ? dotColor : [UIColor redColor];
+  dot.layer.cornerRadius = 5;
+  dot.layer.masksToBounds = YES;
+  return dot;
+}
 
 
 @end
