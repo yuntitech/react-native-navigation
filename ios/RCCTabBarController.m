@@ -369,7 +369,10 @@
     self.tabBarHidden = hidden;
     
     CGRect nextFrame = self.tabBar.frame;
-    nextFrame.origin.y = UIScreen.mainScreen.bounds.size.height - (hidden ? 0 : self.tabBar.frame.size.height);
+    nextFrame.origin.y = UIScreen.mainScreen.bounds.size.height - (hidden ? -10 : self.tabBar.frame.size.height);
+    if(hidden){
+      nextFrame.size.height = 0;
+    }
     
     [UIView animateWithDuration: ([actionParams[@"animated"] boolValue] ? 0.45 : 0)
                           delay: 0
