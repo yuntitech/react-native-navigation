@@ -70,12 +70,6 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     @Override
-    protected void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        setStyle();
-    }
-
-    @Override
     public void onEvent(Event event) {
         if (ContextualMenuHiddenEvent.TYPE.equals(event.getType()) && isShown()) {
             topBar.onContextualMenuHidden();
