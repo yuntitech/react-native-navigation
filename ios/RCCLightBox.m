@@ -51,6 +51,7 @@ const NSInteger kLightBoxTag = 0x101010;
                     self.overlayColorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
                     self.overlayColorView.backgroundColor = backgroundColor;
                     self.overlayColorView.alpha = 0;
+                    self.overlayColorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [self addSubview:self.overlayColorView];
                 }
             }
