@@ -343,6 +343,7 @@ function createBottomTabScreen(tab, idx, params) {
   addNavigatorButtons(tab, params.drawer);
   addNavigationStyleParams(tab);
   addTabIcon(tab);
+  addTabSelectedIcon(tab)
   if (!tab.passProps) {
     tab.passProps = params.passProps;
   }
@@ -367,6 +368,19 @@ function addTabIcon(tab) {
   }
 
   if (!tab.icon) {
+    throw new Error("No icon defined for tab " + tab.screen);
+  }
+}
+
+function addTabSelectedIcon(tab) {
+  if (tab.selectedIcon) {
+    const icon = resolveAssetSource(tab.selectedIcon);
+    if (icon) {
+      tab.selectedIcon = icon.uri;
+    }
+  }
+
+  if (!tab.selectedIcon) {
     throw new Error("No icon defined for tab " + tab.screen);
   }
 }
