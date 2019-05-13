@@ -165,7 +165,10 @@
     id icon = tabItemLayout[@"props"][@"icon"];
     if (icon)
     {
-      iconImage = [RCTConvert UIImage:icon];
+//      wws: fix 使用selected 图片原始样式
+      iconImage = [[RCTConvert UIImage: icon] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
+//      iconImage = [RCTConvert UIImage:icon];
+      
       if (buttonColor)
       {
         iconImage = [[self image:iconImage withColor:buttonColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -174,7 +177,9 @@
     UIImage *iconImageSelected = nil;
     id selectedIcon = tabItemLayout[@"props"][@"selectedIcon"];
     if (selectedIcon) {
-      iconImageSelected = [RCTConvert UIImage:selectedIcon];
+//       wws: fix 使用selected 图片原始样式
+      iconImageSelected = [[RCTConvert UIImage: selectedIcon] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
+//      iconImageSelected = [RCTConvert UIImage:selectedIcon];
     } else {
       iconImageSelected = [RCTConvert UIImage:icon];
     }
