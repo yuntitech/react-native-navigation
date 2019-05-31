@@ -235,9 +235,9 @@
   
   // replace the tabs
   self.viewControllers = viewControllers;
-  [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -4)];
-  [[UITabBar appearance] setBackgroundImage:[UIImage new]];
-  [[UITabBar appearance] setShadowImage:[UIImage new]];
+//  [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -4)];
+//  [[UITabBar appearance] setBackgroundImage:[UIImage new]];
+//  [[UITabBar appearance] setShadowImage:[UIImage new]];
   
   NSNumber *initialTab = tabsStyle[@"initialTabIndex"];
   if (initialTab)
