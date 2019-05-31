@@ -235,9 +235,8 @@
   
   // replace the tabs
   self.viewControllers = viewControllers;
-//  [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -4)];
-//  [[UITabBar appearance] setBackgroundImage:[UIImage new]];
-//  [[UITabBar appearance] setShadowImage:[UIImage new]];
+
+  [self repalceTabbarBg];
   
   NSNumber *initialTab = tabsStyle[@"initialTabIndex"];
   if (initialTab)
@@ -249,6 +248,35 @@
   [self setRotation:props];
   
   return self;
+}
+
+- (void) repalceTabbarBg {
+  BOOL isIpad = [ self getIsIpad];
+  if (!isIpad) {
+    [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -4)];
+  }
+  
+  CGRect rect = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 0.5);
+  UIGraphicsBeginImageContext(rect.size);
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGColorRef color = [[UIColor colorWithRed:(14.0 * 16/255) green:(14.0 * 16/255) blue:(14.0 * 16/255) alpha:1.0f] CGColor];;
+  CGContextSetFillColor(context, CGColorGetComponents(color));
+  CGContextFillRect(context, rect);
+  UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  
+  [[UITabBar appearance] setBackgroundImage:[UIImage new]];
+  [[UITabBar appearance] setShadowImage:img];
+}
+
+
+- (BOOL)getIsIpad {
+  NSString *deviceType = [UIDevice currentDevice].model;
+  if([deviceType isEqualToString:@"iPad"]) {
+    return YES;
+  } else {
+    return NO;
+  }
 }
 
 - (void)performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams bridge:(RCTBridge *)bridge completion:(void (^)(void))completion
