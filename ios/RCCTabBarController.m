@@ -5,6 +5,7 @@
 #import "RCTHelpers.h"
 #import <React/RCTUIManager.h>
 #import "UIViewController+Rotation.h"
+#import "RCCEventEmitter.h"
 
 @interface RCTUIManager ()
 
@@ -18,6 +19,8 @@
 
 // 用来放置自定义的小badge组件
 @property (nonatomic,strong) NSMutableArray *dotArr;
+// 用来发送通知
+@property (nonatomic,strong) RCCEventEmitter *emitter;
 
 @end
 
@@ -519,6 +522,13 @@
   dot.layer.cornerRadius = 5;
   dot.layer.masksToBounds = YES;
   return dot;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+  if (!self.emitter) {
+    self.emitter = [[RCCEventEmitter alloc] init];
+  }
+  [self.emitter sendEventWithName:@"screenSizeDidChange" info:@{@"width": @(size.width), @"height": @(size.height)}];
 }
 
 
