@@ -1,10 +1,10 @@
 package com.reactnativenavigation.screens;
 
-import android.support.v7.app.AppCompatActivity;
-
 import com.reactnativenavigation.params.ScreenParams;
 import com.reactnativenavigation.views.ContentView;
 import com.reactnativenavigation.views.LeftButtonOnClickListener;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 

@@ -1,8 +1,6 @@
 package com.reactnativenavigation.screens;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -23,6 +21,9 @@ import com.reactnativenavigation.views.LeftButtonOnClickListener;
 
 import java.util.List;
 import java.util.Stack;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ScreenStack {
     private static final String TAG = "ScreenStack";
