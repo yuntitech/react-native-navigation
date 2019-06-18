@@ -2,6 +2,7 @@ package com.reactnativenavigation.screens;
 
 import android.animation.LayoutTransition;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 
 import com.facebook.react.bridge.Callback;
@@ -32,8 +33,6 @@ import com.reactnativenavigation.views.sharedElementTransition.SharedElements;
 
 import java.util.List;
 import java.util.Map;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;

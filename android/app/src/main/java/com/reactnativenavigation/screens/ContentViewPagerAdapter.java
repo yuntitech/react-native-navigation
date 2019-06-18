@@ -1,7 +1,5 @@
 package com.reactnativenavigation.screens;
 
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,6 +14,9 @@ import com.reactnativenavigation.params.PageParams;
 import com.reactnativenavigation.views.ContentView;
 
 import java.util.List;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 class ContentViewPagerAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
     private List<ContentView> contentViews;

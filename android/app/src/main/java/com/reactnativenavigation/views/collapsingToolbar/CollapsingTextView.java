@@ -5,13 +5,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.CheckResult;
-import android.support.annotation.FloatRange;
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.widget.TintTypedArray;
+import androidx.annotation.CheckResult;
+import androidx.annotation.FloatRange;
+import androidx.core.widget.TextViewCompat;
+import androidx.appcompat.widget.TintTypedArray;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
@@ -21,9 +20,6 @@ import android.widget.TextView;
 import com.reactnativenavigation.R;
 import com.reactnativenavigation.params.StyleParams;
 import com.reactnativenavigation.utils.ViewUtils;
-import com.reactnativenavigation.views.utils.Point;
-
-import static android.R.attr.y;
 
 public class CollapsingTextView extends FrameLayout {
     private static final float TEXT_SCALE_FACTOR = 1.75f;

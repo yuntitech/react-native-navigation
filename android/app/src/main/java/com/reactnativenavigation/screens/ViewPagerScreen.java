@@ -1,9 +1,9 @@
 package com.reactnativenavigation.screens;
 
 import android.content.Context;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.tabs.TabLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.reactnativenavigation.params.BaseScreenParams;
 import com.reactnativenavigation.params.FabParams;

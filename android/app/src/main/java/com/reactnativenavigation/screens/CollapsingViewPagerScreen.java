@@ -2,8 +2,10 @@ package com.reactnativenavigation.screens;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 

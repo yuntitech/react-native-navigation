@@ -1,7 +1,6 @@
 package com.reactnativenavigation.views;
 
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
 
 import com.reactnativenavigation.events.Event;
 import com.reactnativenavigation.events.EventBus;
@@ -14,6 +13,8 @@ import com.reactnativenavigation.params.SnackbarParams;
 import com.reactnativenavigation.screens.Screen;
 
 import java.util.EmptyStackException;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 public class SnackbarAndFabContainer extends CoordinatorLayout implements Snakbar.OnDismissListener, Subscriber{
     private Snakbar snakbar;

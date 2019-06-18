@@ -11,7 +11,6 @@ public class BaseScreenParams {
     public String title;
     public String subtitle;
     public Drawable tabIcon;
-    public Drawable tabSelectedIcon;
     public NavigationParams navigationParams;
     public List<TitleBarButtonParams> rightButtons;
     public TitleBarLeftButtonParams leftButton;
