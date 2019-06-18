@@ -50,10 +50,12 @@ dependencies {
     // node_modules
     compile "com.facebook.react:react-native:+"
 
+    compile 'com.google.android.material:material:1.0.0'
+    compile 'androidx.appcompat:appcompat:1.0.2'
+
     // third party
     compile "com.yunti.aurelhubert:ahbottomnavigation:2.0.6.6"
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.4'
-    compile 'androidx.appcompat:appcompat:1.0.2'
 
     // tests
     testCompile "junit:junit:4.12"
