@@ -525,6 +525,12 @@
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+  // 这里必须要调用super，不调用super其它地方将获取不到app显示尺寸变化的事件；
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator]; 
+  // iPad在前后台切换的时候也会触发该方法，iPhone则不会，用下面代码控制；
+  if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+    return;
+  }
   if (!self.emitter) {
     self.emitter = [[RCCEventEmitter alloc] init];
   }
