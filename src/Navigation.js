@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import React from "react";
-import { AppRegistry, View, Text } from "react-native";
+import { AppRegistry, DeviceEventEmitter, View, Text } from "react-native";
 import platformSpecific from "./deprecated/platformSpecificDeprecated";
 import { Screen } from "./Screen";
 
