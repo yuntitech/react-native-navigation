@@ -58,16 +58,15 @@ function _registerComponentNoRedux(screenID, generator) {
             ...PropRegistry.load(props.screenInstanceID || props.passPropsKey)
           }
         };
-        this.navigator &&
-          this.navigator.addOnNavigatorEvent(event => {
-            DeviceEventEmitter.emit(EVENT_NOTIFICATION, {
-              event: event,
-              screenInstanceID:
-                this.props.screenInstanceID || this.props.passPropsKey,
-              screenID: screenID,
-              props: this.state.internalProps
-            });
+        this.navigator.addOnNavigatorEvent(event => {
+          DeviceEventEmitter.emit(EVENT_NOTIFICATION, {
+            event: event,
+            screenInstanceID:
+              this.props.screenInstanceID || this.props.passPropsKey,
+            screenID: screenID,
+            props: this.state.internalProps
           });
+        });
       }
 
       componentWillReceiveProps(nextProps) {
@@ -119,16 +118,15 @@ function _registerComponentRedux(
             ...PropRegistry.load(props.screenInstanceID || props.passPropsKey)
           }
         };
-        this.navigator &&
-          this.navigator.addOnNavigatorEvent(event => {
-            DeviceEventEmitter.emit(EVENT_NOTIFICATION, {
-              event: event,
-              screenInstanceID:
-                this.props.screenInstanceID || this.props.passPropsKey,
-              screenID: screenID,
-              props: this.state.internalProps
-            });
+        this.navigator.addOnNavigatorEvent(event => {
+          DeviceEventEmitter.emit(EVENT_NOTIFICATION, {
+            event: event,
+            screenInstanceID:
+              this.props.screenInstanceID || this.props.passPropsKey,
+            screenID: screenID,
+            props: this.state.internalProps
           });
+        });
       }
 
       componentWillReceiveProps(nextProps) {
