@@ -204,8 +204,8 @@ public class NavigationReactModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void showLightBox(final ReadableMap params) {
-        LightBoxParams lbp = new LightBoxParamsParser(BundleConverter.toBundle(params)).parse();
-        NavigationCommandsHandler.showLightBox(lbp);
+        //LightBoxParams lbp = new LightBoxParamsParser(BundleConverter.toBundle(params)).parse();
+        NavigationCommandsHandler.showLightBox(BundleConverter.toBundle(params));
     }
 
     @ReactMethod
