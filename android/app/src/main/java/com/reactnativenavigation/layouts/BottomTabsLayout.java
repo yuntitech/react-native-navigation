@@ -1,6 +1,7 @@
 package com.reactnativenavigation.layouts;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -289,7 +290,8 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
     @Override
     public void showLightBox(LightBoxParams params) {
         if (lightBox == null) {
-            lightBox = new LightBox(getActivity(), new Runnable() {
+            Activity topActivity = NavigationApplication.instance.getTopActivity();
+            lightBox = new LightBox(topActivity != null ? topActivity : getActivity(), new Runnable() {
                 @Override
                 public void run() {
                     lightBox = null;

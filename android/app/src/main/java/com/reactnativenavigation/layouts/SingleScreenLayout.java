@@ -1,5 +1,6 @@
 package com.reactnativenavigation.layouts;
 
+import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -254,7 +255,8 @@ public class SingleScreenLayout extends BaseLayout {
     @Override
     public void showLightBox(LightBoxParams params) {
         if (lightBox == null) {
-            lightBox = new LightBox(getActivity(), new Runnable() {
+            Activity topActivity = NavigationApplication.instance.getTopActivity();
+            lightBox = new LightBox(topActivity != null ? topActivity : getActivity(), new Runnable() {
                 @Override
                 public void run() {
                     lightBox = null;

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,7 +33,7 @@ public class LightBox extends Dialog implements DialogInterface.OnDismissListene
     private RelativeLayout lightBox;
     private boolean cancelable;
 
-    public LightBox(AppCompatActivity activity, Runnable onDismissListener, LightBoxParams params) {
+    public LightBox(Activity activity, Runnable onDismissListener, LightBoxParams params) {
         super(activity, R.style.LightBox);
         this.onDismissListener = onDismissListener;
         this.cancelable = !params.overrideBackPress;

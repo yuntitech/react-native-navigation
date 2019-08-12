@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,6 +53,7 @@ import java.util.List;
 
 public class NavigationActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler, Subscriber, PermissionAwareActivity {
 
+    public static final String NAME = "NavigationActivity";
     /**
      * Although we start multiple activities, we make sure to pass Intent.CLEAR_TASK | Intent.NEW_TASK
      * So that we actually have only 1 instance of the activity running at one time.
@@ -69,6 +71,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     @Nullable
     private PermissionListener mPermissionListener;
     private NavigationBroadcastReceiver receiver;
+    private MyBroadcastReceiver mBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,9 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         createModalController();
         createLayout();
         NavigationApplication.instance.getActivityCallbacks().onActivityCreated(this, savedInstanceState);
+        mBroadcastReceiver = new MyBroadcastReceiver();
+        LocalBroadcastManager.getInstance(NavigationApplication.instance)
+                .registerReceiver(mBroadcastReceiver, new IntentFilter(NAME));
     }
 
     private void setOrientation() {
@@ -183,6 +189,10 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     protected void onDestroy() {
         if (receiver != null) {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        }
+        if (mBroadcastReceiver != null) {
+            LocalBroadcastManager.getInstance(NavigationApplication.instance)
+                    .unregisterReceiver(mBroadcastReceiver);
         }
         destroyLayouts();
         destroyJsIfNeeded();
@@ -539,5 +549,25 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
 
     public boolean isLoadingScreen() {
         return "cn.bookln.InitialScreen".equals(getScreenId());
+    }
+
+    private class MyBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (NAME.equals(intent.getAction()) && intent.getStringExtra("action") != null) {
+                String action = intent.getStringExtra("action");
+                switch (action) {
+                    case "showLightBox":
+                        LightBoxParams lbp = new LightBoxParamsParser(intent.getExtras()).parse();
+                        showLightBox(lbp);
+                        break;
+                    case "dismissLightBox":
+                        dismissLightBox();
+                        break;
+                }
+
+            }
+        }
     }
 }

@@ -1,9 +1,11 @@
 package com.reactnativenavigation;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 
@@ -133,4 +135,8 @@ public abstract class NavigationApplication extends Application implements React
 
     @Nullable
     public abstract List<ReactPackage> createAdditionalReactPackages();
+
+    public Activity getTopActivity() {
+        return null;
+    }
 }

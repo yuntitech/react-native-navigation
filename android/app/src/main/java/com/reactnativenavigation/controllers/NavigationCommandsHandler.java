@@ -3,6 +3,8 @@ package com.reactnativenavigation.controllers;
 import android.content.*;
 import android.os.*;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.facebook.react.bridge.*;
 import com.reactnativenavigation.*;
 import com.reactnativenavigation.params.*;
@@ -161,32 +163,39 @@ public class NavigationCommandsHandler {
         });
     }
 
-    public static void showLightBox(final LightBoxParams params) {
-        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
-        if (currentActivity == null) {
-            return;
-        }
-
-        NavigationApplication.instance.runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                currentActivity.showLightBox(params);
-            }
-        });
+    public static void showLightBox(Bundle params) {
+//        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
+//        if (currentActivity == null) {
+//            return;
+//        }
+//
+//        NavigationApplication.instance.runOnMainThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                currentActivity.showLightBox(params);
+//            }
+//        });
+        Intent intent = new Intent(NavigationActivity.NAME);
+        intent.putExtra("action", "showLightBox");
+        intent.putExtras(params);
+        LocalBroadcastManager.getInstance(NavigationApplication.instance).sendBroadcast(intent);
     }
 
     public static void dismissLightBox() {
-        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
-        if (currentActivity == null) {
-            return;
-        }
-
-        NavigationApplication.instance.runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                currentActivity.dismissLightBox();
-            }
-        });
+//        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
+//        if (currentActivity == null) {
+//            return;
+//        }
+//
+//        NavigationApplication.instance.runOnMainThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                currentActivity.dismissLightBox();
+//            }
+//        });
+        Intent intent = new Intent(NavigationActivity.NAME);
+        intent.putExtra("action", "dismissLightBox");
+        LocalBroadcastManager.getInstance(NavigationApplication.instance).sendBroadcast(intent);
     }
 
     public static void setScreenTitleBarRightButtons(final String screenInstanceId,
