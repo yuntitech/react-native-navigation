@@ -1,15 +1,15 @@
 package com.reactnativenavigation.layouts;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
 import android.widget.RelativeLayout;
 
 public abstract class BaseLayout extends RelativeLayout implements Layout {
 
-    public BaseLayout(AppCompatActivity activity) {
+    public BaseLayout(Activity activity) {
         super(activity);
     }
 
-    protected AppCompatActivity getActivity() {
-        return (AppCompatActivity) getContext();
+    protected Activity getActivity() {
+        return (Activity) getContext();
     }
 }

@@ -220,7 +220,8 @@ public class NavigationReactModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void dismissTopModal(final ReadableMap params) {
-        NavigationCommandsHandler.dismissTopModal(ScreenParamsParser.parse(BundleConverter.toBundle(params)));
+//        NavigationCommandsHandler.dismissTopModal(ScreenParamsParser.parse(BundleConverter.toBundle(params)));
+        NavigationCommandsHandler.dismissTopModal(BundleConverter.toBundle(params));
     }
 
     @ReactMethod

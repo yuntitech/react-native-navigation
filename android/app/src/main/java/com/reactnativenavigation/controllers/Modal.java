@@ -1,11 +1,13 @@
 package com.reactnativenavigation.controllers;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,7 +36,7 @@ import java.util.List;
 
 class Modal extends Dialog implements DialogInterface.OnDismissListener, ScreenStackContainer {
 
-    private final AppCompatActivity activity;
+    private final Activity activity;
     private final OnModalDismissedListener onModalDismissedListener;
     private final ScreenParams screenParams;
     private Layout layout;
@@ -115,7 +117,7 @@ class Modal extends Dialog implements DialogInterface.OnDismissListener, ScreenS
         void onModalDismissed(Modal modal);
     }
 
-    Modal(AppCompatActivity activity, OnModalDismissedListener onModalDismissedListener, ScreenParams screenParams) {
+    Modal(Activity activity, OnModalDismissedListener onModalDismissedListener, ScreenParams screenParams) {
         super(activity, R.style.Modal);
         this.activity = activity;
         this.onModalDismissedListener = onModalDismissedListener;
@@ -143,7 +145,7 @@ class Modal extends Dialog implements DialogInterface.OnDismissListener, ScreenS
         NavigationBar.setColor(getWindow(), styleParams.navigationBarColor);
     }
 
-    public AppCompatActivity getActivity() {
+    public Activity getActivity() {
         return activity;
     }
 

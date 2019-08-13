@@ -1,9 +1,9 @@
 package com.reactnativenavigation.screens;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.MotionEvent;
@@ -33,7 +33,7 @@ import com.reactnativenavigation.views.collapsingToolbar.behaviours.CollapseBeha
 
 @SuppressLint("ViewConstructor")
 public class CollapsingViewPagerScreen extends ViewPagerScreen {
-    public CollapsingViewPagerScreen(AppCompatActivity activity, ScreenParams screenParams, LeftButtonOnClickListener backButtonListener) {
+    public CollapsingViewPagerScreen(Activity activity, ScreenParams screenParams, LeftButtonOnClickListener backButtonListener) {
         super(activity, screenParams, backButtonListener);
     }
 

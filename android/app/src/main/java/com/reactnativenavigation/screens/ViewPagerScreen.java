@@ -1,8 +1,8 @@
 package com.reactnativenavigation.screens;
 
+import android.app.Activity;
 import android.content.Context;
 import com.google.android.material.tabs.TabLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.reactnativenavigation.params.BaseScreenParams;
@@ -25,7 +25,7 @@ public class ViewPagerScreen extends Screen {
     protected List<ContentView> contentViews;
     protected ViewPager viewPager;
 
-    public ViewPagerScreen(AppCompatActivity activity, ScreenParams screenParams, LeftButtonOnClickListener backButtonListener) {
+    public ViewPagerScreen(Activity activity, ScreenParams screenParams, LeftButtonOnClickListener backButtonListener) {
         super(activity, screenParams, backButtonListener);
     }
 

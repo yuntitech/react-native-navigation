@@ -1,8 +1,10 @@
 package com.reactnativenavigation.screens;
 
+import android.app.Activity;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -31,7 +33,7 @@ public class ScreenStack {
         void onScreenPopAnimationEnd();
     }
 
-    private final AppCompatActivity activity;
+    private final Activity activity;
     private RelativeLayout parent;
     private LeftButtonOnClickListener leftButtonOnClickListener;
     private Stack<Screen> stack = new Stack<>();
@@ -43,7 +45,7 @@ public class ScreenStack {
         return navigatorId;
     }
 
-    public ScreenStack(AppCompatActivity activity,
+    public ScreenStack(Activity activity,
                        RelativeLayout parent,
                        String navigatorId,
                        LeftButtonOnClickListener leftButtonOnClickListener) {

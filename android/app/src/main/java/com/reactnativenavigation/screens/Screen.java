@@ -1,8 +1,9 @@
 package com.reactnativenavigation.screens;
 
 import android.animation.LayoutTransition;
+import android.app.Activity;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.RelativeLayout;
 
 import com.facebook.react.bridge.Callback;
@@ -43,7 +44,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
         void onDisplay();
     }
 
-    protected final AppCompatActivity activity;
+    protected final Activity activity;
     protected final ScreenParams screenParams;
     protected TopBar topBar;
     private final LeftButtonOnClickListener leftButtonOnClickListener;
@@ -51,7 +52,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     protected StyleParams styleParams;
     public final SharedElements sharedElements;
 
-    public Screen(AppCompatActivity activity, ScreenParams screenParams, LeftButtonOnClickListener leftButtonOnClickListener) {
+    public Screen(Activity activity, ScreenParams screenParams, LeftButtonOnClickListener leftButtonOnClickListener) {
         super(activity);
         this.activity = activity;
         this.screenParams = screenParams;
@@ -74,7 +75,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
             topBar.onContextualMenuHidden();
             setStyle();
         }
-        if (ViewPagerScreenChangedEvent.TYPE.equals(event.getType()) && isShown() ) {
+        if (ViewPagerScreenChangedEvent.TYPE.equals(event.getType()) && isShown()) {
             topBar.dismissContextualMenu();
             topBar.onViewPagerScreenChanged(getScreenParams());
         }
@@ -162,11 +163,15 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     private void setStatusBarColor(StyleParams.Color statusBarColor) {
-        StatusBar.setColor(((NavigationActivity) activity).getScreenWindow(), statusBarColor);
+        if (activity instanceof NavigationActivity) {
+            StatusBar.setColor(((NavigationActivity) activity).getScreenWindow(), statusBarColor);
+        }
     }
 
     private void setStatusBarHidden(boolean statusBarHidden) {
-        StatusBar.setHidden(((NavigationActivity) activity).getScreenWindow(), statusBarHidden);
+        if (activity instanceof NavigationActivity) {
+            StatusBar.setHidden(((NavigationActivity) activity).getScreenWindow(), statusBarHidden);
+        }
     }
 
     private void setDrawUnderStatusBar(boolean drawUnderStatusBar) {
@@ -178,7 +183,9 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     public void setNavigationBarColor(StyleParams.Color navigationBarColor) {
-        NavigationBar.setColor(((NavigationActivity) activity).getScreenWindow(), navigationBarColor);
+        if (activity instanceof NavigationActivity) {
+            NavigationBar.setColor(((NavigationActivity) activity).getScreenWindow(), navigationBarColor);
+        }
     }
 
     public abstract void unmountReactView();
@@ -209,7 +216,7 @@ public abstract class Screen extends RelativeLayout implements Subscriber {
     }
 
     public void setTitleBarTitle(String title) {
-       topBar.setTitle(title, styleParams);
+        topBar.setTitle(title, styleParams);
     }
 
     public void setTitleBarSubtitle(String subtitle) {

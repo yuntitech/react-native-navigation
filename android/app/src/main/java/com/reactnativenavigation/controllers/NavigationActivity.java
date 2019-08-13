@@ -42,6 +42,7 @@ import com.reactnativenavigation.params.SlidingOverlayParams;
 import com.reactnativenavigation.params.SnackbarParams;
 import com.reactnativenavigation.params.TitleBarButtonParams;
 import com.reactnativenavigation.params.TitleBarLeftButtonParams;
+import com.reactnativenavigation.params.parsers.ScreenParamsParser;
 import com.reactnativenavigation.react.ReactGateway;
 import com.reactnativenavigation.screens.NavigationType;
 import com.reactnativenavigation.screens.Screen;
@@ -49,6 +50,7 @@ import com.reactnativenavigation.utils.OrientationHelper;
 import com.reactnativenavigation.utils.ReflectionUtils;
 import com.reactnativenavigation.views.SideMenu.Side;
 import com.reactnativenavigation.params.parsers.LightBoxParamsParser;
+
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -561,6 +563,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         public void onReceive(Context context, Intent intent) {
             if (NAME.equals(intent.getAction()) && intent.getStringExtra("action") != null) {
                 String action = intent.getStringExtra("action");
+                Bundle params;
                 switch (action) {
                     case "showLightBox":
                         LightBoxParams lbp = new LightBoxParamsParser(intent.getExtras()).parse();
@@ -568,6 +571,21 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
                         break;
                     case "dismissLightBox":
                         dismissLightBox();
+                        break;
+                    case "showModal":
+                        params = intent.getExtras();
+                        if (params != null) {
+                            showModal(ScreenParamsParser.parse(params));
+                        }
+                        break;
+                    case "dismissTopModal":
+                        params = intent.getExtras();
+                        if (params != null) {
+                            dismissTopModal(ScreenParamsParser.parse(params));
+                        }
+                        break;
+                    case "dismissAllModals":
+                        dismissAllModals();
                         break;
                 }
 

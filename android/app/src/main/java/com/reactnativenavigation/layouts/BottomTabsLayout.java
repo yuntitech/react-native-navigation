@@ -3,9 +3,9 @@ package com.reactnativenavigation.layouts;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.util.Log;
@@ -66,7 +66,7 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
     private int currentStackIndex = 0;
     private LightBox lightBox;
 
-    public BottomTabsLayout(AppCompatActivity activity, ActivityParams params) {
+    public BottomTabsLayout(Activity activity, ActivityParams params) {
         super(activity);
         this.params = params;
         leftSideMenuParams = params.leftSideMenuParams;
@@ -367,7 +367,7 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
 
     private boolean hasBackgroundColor(StyleParams params) {
         return params.screenBackgroundColor != null &&
-            params.screenBackgroundColor.hasColor();
+                params.screenBackgroundColor.hasColor();
     }
 
     private void setStyleFromScreen(StyleParams params) {
@@ -398,7 +398,7 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
         performOnStack(params.getNavigatorId(), new Task<ScreenStack>() {
             @Override
             public void run(ScreenStack stack) {
-            stack.pop(params.animateScreenTransitions, params.timestamp, new ScreenStack.OnScreenPop() {
+                stack.pop(params.animateScreenTransitions, params.timestamp, new ScreenStack.OnScreenPop() {
                     @Override
                     public void onScreenPopAnimationEnd() {
                         setBottomTabsStyleFromCurrentScreen();
@@ -462,12 +462,12 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
         } catch (ScreenStackNotFoundException e) {
             if (onPushComplete != null) {
                 onPushComplete.reject("Navigation", "Could not perform action on stack [" + navigatorId + "]." +
-                                                    "This should not have happened, it probably means a navigator action" +
-                                                    "was called from an unmounted tab.");
+                        "This should not have happened, it probably means a navigator action" +
+                        "was called from an unmounted tab.");
             }
             Log.e("Navigation", "Could not perform action on stack [" + navigatorId + "]." +
-                                "This should not have happened, it probably means a navigator action" +
-                                "was called from an unmounted tab.");
+                    "This should not have happened, it probably means a navigator action" +
+                    "was called from an unmounted tab.");
         }
     }
 

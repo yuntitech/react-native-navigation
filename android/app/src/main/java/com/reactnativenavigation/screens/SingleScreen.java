@@ -1,6 +1,6 @@
 package com.reactnativenavigation.screens;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
 
 import com.reactnativenavigation.params.ScreenParams;
 import com.reactnativenavigation.views.ContentView;
@@ -11,7 +11,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 public class SingleScreen extends Screen {
     protected ContentView contentView;
 
-    public SingleScreen(AppCompatActivity activity, ScreenParams screenParams,
+    public SingleScreen(Activity activity, ScreenParams screenParams,
                         LeftButtonOnClickListener titleBarBarBackButtonListener) {
         super(activity, screenParams, titleBarBarBackButtonListener);
     }

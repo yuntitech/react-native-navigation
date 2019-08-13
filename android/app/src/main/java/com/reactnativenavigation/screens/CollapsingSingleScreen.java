@@ -1,6 +1,6 @@
 package com.reactnativenavigation.screens;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
@@ -21,7 +21,7 @@ import com.reactnativenavigation.views.collapsingToolbar.behaviours.CollapseBeha
 
 public class CollapsingSingleScreen extends SingleScreen {
 
-    public CollapsingSingleScreen(AppCompatActivity activity, ScreenParams screenParams, LeftButtonOnClickListener titleBarBarBackButtonListener) {
+    public CollapsingSingleScreen(Activity activity, ScreenParams screenParams, LeftButtonOnClickListener titleBarBarBackButtonListener) {
         super(activity, screenParams, titleBarBarBackButtonListener);
     }
 

@@ -1,12 +1,13 @@
 package com.reactnativenavigation.layouts;
 
-import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.util.Log;
 
 import com.reactnativenavigation.params.ActivityParams;
 
 public class LayoutFactory {
-    public static Layout create(AppCompatActivity activity, ActivityParams params) {
+    public static Layout create(Activity activity, ActivityParams params) {
         switch (params.type) {
             case TabBased:
                 return createBottomTabsScreenLayout(activity, params);
@@ -16,11 +17,11 @@ public class LayoutFactory {
         }
     }
 
-    private static Layout createSingleScreenLayout(AppCompatActivity activity, ActivityParams params) {
+    private static Layout createSingleScreenLayout(Activity activity, ActivityParams params) {
         return new SingleScreenLayout(activity, params.leftSideMenuParams, params.rightSideMenuParams, params.screenParams);
     }
 
-    private static Layout createBottomTabsScreenLayout(AppCompatActivity activity, ActivityParams params) {
+    private static Layout createBottomTabsScreenLayout(Activity activity, ActivityParams params) {
         if (params.tabParams.size() > 5) {
             removeAllButTheFirst5Tabs(params);
         }

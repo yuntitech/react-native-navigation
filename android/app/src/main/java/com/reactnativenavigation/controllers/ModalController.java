@@ -1,7 +1,7 @@
 package com.reactnativenavigation.controllers;
 
+import android.app.Activity;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.Window;
 
 import com.facebook.react.bridge.Callback;
@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Stack;
 
 class ModalController implements ScreenStackContainer, Modal.OnModalDismissedListener {
-    private final AppCompatActivity activity;
+    private final Activity activity;
     private Stack<Modal> stack = new Stack<>();
 
-    ModalController(AppCompatActivity activity) {
+    ModalController(Activity activity) {
         this.activity = activity;
     }
 

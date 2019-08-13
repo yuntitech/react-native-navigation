@@ -1,11 +1,14 @@
 package com.reactnativenavigation.screens;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.FrameLayout;
 
 import com.reactnativenavigation.R;
@@ -27,7 +30,7 @@ public class FragmentScreen extends Screen {
     private FrameLayout content;
     private ContentView contentView;
 
-    public FragmentScreen(AppCompatActivity activity, ScreenParams screenParams, LeftButtonOnClickListener leftButtonOnClickListener) {
+    public FragmentScreen(Activity activity, ScreenParams screenParams, LeftButtonOnClickListener leftButtonOnClickListener) {
         super(activity, screenParams, leftButtonOnClickListener);
     }
 
@@ -84,10 +87,12 @@ public class FragmentScreen extends Screen {
     }
 
     private void addSupportFragment(androidx.fragment.app.Fragment supportFragment) {
-        androidx.fragment.app.FragmentManager fm = activity.getSupportFragmentManager();
-        androidx.fragment.app.FragmentTransaction transaction = fm.beginTransaction();
-        transaction.add(R.id.fragment_screen_content, supportFragment);
-        transaction.commitAllowingStateLoss();
+        if (activity instanceof AppCompatActivity) {
+            androidx.fragment.app.FragmentManager fm = ((AppCompatActivity) activity).getSupportFragmentManager();
+            androidx.fragment.app.FragmentTransaction transaction = fm.beginTransaction();
+            transaction.add(R.id.fragment_screen_content, supportFragment);
+            transaction.commitAllowingStateLoss();
+        }
     }
 
     @Nullable

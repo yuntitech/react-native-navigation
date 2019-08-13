@@ -2,8 +2,9 @@ package com.reactnativenavigation.layouts;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -44,11 +45,12 @@ public class SingleScreenLayout extends BaseLayout {
     protected ScreenStack stack;
     private SnackbarAndFabContainer snackbarAndFabContainer;
     protected LeftButtonOnClickListener leftButtonOnClickListener;
-    private @Nullable SideMenu sideMenu;
+    private @Nullable
+    SideMenu sideMenu;
     private final SlidingOverlaysQueue slidingOverlaysQueue = new SlidingOverlaysQueue();
     private LightBox lightBox;
 
-    public SingleScreenLayout(AppCompatActivity activity, SideMenuParams leftSideMenuParams,
+    public SingleScreenLayout(Activity activity, SideMenuParams leftSideMenuParams,
                               SideMenuParams rightSideMenuParams, ScreenParams screenParams) {
         super(activity);
         this.screenParams = screenParams;

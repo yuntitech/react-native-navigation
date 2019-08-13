@@ -150,17 +150,21 @@ public class NavigationCommandsHandler {
     }
 
     public static void showModal(final Bundle params) {
-        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
-        if (currentActivity == null) {
-            return;
-        }
-
-        NavigationApplication.instance.runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                currentActivity.showModal(ScreenParamsParser.parse(params));
-            }
-        });
+//        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
+//        if (currentActivity == null) {
+//            return;
+//        }
+//
+//        NavigationApplication.instance.runOnMainThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                currentActivity.showModal(ScreenParamsParser.parse(params));
+//            }
+//        });
+        Intent intent = new Intent(NavigationActivity.NAME);
+        intent.putExtra("action", "showModal");
+        intent.putExtras(params);
+        LocalBroadcastManager.getInstance(NavigationApplication.instance).sendBroadcast(intent);
     }
 
     public static void showLightBox(Bundle params) {
@@ -256,32 +260,39 @@ public class NavigationCommandsHandler {
         });
     }
 
-    public static void dismissTopModal(final ScreenParams params) {
-        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
-        if (currentActivity == null) {
-            return;
-        }
-
-        NavigationApplication.instance.runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                currentActivity.dismissTopModal(params);
-            }
-        });
+    public static void dismissTopModal(final Bundle params) {
+//        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
+//        if (currentActivity == null) {
+//            return;
+//        }
+//
+//        NavigationApplication.instance.runOnMainThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                currentActivity.dismissTopModal(params);
+//            }
+//        });
+        Intent intent = new Intent(NavigationActivity.NAME);
+        intent.putExtra("action", "dismissTopModal");
+        intent.putExtras(params);
+        LocalBroadcastManager.getInstance(NavigationApplication.instance).sendBroadcast(intent);
     }
 
     public static void dismissAllModals() {
-        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
-        if (currentActivity == null) {
-            return;
-        }
-
-        NavigationApplication.instance.runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                currentActivity.dismissAllModals();
-            }
-        });
+//        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
+//        if (currentActivity == null) {
+//            return;
+//        }
+//
+//        NavigationApplication.instance.runOnMainThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                currentActivity.dismissAllModals();
+//            }
+//        });
+        Intent intent = new Intent(NavigationActivity.NAME);
+        intent.putExtra("action", "dismissAllModals");
+        LocalBroadcastManager.getInstance(NavigationApplication.instance).sendBroadcast(intent);
     }
 
     public static void toggleSideMenuVisible(final boolean animated, final Side side) {

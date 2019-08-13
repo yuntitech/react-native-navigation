@@ -1,12 +1,12 @@
 package com.reactnativenavigation.screens;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
 
 import com.reactnativenavigation.params.ScreenParams;
 import com.reactnativenavigation.views.LeftButtonOnClickListener;
 
 class ScreenFactory {
-    static Screen create(AppCompatActivity activity,
+    static Screen create(Activity activity,
                          ScreenParams screenParams,
                          LeftButtonOnClickListener leftButtonOnClickListener) {
         if (screenParams.isFragmentScreen()) {
