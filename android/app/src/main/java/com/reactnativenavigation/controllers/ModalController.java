@@ -6,6 +6,7 @@ import android.view.Window;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
+import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.events.EventBus;
 import com.reactnativenavigation.events.ModalDismissedEvent;
 import com.reactnativenavigation.layouts.ScreenStackContainer;
@@ -37,7 +38,8 @@ class ModalController implements ScreenStackContainer, Modal.OnModalDismissedLis
     }
 
     void showModal(ScreenParams screenParams) {
-        Modal modal = new Modal(activity, this, screenParams);
+        Activity topActivity = NavigationApplication.instance.getTopActivity();
+        Modal modal = new Modal(topActivity != null ? topActivity : activity, this, screenParams);
         modal.show();
         stack.add(modal);
     }
