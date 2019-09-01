@@ -30,7 +30,7 @@ public class ScreenParamsParser extends Parser {
         ScreenParams result = new ScreenParams();
         result.screenId = params.getString(KEY_SCREEN_ID);
         try {
-            result.timestamp = params.getDouble(KEY_TIMESTAMP);
+            result.timestamp = params.getInt(KEY_TIMESTAMP);
         } catch (Exception e) {
             //ignore
         }
