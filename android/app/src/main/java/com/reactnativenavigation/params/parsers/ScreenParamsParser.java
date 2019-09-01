@@ -9,10 +9,8 @@ import com.reactnativenavigation.params.PageParams;
 import com.reactnativenavigation.params.ScreenParams;
 import com.reactnativenavigation.react.ImageLoader;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ScreenParamsParser extends Parser {
     private static final String KEY_TITLE = "title";
@@ -31,23 +29,11 @@ public class ScreenParamsParser extends Parser {
     public static ScreenParams parse(Bundle params) {
         ScreenParams result = new ScreenParams();
         result.screenId = params.getString(KEY_SCREEN_ID);
-        //
         try {
-            Field field = params.getClass().getDeclaredField("mMap");
-            field.setAccessible(true);
-            Map<String, Object> map = (Map<String, Object>) field.get(params);
-            Object val = map.get(KEY_TIMESTAMP);
-            if (val != null) {
-                if (val instanceof Double) {
-                    result.timestamp = params.getDouble(KEY_TIMESTAMP);
-                } else if (val instanceof Integer) {
-                    result.timestamp = params.getInt(KEY_TIMESTAMP);
-                }
-            }
+            result.timestamp = params.getDouble(KEY_TIMESTAMP);
         } catch (Exception e) {
-            e.printStackTrace();
+            //ignore
         }
-        //
         assertKeyExists(params, KEY_NAVIGATION_PARAMS);
         result.navigationParams = new NavigationParams(params.getBundle(KEY_NAVIGATION_PARAMS));
 
