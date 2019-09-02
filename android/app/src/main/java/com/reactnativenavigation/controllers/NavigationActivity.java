@@ -587,6 +587,12 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
                     case "dismissAllModals":
                         dismissAllModals();
                         break;
+                    case "pop":
+                        params = intent.getExtras();
+                        if (params != null) {
+                            pop(ScreenParamsParser.parse(params));
+                        }
+                        break;
                 }
 
             }

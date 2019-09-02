@@ -49,18 +49,20 @@ public class NavigationCommandsHandler {
     }
 
     public static void pop(Bundle screenParams) {
-        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
-        if (currentActivity == null) {
-            return;
-        }
-
-        final ScreenParams params = ScreenParamsParser.parse(screenParams);
-        NavigationApplication.instance.runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                currentActivity.pop(params);
-            }
-        });
+        //final NavigationActivity currentActivity = NavigationActivity.currentActivity;
+        //if (currentActivity == null) {
+        //  return;
+        //}
+        //NavigationApplication.instance.runOnMainThread(new Runnable() {
+        //@Override
+        //public void run() {
+        //  currentActivity.pop(params);
+        Intent intent = new Intent(NavigationActivity.NAME);
+        intent.putExtra("action", "pop");
+        intent.putExtras(screenParams);
+        LocalBroadcastManager.getInstance(NavigationApplication.instance).sendBroadcast(intent);
+        // }
+        //});
     }
 
     public static void popToRoot(Bundle screenParams) {
