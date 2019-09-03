@@ -129,7 +129,7 @@ public class SingleScreenLayout extends BaseLayout {
             EventBus.instance.post(new ScreenChangedEvent(stack.peek().getScreenParams()));
             return true;
         } else {
-            return getCurrentScreenStack().canPopButWithoutAttach();
+            return stack.canPopButWithoutAttach();
         }
     }
 
