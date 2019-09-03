@@ -289,6 +289,10 @@ public class ScreenStack {
         return stack.size() > 1 && !isPreviousScreenAttachedToWindow();
     }
 
+    public boolean canPopButWithoutAttach() {
+        return stack.size() > 1;
+    }
+
     private boolean isPreviousScreenAttachedToWindow() {
         Screen previousScreen = stack.get(stack.size() - 2);
         if (previousScreen.getParent() != null) {
