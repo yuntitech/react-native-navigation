@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.PromiseImpl;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.modules.core.PermissionAwareActivity;
 import com.facebook.react.modules.core.PermissionListener;
@@ -593,9 +594,25 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
                             pop(ScreenParamsParser.parse(params));
                         }
                         break;
+                    case "push":
+                        params = intent.getExtras();
+                        if (params != null) {
+                            push(ScreenParamsParser.parse(params), createIgnorePromis());
+                        }
+                        break;
                 }
 
             }
         }
+    }
+
+    private Promise createIgnorePromis() {
+        Callback callback = new Callback() {
+            @Override
+            public void invoke(Object... args) {
+
+            }
+        };
+        return new PromiseImpl(callback, callback);
     }
 }

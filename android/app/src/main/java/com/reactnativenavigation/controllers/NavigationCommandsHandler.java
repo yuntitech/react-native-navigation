@@ -34,18 +34,10 @@ public class NavigationCommandsHandler {
     }
 
     public static void push(Bundle screenParams, final Promise onPushComplete) {
-        final NavigationActivity currentActivity = NavigationActivity.currentActivity;
-        if (currentActivity == null) {
-            return;
-        }
-
-        final ScreenParams params = ScreenParamsParser.parse(screenParams);
-        NavigationApplication.instance.runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                currentActivity.push(params, onPushComplete);
-            }
-        });
+        Intent intent = new Intent(NavigationActivity.NAME);
+        intent.putExtra("action", "push");
+        intent.putExtras(screenParams);
+        LocalBroadcastManager.getInstance(NavigationApplication.instance).sendBroadcast(intent);
     }
 
     public static void pop(Bundle screenParams) {
