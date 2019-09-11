@@ -167,6 +167,14 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         super.onNewIntent(intent);
         getReactGateway().onNewIntent(intent);
         NavigationApplication.instance.getActivityCallbacks().onNewIntent(intent);
+        if (NavigationApplication.instance.getReactGateway().hasStartedCreatingContext()) {
+            destroyLayouts();
+            activityParams = NavigationCommandsHandler.parseActivityParams(intent);
+            disableActivityShowAnimationIfNeeded();
+            setOrientation();
+            createModalController();
+            createLayout();
+        }
     }
 
     @Override
