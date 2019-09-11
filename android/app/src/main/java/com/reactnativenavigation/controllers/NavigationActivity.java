@@ -166,7 +166,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         boolean fromStartApp = intent != null
-        && intent.getBundleExtra(NavigationCommandsHandler.ACTIVITY_PARAMS_BUNDLE) != null;
+                && intent.getBundleExtra(NavigationCommandsHandler.ACTIVITY_PARAMS_BUNDLE) != null;
         if (fromStartApp) {
             getReactGateway().onNewIntent(intent);
             NavigationApplication.instance.getActivityCallbacks().onNewIntent(intent);
