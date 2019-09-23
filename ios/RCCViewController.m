@@ -481,6 +481,9 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
   if (tabBarHiddenBool) {
     UITabBar *tabBar = viewController.tabBarController.tabBar;
     tabBar.transform = CGAffineTransformMakeTranslation(0, tabBar.frame.size.height);
+  } else {
+    UITabBar *tabBar = viewController.tabBarController.tabBar;
+    tabBar.transform = CGAffineTransformMakeTranslation(0, 0);
   }
 
   NSNumber *navBarHidden = self.navigatorStyle[@"navBarHidden"];
