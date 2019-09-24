@@ -253,23 +253,23 @@
   return self;
 }
 
-- (void) repalceTabbarBg {
+- (void)repalceTabbarBg {
   BOOL isIpad = [ self getIsIpad];
   if (!isIpad) {
     [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, -4)];
   }
   
-  CGRect rect = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 0.5);
-  UIGraphicsBeginImageContext(rect.size);
-  CGContextRef context = UIGraphicsGetCurrentContext();
-  CGColorRef color = [[UIColor colorWithRed:(14.0 * 16/255) green:(14.0 * 16/255) blue:(14.0 * 16/255) alpha:1.0f] CGColor];;
-  CGContextSetFillColor(context, CGColorGetComponents(color));
-  CGContextFillRect(context, rect);
-  UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
+  // CGRect rect = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 0.5);
+  // UIGraphicsBeginImageContext(rect.size);
+  // CGContextRef context = UIGraphicsGetCurrentContext();
+  // CGColorRef color = [[UIColor colorWithRed:(14.0 * 16/255) green:(14.0 * 16/255) blue:(14.0 * 16/255) alpha:1.0f] CGColor];;
+  // CGContextSetFillColor(context, CGColorGetComponents(color));
+  // CGContextFillRect(context, rect);
+  // UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+  // UIGraphicsEndImageContext();
   
-  [[UITabBar appearance] setBackgroundImage:[UIImage new]];
-  [[UITabBar appearance] setShadowImage:img];
+  // [[UITabBar appearance] setBackgroundImage:[UIImage new]];
+  // [[UITabBar appearance] setShadowImage:img];
 }
 
 
