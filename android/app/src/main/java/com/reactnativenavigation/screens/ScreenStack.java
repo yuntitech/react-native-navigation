@@ -201,7 +201,9 @@ public class ScreenStack {
                 @Override
                 public void run() {
                     keyboardVisibilityDetector.setKeyboardCloseListener(null);
-                    popInternal(animated, jsPopTimestamp, onScreenPop);
+                    if (canPop()) {
+                        popInternal(animated, jsPopTimestamp, onScreenPop);
+                    }
                 }
             });
             keyboardVisibilityDetector.closeKeyboard();
@@ -258,7 +260,9 @@ public class ScreenStack {
                 @Override
                 public void run() {
                     keyboardVisibilityDetector.setKeyboardCloseListener(null);
-                    popToRootInternal(animated, jsPopTimestamp, onScreenPop);
+                    if (canPop()) {
+                        popToRootInternal(animated, jsPopTimestamp, onScreenPop);
+                    }
                 }
             });
             keyboardVisibilityDetector.closeKeyboard();
