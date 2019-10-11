@@ -20,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.R;
 import com.reactnativenavigation.params.LightBoxParams;
 import com.reactnativenavigation.utils.ViewUtils;
@@ -114,6 +115,7 @@ public class LightBox extends Dialog implements DialogInterface.OnDismissListene
     public void onBackPressed() {
         if (cancelable) {
             hide();
+            NavigationApplication.instance.getEventEmitter().sendEvent("onLightBoxBackPress");
         }
     }
 
