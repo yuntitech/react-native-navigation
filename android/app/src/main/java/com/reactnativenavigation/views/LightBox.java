@@ -115,8 +115,8 @@ public class LightBox extends Dialog implements DialogInterface.OnDismissListene
     public void onBackPressed() {
         if (cancelable) {
             hide();
-            NavigationApplication.instance.getEventEmitter().sendEvent("onLightBoxBackPress");
         }
+        NavigationApplication.instance.getEventEmitter().sendEvent("onLightBoxBackPress");
     }
 
     @Override
