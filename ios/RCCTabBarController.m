@@ -382,7 +382,9 @@
       if (icon && icon != (id)[NSNull null])
       {
         iconImage = [RCTConvert UIImage:icon];
+        /* 2019.12.11@zyxiao 修复测试bug“【书链APP-ios】tap底部图片未全部填充”，隐藏这一句就行；
         iconImage = [[self image:iconImage withColor:self.tabBar.tintColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+         */
         viewController.tabBarItem.image = iconImage;
       }
       
