@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ComponentProvider,View } from 'react-native';
-import merge from 'lodash/merge'
+import { ComponentProvider, View } from 'react-native';
+import merge from 'lodash/merge';
 import { polyfill } from 'react-lifecycles-compat';
 import hoistNonReactStatics = require('hoist-non-react-statics');
 
