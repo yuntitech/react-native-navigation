@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ComponentProvider } from 'react-native';
+import { ComponentProvider,View } from 'react-native';
 import merge from 'lodash/merge'
 import { polyfill } from 'react-lifecycles-compat';
 import hoistNonReactStatics = require('hoist-non-react-statics');
@@ -22,7 +22,8 @@ export class ComponentWrapper {
     componentEventsObserver: ComponentEventsObserver,
     concreteComponentProvider: ComponentProvider = OriginalComponentGenerator,
     ReduxProvider?: any,
-    reduxStore?: any
+    reduxStore?: any,
+    floatingView?: any
   ): React.ComponentClass<any> {
     const GeneratedComponentClass = OriginalComponentGenerator();
     class WrappedComponent extends React.Component<HocProps, HocState> {
@@ -69,15 +70,26 @@ export class ComponentWrapper {
 
     polyfill(WrappedComponent);
     hoistNonReactStatics(WrappedComponent, concreteComponentProvider());
-    return ReduxProvider ? this.wrapWithRedux(WrappedComponent, ReduxProvider, reduxStore) : WrappedComponent;
+    return ReduxProvider ? this.wrapWithRedux(WrappedComponent, ReduxProvider, reduxStore, floatingView) : WrappedComponent;
   }
 
-  wrapWithRedux(WrappedComponent: React.ComponentClass<any>, ReduxProvider: any, reduxStore: any): React.ComponentClass<any> {
+  wrapWithRedux(WrappedComponent: React.ComponentClass<any>, ReduxProvider: any, reduxStore: any, floatingView?: any): React.ComponentClass<any> {
+    const AudioPlayFloatingView = floatingView ? floatingView() : null;
     class ReduxWrapper extends React.Component<any, any> {
       render() {
         return (
           <ReduxProvider store={reduxStore}>
-            <WrappedComponent {...this.props} />
+            {floatingView ? (
+                <View style={{ flex: 1 }}>
+                  <WrappedComponent {...this.props} />
+                  <AudioPlayFloatingView
+                      {...this.props}
+                      screenID={this.props.componentId}
+                  />
+                </View>
+            ) : (
+                <WrappedComponent {...this.props} />
+            )}
           </ReduxProvider>
         );
       }

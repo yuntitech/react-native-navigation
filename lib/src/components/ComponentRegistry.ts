@@ -17,7 +17,8 @@ export class ComponentRegistry {
     componentProvider: ComponentProvider,
     concreteComponentProvider?: ComponentProvider,
     ReduxProvider?: any,
-    reduxStore?: any
+    reduxStore?: any,
+    floatingView?: any
   ): ComponentProvider {
     const NavigationComponent = () => {
       return this.componentWrapper.wrap(
@@ -27,7 +28,8 @@ export class ComponentRegistry {
         this.componentEventsObserver,
         concreteComponentProvider,
         ReduxProvider,
-        reduxStore
+        reduxStore,
+        floatingView
       );
     };
     this.store.setComponentClassForName(componentName.toString(), NavigationComponent);

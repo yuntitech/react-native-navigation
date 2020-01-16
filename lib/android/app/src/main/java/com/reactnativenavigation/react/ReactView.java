@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressLint("ViewConstructor")
-public class ReactView extends ReactRootView implements IReactView, Renderable {
+public class ReactView extends com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView implements IReactView, Renderable {
 
 	private final ReactInstanceManager reactInstanceManager;
 	private final String componentId;
