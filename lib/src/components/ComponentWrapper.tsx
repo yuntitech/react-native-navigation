@@ -7,7 +7,7 @@ import hoistNonReactStatics = require('hoist-non-react-statics');
 import { Store } from './Store';
 import { ComponentEventsObserver } from '../events/ComponentEventsObserver';
 
-interface HocState { componentId: string; allProps: {}; }
+interface HocState { componentId: string; allProps: { enableCustomLargeTitle?: boolean}; }
 interface HocProps { componentId: string; }
 
 export interface IWrappedComponent extends React.Component {
@@ -26,6 +26,7 @@ export class ComponentWrapper {
     floatingView?: any
   ): React.ComponentClass<any> {
     const GeneratedComponentClass = OriginalComponentGenerator();
+    const AudioPlayFloatingViewClass = floatingView ? floatingView() : null;
     class WrappedComponent extends React.Component<HocProps, HocState> {
       static getDerivedStateFromProps(nextProps: any, prevState: HocState) {
         return {
@@ -53,11 +54,23 @@ export class ComponentWrapper {
       }
 
       render() {
-        return (
-          <GeneratedComponentClass
-            {...this.state.allProps}
-            componentId={this.state.componentId}
-          />
+        return AudioPlayFloatingViewClass ? (
+            <View style={{ flex: 1 }}>
+              <GeneratedComponentClass
+                  {...this.state.allProps}
+                  componentId={this.state.componentId}
+              />
+              <AudioPlayFloatingViewClass
+                  {...this.props}
+                  screenID={this.props.componentId}
+                  customTitleBar={this.state.allProps.enableCustomLargeTitle}
+              />
+            </View>
+        ) : (
+            <GeneratedComponentClass
+                {...this.state.allProps}
+                componentId={this.state.componentId}
+            />
         );
       }
 
@@ -70,26 +83,15 @@ export class ComponentWrapper {
 
     polyfill(WrappedComponent);
     hoistNonReactStatics(WrappedComponent, concreteComponentProvider());
-    return ReduxProvider ? this.wrapWithRedux(WrappedComponent, ReduxProvider, reduxStore, floatingView) : WrappedComponent;
+    return ReduxProvider ? this.wrapWithRedux(WrappedComponent, ReduxProvider, reduxStore) : WrappedComponent;
   }
 
-  wrapWithRedux(WrappedComponent: React.ComponentClass<any>, ReduxProvider: any, reduxStore: any, floatingView?: any): React.ComponentClass<any> {
-    const AudioPlayFloatingView = floatingView ? floatingView() : null;
+  wrapWithRedux(WrappedComponent: React.ComponentClass<any>, ReduxProvider: any, reduxStore: any): React.ComponentClass<any> {
     class ReduxWrapper extends React.Component<any, any> {
       render() {
         return (
           <ReduxProvider store={reduxStore}>
-            {floatingView ? (
-                <View style={{ flex: 1 }}>
-                  <WrappedComponent {...this.props} />
-                  <AudioPlayFloatingView
-                      {...this.props}
-                      screenID={this.props.componentId}
-                  />
-                </View>
-            ) : (
-                <WrappedComponent {...this.props} />
-            )}
+            <WrappedComponent {...this.props} />
           </ReduxProvider>
         );
       }
