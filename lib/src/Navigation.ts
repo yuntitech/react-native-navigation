@@ -86,9 +86,10 @@ export class NavigationRoot {
     componentName: string | number,
     getComponentClassFunc: ComponentProvider,
     ReduxProvider: any,
-    reduxStore: any
+    reduxStore: any,
+    floatingView?: any
   ): ComponentProvider {
-    return this.componentRegistry.registerComponent(componentName, getComponentClassFunc, undefined, ReduxProvider, reduxStore);
+    return this.componentRegistry.registerComponent(componentName, getComponentClassFunc, undefined, ReduxProvider, reduxStore, floatingView);
   }
 
   /**
