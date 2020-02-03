@@ -1,12 +1,15 @@
 package com.reactnativenavigation.viewcontrollers.bottomtabs;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.parse.BottomTabOptions;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.presentation.BottomTabPresenter;
@@ -18,6 +21,7 @@ import com.reactnativenavigation.utils.ImageLoader;
 import com.reactnativenavigation.viewcontrollers.ChildControllersRegistry;
 import com.reactnativenavigation.viewcontrollers.ParentController;
 import com.reactnativenavigation.viewcontrollers.ViewController;
+import com.reactnativenavigation.viewcontrollers.stack.StackController;
 import com.reactnativenavigation.views.BottomTabs;
 import com.reactnativenavigation.views.bottomtabs.BottomTabsLayout;
 
@@ -42,6 +46,7 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
     private final BottomTabsAttacher tabsAttacher;
     private BottomTabsPresenter presenter;
     private BottomTabPresenter tabPresenter;
+    private long mExitTime;
 
     public BottomTabsController(Activity activity, List<ViewController> tabs, ChildControllersRegistry childRegistry, EventEmitter eventEmitter, ImageLoader imageLoader, String id, Options initialOptions, Presenter presenter, BottomTabsAttacher tabsAttacher, BottomTabsPresenter bottomTabsPresenter, BottomTabPresenter bottomTabPresenter) {
 		super(activity, childRegistry, id, presenter, initialOptions);
@@ -127,9 +132,21 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
     }
 
     @Override
-	public boolean handleBack(CommandListener listener) {
-		return !tabs.isEmpty() && tabs.get(bottomTabs.getCurrentItem()).handleBack(listener);
-	}
+    public boolean handleBack(CommandListener listener) {
+        //TAB页返回
+        StackController stackController = (StackController) getCurrentChild();
+        if (stackController != null
+                && view != null
+                && stackController.size() == 1
+                && Configuration.ORIENTATION_PORTRAIT == view.getResources().getConfiguration().orientation
+        ) {
+            if (System.currentTimeMillis() - mExitTime > 2000L) {
+                showExitTips();
+                return true;
+            }
+        }
+        return !tabs.isEmpty() && tabs.get(bottomTabs.getCurrentItem()).handleBack(listener);
+    }
 
     @Override
     public void sendOnNavigationButtonPressed(String buttonId) {
@@ -211,5 +228,13 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
     @RestrictTo(RestrictTo.Scope.TESTS)
     public BottomTabs getBottomTabs() {
         return bottomTabs;
+    }
+
+    private void showExitTips() {
+        Toast toast = Toast.makeText(NavigationApplication.instance,
+                "再按一次退出程序", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+        toast.show();
+        mExitTime = System.currentTimeMillis();
     }
 }
