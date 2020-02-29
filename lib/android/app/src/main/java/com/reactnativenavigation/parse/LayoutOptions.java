@@ -1,9 +1,12 @@
 package com.reactnativenavigation.parse;
 
+import com.reactnativenavigation.parse.params.Bool;
 import com.reactnativenavigation.parse.params.Colour;
+import com.reactnativenavigation.parse.params.NullBool;
 import com.reactnativenavigation.parse.params.NullColor;
 import com.reactnativenavigation.parse.params.NullNumber;
 import com.reactnativenavigation.parse.params.Number;
+import com.reactnativenavigation.parse.parsers.BoolParser;
 import com.reactnativenavigation.parse.parsers.ColorParser;
 import com.reactnativenavigation.parse.parsers.NumberParser;
 
@@ -19,6 +22,7 @@ public class LayoutOptions {
         result.topMargin = NumberParser.parse(json, "topMargin");
         result.orientation = OrientationOptions.parse(json);
         result.direction = LayoutDirection.fromString(json.optString("direction", ""));
+        result.useNativeLightBox = BoolParser.parse(json, "useNativeLightBox");
 
         return result;
     }
@@ -28,6 +32,8 @@ public class LayoutOptions {
     public Number topMargin = new NullNumber();
     public OrientationOptions orientation = new OrientationOptions();
     public LayoutDirection direction = LayoutDirection.DEFAULT;
+    public Bool useNativeLightBox = new NullBool();
+
 
     public void mergeWith(LayoutOptions other) {
         if (other.backgroundColor.hasValue()) backgroundColor = other.backgroundColor;
@@ -35,6 +41,7 @@ public class LayoutOptions {
         if (other.topMargin.hasValue()) topMargin = other.topMargin;
         if (other.orientation.hasValue()) orientation = other.orientation;
         if (other.direction.hasValue()) direction = other.direction;
+        if (other.useNativeLightBox.hasValue()) useNativeLightBox = other.useNativeLightBox;
     }
 
     public void mergeWithDefault(LayoutOptions defaultOptions) {
@@ -43,5 +50,6 @@ public class LayoutOptions {
         if (!topMargin.hasValue()) topMargin = defaultOptions.topMargin;
         if (!orientation.hasValue()) orientation = defaultOptions.orientation;
         if (!direction.hasValue()) direction = defaultOptions.direction;
+        if (!useNativeLightBox.hasValue()) useNativeLightBox = defaultOptions.useNativeLightBox;
     }
 }

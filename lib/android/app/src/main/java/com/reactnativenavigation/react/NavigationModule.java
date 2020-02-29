@@ -25,6 +25,7 @@ import com.reactnativenavigation.utils.UiThread;
 import com.reactnativenavigation.utils.UiUtils;
 import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.viewcontrollers.navigator.Navigator;
+import com.reactnativenavigation.views.LightBox;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,7 @@ public class NavigationModule extends ReactContextBaseJavaModule {
     private final JSONParser jsonParser;
     private final LayoutFactory layoutFactory;
     private EventEmitter eventEmitter;
+    private LightBox mLightBox;
 
     @SuppressWarnings("WeakerAccess")
     public NavigationModule(ReactApplicationContext reactContext, ReactInstanceManager reactInstanceManager, LayoutFactory layoutFactory) {
@@ -173,6 +175,10 @@ public class NavigationModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void showOverlay(String commandId, ReadableMap rawLayoutTree, Promise promise) {
         final LayoutNode layoutTree = LayoutNodeParser.parse(jsonParser.parse(rawLayoutTree));
+        if (useLightBox(layoutTree)) {
+            this.showLightBox(commandId, layoutTree, promise);
+            return;
+        }
         handle(() -> {
             final ViewController viewController = layoutFactory.create(layoutTree);
             navigator().showOverlay(viewController, new NativeCommandListener("showOverlay", commandId, promise, eventEmitter, now));
@@ -181,7 +187,38 @@ public class NavigationModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void dismissOverlay(String commandId, String componentId, Promise promise) {
+        if (useLightBox(componentId)) {
+            dismissLightBox(commandId, componentId, promise);
+            return;
+        }
         handle(() -> navigator().dismissOverlay(componentId, new NativeCommandListener("dismissOverlay", commandId, promise, eventEmitter, now)));
+    }
+
+    private void showLightBox(String commandId, LayoutNode layoutTree, Promise promise) {
+        handle(() -> {
+            final ViewController viewController = layoutFactory.create(layoutTree);
+            if (mLightBox == null) {
+                mLightBox = new LightBox(NavigationApplication.instance.getTopActivity(), viewController,
+                        () -> eventEmitter.emitLightBoxBackPress(),
+                        () -> mLightBox = null);
+                mLightBox.show();
+                promise.resolve(commandId);
+            } else {
+                promise.reject(new Throwable("showLightBox but LightBox already exit"));
+            }
+        });
+    }
+
+    private void dismissLightBox(String commandId, String componentId, Promise promise) {
+        handle(() -> {
+            if (mLightBox != null) {
+                mLightBox.hide();
+                mLightBox = null;
+                promise.resolve(commandId);
+            } else {
+                promise.reject(new Throwable("dismissLightBox but LightBox not exist"));
+            }
+        });
     }
 
     private Navigator navigator() {
@@ -209,5 +246,16 @@ public class NavigationModule extends ReactContextBaseJavaModule {
             navigationActivity.onCatalystInstanceDestroy();
         }
         super.onCatalystInstanceDestroy();
+    }
+
+    private boolean useLightBox(LayoutNode layoutTree) {
+        JSONObject options = layoutTree.data.optJSONObject("options");
+        JSONObject layout = options != null ? options.optJSONObject("layout") : null;
+        LayoutOptions layoutOptions = LayoutOptions.parse(layout);
+        return layoutOptions.useNativeLightBox.isTrue();
+    }
+
+    private boolean useLightBox(String componentId) {
+        return componentId != null && componentId.endsWith("NativeLightBox");
     }
 }

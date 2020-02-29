@@ -72,6 +72,7 @@ export interface OptionsLayout {
      * only works with DefaultOptions
      */
     direction?: 'rtl' | 'ltr';
+    useNativeLightBox?: boolean;
 }
 export declare enum OptionsModalPresentationStyle {
     formSheet = "formSheet",

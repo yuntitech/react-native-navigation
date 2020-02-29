@@ -15,6 +15,13 @@ public class ReactComponentViewCreator implements ReactViewCreator {
 
 	@Override
 	public IReactView create(final Activity activity, final String componentId, final String componentName) {
-		return new ReactView(activity, reactInstanceManager, componentId, componentName);
+        if (useReactView(componentName)) {
+            return new ReactView(activity, reactInstanceManager, componentId, componentName);
+        }
+        return new RNGestureHandlerReactView(activity, reactInstanceManager, componentId, componentName);
 	}
+
+    private boolean useReactView(String componentName) {
+        return componentName != null && componentName.endsWith("NativeLightBox");
+    }
 }

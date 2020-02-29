@@ -87,4 +87,8 @@ public abstract class NavigationApplication extends Application implements React
     public final Map<String, ExternalComponentCreator> getExternalComponents() {
         return externalComponents;
     }
+
+    public Activity getTopActivity() {
+        return null;
+    }
 }

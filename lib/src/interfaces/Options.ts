@@ -83,6 +83,8 @@ export interface OptionsLayout {
    * only works with DefaultOptions
    */
   direction?: 'rtl' | 'ltr';
+  // 原生是否使用Dialog Android Only
+  useNativeLightBox?: boolean;
 }
 
 export enum OptionsModalPresentationStyle {

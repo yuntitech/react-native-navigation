@@ -80,6 +80,10 @@ public class EventEmitter {
         emit(ScreenPopped, event);
     }
 
+    public void emitLightBoxBackPress() {
+        emit("onLightBoxBackPress");
+    }
+
     private void emit(String eventName) {
         emit(eventName, Arguments.createMap());
     }
