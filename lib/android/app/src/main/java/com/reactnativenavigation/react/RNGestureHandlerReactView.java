@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressLint("ViewConstructor")
-public class ReactView extends com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView implements IReactView, Renderable {
+public class RNGestureHandlerReactView extends com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView implements IReactView, Renderable {
 
 	private final ReactInstanceManager reactInstanceManager;
 	private final String componentId;
@@ -30,7 +30,7 @@ public class ReactView extends com.swmansion.gesturehandler.react.RNGestureHandl
     private final JSTouchDispatcher jsTouchDispatcher;
     private ArrayList<Element> elements = new ArrayList<>();
 
-    public ReactView(final Context context, ReactInstanceManager reactInstanceManager, String componentId, String componentName) {
+    public RNGestureHandlerReactView(final Context context, ReactInstanceManager reactInstanceManager, String componentId, String componentName) {
 		super(context);
 		this.reactInstanceManager = reactInstanceManager;
 		this.componentId = componentId;
@@ -55,7 +55,7 @@ public class ReactView extends com.swmansion.gesturehandler.react.RNGestureHandl
 	}
 
 	@Override
-	public ReactView asView() {
+	public RNGestureHandlerReactView asView() {
 		return this;
 	}
 
