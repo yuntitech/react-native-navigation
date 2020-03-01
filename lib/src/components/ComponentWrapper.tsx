@@ -7,7 +7,7 @@ import hoistNonReactStatics = require('hoist-non-react-statics');
 import { Store } from './Store';
 import { ComponentEventsObserver } from '../events/ComponentEventsObserver';
 
-interface HocState { componentId: string; allProps: { enableCustomLargeTitle?: boolean}; }
+interface HocState { componentId: string; allProps: { enableCustomLargeTitle?: boolean, bottomTabVisible?: boolean }; }
 interface HocProps { componentId: string; }
 
 export interface IWrappedComponent extends React.Component {
@@ -61,9 +61,10 @@ export class ComponentWrapper {
                   componentId={this.state.componentId}
               />
               <AudioPlayFloatingViewClass
-                  {...this.props}
-                  screenID={this.props.componentId}
+                  screenID={componentName}
+                  componentId={this.state.componentId}
                   customTitleBar={this.state.allProps.enableCustomLargeTitle}
+                  bottomTabVisible={this.state.allProps.bottomTabVisible}
               />
             </View>
         ) : (
