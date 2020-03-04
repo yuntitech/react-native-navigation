@@ -51,10 +51,11 @@
 	[self.options overrideOptions:options];
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-	UIInterfaceOrientationMask interfaceOrientationMask = self.presenter ? [self.presenter getOrientation:[self resolveOptions]] : [[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:[[UIApplication sharedApplication] keyWindow]];
-	return interfaceOrientationMask;
-}
+// 先注释掉, 屏幕旋转用react-native-orientation处理
+// - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+// 	UIInterfaceOrientationMask interfaceOrientationMask = self.presenter ? [self.presenter getOrientation:[self resolveOptions]] : [[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:[[UIApplication sharedApplication] keyWindow]];
+// 	return interfaceOrientationMask;
+// }
 
 - (void)render {
     if (!self.waitForRender) {
