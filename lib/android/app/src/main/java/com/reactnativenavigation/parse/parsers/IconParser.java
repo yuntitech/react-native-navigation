@@ -12,7 +12,7 @@ public class IconParser {
     public static Text parse(@Nullable JSONObject json, String key) {
         if (json == null) return new NullText();
         try {
-            return json.get(key) instanceof String ? TextParser.parse(json, key) : TextParser.parse(json.optJSONObject(key), "uri");
+            return json.has(key) && json.get(key) instanceof String ? TextParser.parse(json, key) : TextParser.parse(json.optJSONObject(key), "uri");
         } catch (JSONException e) {
             e.printStackTrace();
         }
