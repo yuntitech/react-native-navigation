@@ -238,6 +238,16 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     @Override
     public void invokeDefaultOnBackPressed() {
         if (layout != null && !layout.onBackPressed()) {
+            //TAB页返回
+            if (isTabScreen() && Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
+                if (System.currentTimeMillis() - mExitTime > 2000L) {
+                    Toast toast = Toast.makeText(NavigationApplication.instance, "再按一次退出程序", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.show();
+                    mExitTime = System.currentTimeMillis();
+                    return;
+                }
+            }
             super.onBackPressed();
         }
     }
@@ -246,16 +256,6 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
 
     @Override
     public void onBackPressed() {
-        //TAB页返回
-        if (isTabScreen() && Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
-            if (System.currentTimeMillis() - mExitTime > 2000L) {
-                Toast toast = Toast.makeText(NavigationApplication.instance, "再按一次退出程序", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
-                toast.show();
-                mExitTime = System.currentTimeMillis();
-                return;
-            }
-        }
         if (layout != null && layout.handleBackInJs()) {
             return;
         }
