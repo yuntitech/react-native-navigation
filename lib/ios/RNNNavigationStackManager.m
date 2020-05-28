@@ -87,7 +87,9 @@ typedef void (^RNNAnimationBlock)(void);
 		}
 	}];
 	
-	animationBlock();
+	dispatch_async(dispatch_get_main_queue(), ^{
+		animationBlock();
+	});
 	
 	[CATransaction commit];
 }
