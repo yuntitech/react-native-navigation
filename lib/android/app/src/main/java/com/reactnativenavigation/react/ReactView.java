@@ -16,11 +16,12 @@ import com.reactnativenavigation.react.events.ComponentType;
 import com.reactnativenavigation.react.events.EventEmitter;
 import com.reactnativenavigation.viewcontrollers.IReactView;
 import com.reactnativenavigation.views.Renderable;
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
 import androidx.annotation.RestrictTo;
 
 @SuppressLint("ViewConstructor")
-public class ReactView extends ReactRootView implements IReactView, Renderable {
+public class ReactView extends RNGestureHandlerEnabledRootView implements IReactView, Renderable {
 
 	private final ReactInstanceManager reactInstanceManager;
 	private final String componentId;

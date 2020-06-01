@@ -170,6 +170,7 @@ dependencies {
 
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'
+    implementation project(':react-native-gesture-handler')
 
     // tests
     testImplementation 'junit:junit:4.12'
