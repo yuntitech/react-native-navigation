@@ -102,7 +102,9 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
                 "cn.bookln.HMyTeachersOrStudentScreen",
                 "cn.bookln.HStudentMineScreen"
         )
-                .contains(this.navigator.getCurrentComponentName());
+                .contains(this.navigator.getCurrentComponentName())
+                && (this.navigator.getModalStack() == null
+                || (this.navigator.getModalStack() != null && this.navigator.getModalStack().isEmpty()));
     }
 
     @Override
