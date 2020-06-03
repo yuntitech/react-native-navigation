@@ -41,6 +41,10 @@ public class Navigator extends ParentController {
     private ViewGroup contentLayout;
     private Options defaultOptions = new Options();
 
+    public ModalStack getModalStack() {
+        return modalStack;
+    }
+
     @Override
     public void setDefaultOptions(Options defaultOptions) {
         super.setDefaultOptions(defaultOptions);
