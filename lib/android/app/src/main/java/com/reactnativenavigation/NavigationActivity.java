@@ -5,8 +5,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.modules.core.PermissionAwareActivity;
@@ -20,15 +27,14 @@ import com.reactnativenavigation.viewcontrollers.ChildControllersRegistry;
 import com.reactnativenavigation.viewcontrollers.modal.ModalStack;
 import com.reactnativenavigation.viewcontrollers.navigator.Navigator;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import java.util.Arrays;
 
 public class NavigationActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler, PermissionAwareActivity, JsDevReloadHandler.ReloadListener {
     @Nullable
     private PermissionListener mPermissionListener;
-    
+
     protected Navigator navigator;
+    private long mExitTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +80,8 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         super.onDestroy();
         navigator.destroy();
         getReactGateway().onActivityDestroyed(this);
+        new Handler().postDelayed(() -> System.exit(0), 300);
+
     }
 
     @Override
@@ -81,6 +89,20 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         if (!navigator.handleBack(new CommandListenerAdapter())) {
             super.onBackPressed();
         }
+    }
+
+    private boolean isTabScreen() {
+        // TODO 先写死
+        return Arrays.asList(
+                "cn.bookln.HTeacherGrabSheetScreen",
+                "cn.bookln.HChatListScreen",
+                "cn.bookln.HMyTeachersOrStudentScreen",
+                "cn.bookln.HTeacherMineScreen",
+                "cn.bookln.HFindTeacherMatchScreen",
+                "cn.bookln.HMyTeachersOrStudentScreen",
+                "cn.bookln.HStudentMineScreen"
+        )
+                .contains(this.navigator.getCurrentComponentName());
     }
 
     @Override
@@ -91,6 +113,17 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
 
     @Override
     public void onBackPressed() {
+        // TAB页返回
+        if (isTabScreen()) {
+            if (System.currentTimeMillis() - mExitTime > 2000L) {
+                Toast toast = Toast.makeText(NavigationApplication.instance, "再按一次退出程序 " + android.os.Process.myPid() + " , " + (System.currentTimeMillis() - mExitTime),
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+                mExitTime = System.currentTimeMillis();
+                return;
+            }
+        }
         getReactGateway().onBackPressed();
     }
 
