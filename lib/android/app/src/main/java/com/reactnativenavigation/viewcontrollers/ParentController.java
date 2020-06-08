@@ -174,6 +174,6 @@ public abstract class ParentController<T extends ViewGroup> extends ChildControl
 
     @Override
     public String getCurrentComponentName() {
-	    return getCurrentChild().getCurrentComponentName();
+        return getCurrentChild() != null ? getCurrentChild().getCurrentComponentName() : "";
     }
 }
