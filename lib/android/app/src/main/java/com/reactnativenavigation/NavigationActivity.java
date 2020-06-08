@@ -80,8 +80,6 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         super.onDestroy();
         navigator.destroy();
         getReactGateway().onActivityDestroyed(this);
-        new Handler().postDelayed(() -> System.exit(0), 300);
-
     }
 
     @Override
