@@ -78,7 +78,7 @@ public class NavigationModule extends ReactContextBaseJavaModule {
     public void getLaunchArgs(String commandId, Promise promise) {
         promise.resolve(LaunchArgsParser.parse(activity()));
     }
-    
+
     @ReactMethod
     public void getNavigationConstants(Promise promise) {
         ReactApplicationContext ctx = getReactApplicationContext();
@@ -155,7 +155,7 @@ public class NavigationModule extends ReactContextBaseJavaModule {
         handle(() -> {
             final ViewController viewController = layoutFactory.create(layoutTree);
             navigator().showModal(viewController, new NativeCommandListener("showModal", commandId, promise, eventEmitter, now));
-        });
+        }, promise);
     }
 
     @ReactMethod
@@ -198,6 +198,16 @@ public class NavigationModule extends ReactContextBaseJavaModule {
         UiThread.post(() -> {
             if (getCurrentActivity() != null && !activity().isFinishing()) {
                 task.run();
+            }
+        });
+    }
+
+    private void handle(Runnable task, Promise promise) {
+        UiThread.post(() -> {
+            if (getCurrentActivity() != null && !activity().isFinishing()) {
+                task.run();
+            } else {
+                promise.reject(new Exception("activity is null or isFinishing "));
             }
         });
     }
