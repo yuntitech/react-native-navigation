@@ -47,6 +47,11 @@ class Options extends Component {
         <Button label='StatusBar' onPress={this.statusBarScreen} />
         <Button label='Buttons Screen' testID={GOTO_BUTTONS_SCREEN} onPress={this.pushButtonsScreen} />
         <Button label='Toggle Navigation bar visibility' platform='android' onPress={this.toggleAndroidNavigationBar}/>
+        <Button
+          label='preferredScreenEdgesDeferringSystemGestures'
+          platform='ios'
+          onPress={this.setPreferredScreenEdgesDeferringSystemGestures}
+        />
       </Root>
     );
   }
@@ -123,6 +128,12 @@ class Options extends Component {
       }
     }
   });
+
+  setPreferredScreenEdgesDeferringSystemGestures = () =>
+    Navigation.push(
+      this,
+      Screens.PreferredScreenEdgesDeferringSystemGesturesScreen
+    );
 }
 
 module.exports = Options;

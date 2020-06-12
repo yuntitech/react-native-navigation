@@ -49,4 +49,6 @@ typedef void (^RNNReactViewReadyCompletionBlock)(void);
 
 - (BOOL)hidesBottomBarWhenPushed;
 
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures;
+
 @end

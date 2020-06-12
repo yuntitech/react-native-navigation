@@ -110,5 +110,7 @@ module.exports = {
   Alert: 'Alert',
   Orientation: 'Orientation',
   OrientationDetect: 'OrientationDetect',
-  Search: 'Search'
-}
+  Search: 'Search',
+  PreferredScreenEdgesDeferringSystemGesturesScreen:
+    'PreferredScreenEdgesDeferringSystemGesturesScreen'
+};
