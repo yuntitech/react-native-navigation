@@ -40,6 +40,7 @@ type SystemItemIcon =
   | 'undo'
   | 'redo';
 type Interpolation = 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate';
+type RectEdge = 'all' | 'none' | 'left' | 'right' | 'bottom' | 'top';
 
 export interface OptionsSplitView {
   /**
@@ -1128,4 +1129,9 @@ setRoot: {
    * @default false
    */
   blurOnUnmount?: boolean;
+  /**
+   * #### (iOS specific)
+   * @default ['none']
+   */
+  preferredScreenEdgesDeferringSystemGestures?: RectEdge[];
 }

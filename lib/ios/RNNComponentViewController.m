@@ -162,4 +162,9 @@
     return [self.presenter hidesBottomBarWhenPushed];
 }
 
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
+    UIRectEdge edge = [self.presenter preferredScreenEdgesDeferringSystemGestures];
+    return edge;
+}
+
 @end

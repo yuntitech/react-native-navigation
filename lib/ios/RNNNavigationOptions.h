@@ -14,6 +14,7 @@
 #import "RNNModalOptions.h"
 #import "DeprecationOptions.h"
 #import "WindowOptions.h"
+#import "RectEdge.h"
 
 extern const NSInteger BLUR_TOPBAR_TAG;
 
@@ -40,6 +41,7 @@ extern const NSInteger BLUR_TOPBAR_TAG;
 @property (nonatomic, strong) Image* rootBackgroundImage;
 @property (nonatomic, strong) Text* modalPresentationStyle;
 @property (nonatomic, strong) Text* modalTransitionStyle;
+@property (nonatomic, strong) RectEdge* preferredScreenEdgesDeferringSystemGestures;
 
 - (instancetype)initEmptyOptions;
 

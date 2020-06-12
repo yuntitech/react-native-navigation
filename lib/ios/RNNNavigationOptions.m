@@ -38,6 +38,7 @@
 	self.rootBackgroundImage = [ImageParser parse:dict key:@"rootBackgroundImage"];
 	self.modalPresentationStyle = [[Text alloc] initWithValue:dict[@"modalPresentationStyle"]];
 	self.modalTransitionStyle = [[Text alloc] initWithValue:dict[@"modalTransitionStyle"]];
+    self.preferredScreenEdgesDeferringSystemGestures = [[RectEdge alloc] initWithValue:dict[@"preferredScreenEdgesDeferringSystemGestures"]];
 	
 	return self;
 }

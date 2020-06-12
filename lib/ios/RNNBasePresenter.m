@@ -124,4 +124,10 @@
     return ![withDefault.bottomTabs.visible getWithDefaultValue:YES];
 }
 
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
+    RectEdge *rectEdge = [self.boundViewController.options withDefault:self.defaultOptions].preferredScreenEdgesDeferringSystemGestures;
+    UIRectEdge edge = [rectEdge getWithDefaultValue:UIRectEdgeNone];
+    return edge;
+}
+
 @end

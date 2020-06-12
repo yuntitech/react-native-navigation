@@ -46,6 +46,10 @@ function registerScreens() {
   Navigation.registerComponent(Screens.StatusBarFirstTab, () => require('./StatusBarFirstTab'));
   Navigation.registerComponent(Screens.TopBarBackground, () => require('../components/TopBarBackground'));
   Navigation.registerComponent(Screens.Toast, () => require('./Toast'));
+  Navigation.registerComponent(
+    Screens.PreferredScreenEdgesDeferringSystemGesturesScreen,
+    () => require('./PreferredScreenEdgesDeferringSystemGesturesScreen')
+  );
 
   const { ContextProvider } = require('../context');
   const ContextScreen = require('./ContextScreen');
