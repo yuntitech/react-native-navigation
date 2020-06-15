@@ -6,6 +6,7 @@ declare type LayoutOrientation = 'portrait' | 'landscape';
 declare type AndroidDensityNumber = number;
 declare type SystemItemIcon = 'done' | 'cancel' | 'edit' | 'save' | 'add' | 'flexibleSpace' | 'fixedSpace' | 'compose' | 'reply' | 'action' | 'organize' | 'bookmarks' | 'search' | 'refresh' | 'stop' | 'camera' | 'trash' | 'play' | 'pause' | 'rewind' | 'fastForward' | 'undo' | 'redo';
 declare type Interpolation = 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate';
+declare type RectEdge = 'all' | 'none' | 'left' | 'right' | 'bottom' | 'top';
 export interface OptionsSplitView {
     /**
      * Master view display mode
@@ -1046,5 +1047,10 @@ export interface Options {
      * @default false
      */
     blurOnUnmount?: boolean;
+    /**
+     * #### (iOS specific)
+     * @default ['none']
+     */
+    preferredScreenEdgesDeferringSystemGestures?: RectEdge[];
 }
 export {};
