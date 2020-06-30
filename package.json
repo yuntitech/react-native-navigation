@@ -29,10 +29,12 @@
 		"test:watch": "jest --coverage --watch",
 		"release": "node ./scripts/release.js"
 	},
-	"dependencies": {
-		"lodash": "4.x.x",
+	"peerDependencies": {
 		"react": "16.8.6",
 		"react-native": "0.59.10"
+	},
+	"dependencies": {
+		"lodash": "4.x.x"
 	},
 	"devDependencies": {
 		"babel-cli": "6.x.x",
