@@ -48,7 +48,7 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
 
     // node_modules
-    compile "com.facebook.react:react-native:0.59.10"
+    compile "com.facebook.react:react-native:+"
 
     compile 'com.google.android.material:material:1.0.0'
     compile 'androidx.appcompat:appcompat:1.0.2'
