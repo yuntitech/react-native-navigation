@@ -16,6 +16,8 @@ import com.reactnativenavigation.bridge.NavigationReactEventEmitter;
 import com.reactnativenavigation.bridge.NavigationReactPackage;
 import com.reactnativenavigation.events.EventBus;
 import com.reactnativenavigation.events.JsDevReloadEvent;
+import com.reactnativenavigation.uimanager.CalendarUIImplementationProvider;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -209,5 +211,10 @@ public class NavigationReactGateway implements ReactGateway {
 				return bundleAssetName;
 			return super.getBundleAssetName();
 		}
+
+        @Override
+        protected UIImplementationProvider getUIImplementationProvider() {
+            return new CalendarUIImplementationProvider();
+        }
 	}
 }
