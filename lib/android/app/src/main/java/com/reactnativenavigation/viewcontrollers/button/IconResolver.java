@@ -32,7 +32,7 @@ public class IconResolver {
 
                 @Override
                 public void onError(Throwable error) {
-                    throw new RuntimeException(error);
+                    onSuccess.run(imageLoader.getBackButtonIcon(context));
                 }
             });
         } else if (Constants.BACK_BUTTON_ID.equals(button.id)) {
