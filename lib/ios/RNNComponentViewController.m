@@ -1,4 +1,5 @@
 #import "RNNComponentViewController.h"
+#import "UIViewController+RNNOptions.h"
 
 @implementation RNNComponentViewController
 
@@ -152,6 +153,14 @@
 - (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
     UIRectEdge edge = [self.presenter preferredScreenEdgesDeferringSystemGestures];
     return edge;
+}
+
+- (BOOL)prefersHomeIndicatorAutoHidden {
+    if ([self respondsToSelector:@selector(homeIndicatorAutoHidden)]) {
+        return self.homeIndicatorAutoHidden;
+    } else {
+        return NO;
+    }
 }
 
 @end

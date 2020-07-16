@@ -6,6 +6,8 @@
 
 @interface UIViewController (RNNOptions)
 
+@property (nonatomic, assign) BOOL homeIndicatorAutoHidden;
+
 - (void)setBackgroundImage:(UIImage *)backgroundImage;
 
 - (void)setSearchBarWithPlaceholder:(NSString *)placeholder hideNavBarOnFocusSearchBar:(BOOL)hideNavBarOnFocusSearchBar;
