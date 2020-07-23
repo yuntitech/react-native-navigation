@@ -39,6 +39,7 @@
 	self.modalPresentationStyle = [[Text alloc] initWithValue:dict[@"modalPresentationStyle"]];
 	self.modalTransitionStyle = [[Text alloc] initWithValue:dict[@"modalTransitionStyle"]];
     self.preferredScreenEdgesDeferringSystemGestures = [[RectEdge alloc] initWithValue:dict[@"preferredScreenEdgesDeferringSystemGestures"]];
+	self.homeIndicatorAutoHidden = [BoolParser parse:dict key:@"homeIndicatorAutoHidden"];
 	
 	return self;
 }

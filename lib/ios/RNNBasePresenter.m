@@ -54,8 +54,8 @@
 	
 	UIApplication.sharedApplication.delegate.window.backgroundColor = [withDefault.window.backgroundColor getWithDefaultValue:nil];
 	
-	if ([viewController isKindOfClass:UIViewController.class] && initialOptions.layout.homeIndicatorAutoHidden.hasValue) {
-        viewController.homeIndicatorAutoHidden = [initialOptions.layout.homeIndicatorAutoHidden get];
+	if ([viewController isKindOfClass:UIViewController.class] && initialOptions.homeIndicatorAutoHidden.hasValue) {
+        viewController.homeIndicatorAutoHidden = [initialOptions.homeIndicatorAutoHidden get];
     }
 }
 
@@ -78,8 +78,8 @@
 	if (options.window.backgroundColor.hasValue) {
 		UIApplication.sharedApplication.delegate.window.backgroundColor = withDefault.window.backgroundColor.get;
 	}
-	if ([viewController isKindOfClass:UIViewController.class] && resolvedOptions.layout.homeIndicatorAutoHidden.hasValue) {
-        viewController.homeIndicatorAutoHidden = [resolvedOptions.layout.homeIndicatorAutoHidden get];
+	if ([viewController isKindOfClass:UIViewController.class] && resolvedOptions.homeIndicatorAutoHidden.hasValue) {
+        viewController.homeIndicatorAutoHidden = [resolvedOptions.homeIndicatorAutoHidden get];
     }
 }
 

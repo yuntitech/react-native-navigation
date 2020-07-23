@@ -42,6 +42,7 @@ extern const NSInteger BLUR_TOPBAR_TAG;
 @property (nonatomic, strong) Text* modalPresentationStyle;
 @property (nonatomic, strong) Text* modalTransitionStyle;
 @property (nonatomic, strong) RectEdge* preferredScreenEdgesDeferringSystemGestures;
+@property (nonatomic, strong) Bool* homeIndicatorAutoHidden;
 
 - (instancetype)initEmptyOptions;
 
