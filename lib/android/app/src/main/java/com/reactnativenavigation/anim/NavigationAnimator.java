@@ -52,18 +52,17 @@ public class NavigationAnimator extends BaseAnimator {
                 isCancelled = true;
                 if (!appearing.isDestroyed()) {
                     runningPushAnimations.remove(appearing.getView());
+                    onAnimationEnd.run();
                 }
-                onAnimationEnd.run();
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (!isCancelled) {
-                    //TODO 后面使用appearing.getId()作key
                     if (!appearing.isDestroyed()) {
                         runningPushAnimations.remove(appearing.getView());
+                        onAnimationEnd.run();
                     }
-                    onAnimationEnd.run();
                 }
             }
         });
