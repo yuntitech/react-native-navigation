@@ -4,6 +4,7 @@
 #import "RNNReactComponentRegistry.h"
 #import "UIViewController+LayoutProtocol.h"
 #import "DotIndicatorOptions.h"
+#import "UIViewController+RNNOptions.h"
 
 @implementation RNNBasePresenter
 
@@ -52,6 +53,10 @@
     }
 	
 	UIApplication.sharedApplication.delegate.window.backgroundColor = [withDefault.window.backgroundColor getWithDefaultValue:nil];
+	
+	if ([viewController isKindOfClass:UIViewController.class] && initialOptions.homeIndicatorAutoHidden.hasValue) {
+        viewController.homeIndicatorAutoHidden = [initialOptions.homeIndicatorAutoHidden get];
+    }
 }
 
 - (void)applyOptionsOnViewDidLayoutSubviews:(RNNNavigationOptions *)options {
@@ -67,11 +72,15 @@
 }
 
 - (void)mergeOptions:(RNNNavigationOptions *)options resolvedOptions:(RNNNavigationOptions *)resolvedOptions {
+	UIViewController* viewController = self.boundViewController;
     RNNNavigationOptions* withDefault = (RNNNavigationOptions *) [[resolvedOptions withDefault:_defaultOptions] overrideOptions:options];
 	
 	if (options.window.backgroundColor.hasValue) {
 		UIApplication.sharedApplication.delegate.window.backgroundColor = withDefault.window.backgroundColor.get;
 	}
+	if ([viewController isKindOfClass:UIViewController.class] && resolvedOptions.homeIndicatorAutoHidden.hasValue) {
+        viewController.homeIndicatorAutoHidden = [resolvedOptions.homeIndicatorAutoHidden get];
+    }
 }
 
 - (void)renderComponents:(RNNNavigationOptions *)options perform:(RNNReactViewReadyCompletionBlock)readyBlock {

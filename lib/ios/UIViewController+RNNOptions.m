@@ -1,3 +1,4 @@
+#import <objc/runtime.h>
 #import "UIViewController+RNNOptions.h"
 #import <React/RCTRootView.h>
 #import "RNNBottomTabOptions.h"
@@ -6,6 +7,8 @@
 
 #define kStatusBarAnimationDuration 0.35
 const NSInteger BLUR_STATUS_TAG = 78264801;
+
+static void * RNNHomeIndicatorAutoHiddenPropertyKey = &RNNHomeIndicatorAutoHiddenPropertyKey;
 
 @implementation UIViewController (RNNOptions)
 
@@ -165,6 +168,17 @@ const NSInteger BLUR_STATUS_TAG = 78264801;
 		RCTRootView* rootView = (RCTRootView*)self.view;
 		rootView.passThroughTouches = !interceptTouchOutside;
 	}
+}
+
+- (BOOL)homeIndicatorAutoHidden {
+    return [objc_getAssociatedObject(self, RNNHomeIndicatorAutoHiddenPropertyKey) boolValue];
+}
+
+- (void)setHomeIndicatorAutoHidden:(BOOL)homeIndicatorAutoHidden {
+    objc_setAssociatedObject(self, RNNHomeIndicatorAutoHiddenPropertyKey, @(homeIndicatorAutoHidden), OBJC_ASSOCIATION_ASSIGN);
+	if (@available(iOS 11.0, *)) {
+         [self setNeedsUpdateOfHomeIndicatorAutoHidden];
+    }
 }
 
 @end
