@@ -15,13 +15,17 @@
     for (SharedElementTransitionOptions* transitionOptions in sharedElementTransitions) {
         UIView *fromView = [RNNElementFinder findElementForId:transitionOptions.fromId inView:fromVC.view];
         UIView *toView = [RNNElementFinder findElementForId:transitionOptions.toId inView:toVC.view];
-        SharedElementAnimator* sharedElementAnimator = [[SharedElementAnimator alloc] initWithTransitionOptions:transitionOptions
-                                                                                                       fromView:fromView
-                                                                                                         toView:toView
-                                                                                                         fromVC:fromVC
-                                                                                                           toVC:toVC
-                                                                                                  containerView:containerView];
-        [transitions addObject:sharedElementAnimator];
+        if (fromView && toView) {
+            SharedElementAnimator* sharedElementAnimator = [[SharedElementAnimator alloc] initWithTransitionOptions:transitionOptions
+                                                                                                           fromView:fromView
+                                                                                                             toView:toView
+                                                                                                             fromVC:fromVC
+                                                                                                               toVC:toVC
+                                                                                                      containerView:containerView];
+            [transitions addObject:sharedElementAnimator];
+        } else {
+            continue;
+        }
     }
     
     NSArray<DisplayLinkAnimatorDelegate>* sortedTransitions = [self sortByZIndex:transitions];
