@@ -9,5 +9,5 @@ export declare class ComponentRegistry {
     private componentWrapper;
     private appRegistryService;
     constructor(store: Store, componentEventsObserver: ComponentEventsObserver, componentWrapper: ComponentWrapper, appRegistryService: AppRegistryService);
-    registerComponent(componentName: string | number, componentProvider: ComponentProvider, concreteComponentProvider?: ComponentProvider, ReduxProvider?: any, reduxStore?: any): ComponentProvider;
+    registerComponent(componentName: string | number, componentProvider: ComponentProvider, concreteComponentProvider?: ComponentProvider, ReduxProvider?: any, reduxStore?: any, floatingView?: any): ComponentProvider;
 }

@@ -28,7 +28,7 @@ export declare class NavigationRoot {
      * Utility helper function like registerComponent,
      * wraps the provided component with a react-redux Provider with the passed redux store
      */
-    registerComponentWithRedux(componentName: string | number, getComponentClassFunc: ComponentProvider, ReduxProvider: any, reduxStore: any): ComponentProvider;
+    registerComponentWithRedux(componentName: string | number, getComponentClassFunc: ComponentProvider, ReduxProvider: any, reduxStore: any, floatingView?: any): ComponentProvider;
     /**
      * Reset the app to a new layout
      */

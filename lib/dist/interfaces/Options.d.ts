@@ -1052,12 +1052,5 @@ export interface Options {
      * @default ['none']
      */
     preferredScreenEdgesDeferringSystemGestures?: RectEdge[];
-        /**
-     * When set to false will cause home indicator bar on iOS fade-out when there is no interaction with the screen.
-     * see Apple docs in regards to UIViewController prefersHomeIndicatorAutoHidden
-     * #### (iOS specific)
-     * @default false
-    */
-    homeIndicatorAutoHidden?: boolean;
 }
 export {};
