@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 import static com.reactnativenavigation.utils.CollectionUtils.*;
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
 import static com.reactnativenavigation.utils.UiUtils.getTopBarHeight;
+import static com.reactnativenavigation.utils.UiUtils.getTopBarHeightDp;
 import static com.reactnativenavigation.utils.ViewUtils.isVisible;
 
 
@@ -82,7 +83,7 @@ public class TopBarController {
     public void show() {
 //        if (isVisible(topBar) || animator.isAnimatingShow()) return;
         topBar.setVisibility(View.VISIBLE);
-        topBar.setHeight(getTopBarHeight(topBar.getContext()));
+        topBar.setHeight(getTopBarHeightDp(topBar.getContext()));
     }
 
     public void showAnimate(AnimationOptions options, int translationDy) {
