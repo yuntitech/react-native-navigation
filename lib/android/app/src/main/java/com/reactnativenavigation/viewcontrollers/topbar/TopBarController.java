@@ -20,6 +20,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import static com.reactnativenavigation.utils.CollectionUtils.*;
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
+import static com.reactnativenavigation.utils.UiUtils.getTopBarHeight;
 import static com.reactnativenavigation.utils.ViewUtils.isVisible;
 
 
@@ -79,23 +80,30 @@ public class TopBarController {
     }
 
     public void show() {
-        if (isVisible(topBar) || animator.isAnimatingShow()) return;
+//        if (isVisible(topBar) || animator.isAnimatingShow()) return;
         topBar.setVisibility(View.VISIBLE);
+        topBar.setHeight(getTopBarHeight(topBar.getContext()));
     }
 
     public void showAnimate(AnimationOptions options, int translationDy) {
-        if (isVisible(topBar) || animator.isAnimatingShow()) return;
-        animator.show(options, translationDy);
+        show();
+//        if (isVisible(topBar) || animator.isAnimatingShow()) return;
+//        animator.show(options, translationDy);
     }
 
     public void hide() {
-        if (!animator.isAnimatingHide()) {
-            topBar.setVisibility(View.GONE);
-        }
+//        if (!animator.isAnimatingHide()) {
+//            topBar.setVisibility(View.GONE);
+//        }
+        topBar.setHeight(0);
+//        topBar.setVisibility(View.GONE);
     }
 
     public void hideAnimate(AnimationOptions options, float translationStart, float translationEnd) {
-        hideAnimate(options, () -> {}, translationStart, translationEnd);
+        hide();
+//        topBar.setVisibility(View.GONE);
+//        topBar.setHeight(0);
+//        hideAnimate(options, () -> {}, translationStart, translationEnd);
     }
 
     private void hideAnimate(AnimationOptions options, Runnable onAnimationEnd, float translationStart, float translationEnd) {
