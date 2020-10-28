@@ -1,6 +1,8 @@
 #import "RNNComponentViewController.h"
 #import "UIViewController+RNNOptions.h"
 
+#define DeviceIsPad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+
 @implementation RNNComponentViewController
 
 @synthesize previewCallback;
@@ -35,8 +37,18 @@
             NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
             [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
 
-            NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
-            [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+            if (DeviceIsPad) {
+                // 如果是 Pad，只在 Pad 为竖屏模式下去强制 UIInterfaceOrientationLandscapeRight
+                UIInterfaceOrientation currentOrientation = [RCTSharedApplication() statusBarOrientation];
+                NSLog(@"currentOrientation %ld", currentOrientation);
+                if (currentOrientation != UIDeviceOrientationLandscapeLeft && currentOrientation != UIDeviceOrientationLandscapeRight) {
+                    NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+                    [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                }
+            } else {
+                NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+                [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+            }
         }
     }
 }
@@ -51,12 +63,24 @@
     if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
         NSString *orientation = [self.options.layout.orientation lastObject];
         if ([orientation isEqualToString:@"landscape"]) {
-            return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+            if (DeviceIsPad) {
+                return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+            } else {
+                return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+            }
+        } else {
+            if (DeviceIsPad) {
+                return UIInterfaceOrientationMaskAll;
+            } else {
+                return UIInterfaceOrientationMaskPortrait;
+            }
+        }
+    } else {
+        if (DeviceIsPad) {
+            return UIInterfaceOrientationMaskAll;
         } else {
             return UIInterfaceOrientationMaskPortrait;
         }
-    } else {
-        return UIInterfaceOrientationMaskPortrait;
     }
 }
 
@@ -69,12 +93,22 @@
             NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
             [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
 
+            if (DeviceIsPad) {
+                NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationMaskAll];
+                [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+            } else {
+                NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+                [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+            }
+        }
+    } else {
+        if (DeviceIsPad) {
+            NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationMaskAll];
+            [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+        } else {
             NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
             [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
         }
-    } else {
-        NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
     }
 }
 
