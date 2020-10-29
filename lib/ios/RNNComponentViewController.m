@@ -34,18 +34,23 @@
     if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
         NSString *orientation = [self.options.layout.orientation lastObject];
         if ([orientation isEqualToString:@"landscape"]) {
-            NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
-            [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
-
+            UIInterfaceOrientation currentOrientation = [RCTSharedApplication() statusBarOrientation];
             if (DeviceIsPad) {
-                // 如果是 Pad，只在 Pad 为竖屏模式下去强制 UIInterfaceOrientationLandscapeRight
-                UIInterfaceOrientation currentOrientation = [RCTSharedApplication() statusBarOrientation];
-                NSLog(@"currentOrientation %ld", currentOrientation);
-                if (currentOrientation != UIDeviceOrientationLandscapeLeft && currentOrientation != UIDeviceOrientationLandscapeRight) {
-                    NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+                // Pad 端特殊处理
+                // 如果当前设备是 UIInterfaceOrientationLandscapeLeft ，即 homeButton/homeIndicator 在右侧，则不处理
+                if (currentOrientation == UIInterfaceOrientationLandscapeLeft) {
+                    return;
+                } else {
+                    // 如果当前设备是 UIInterfaceOrientationLandscapeRight ，即 homeButton/homeIndicator 在左侧，则需要手动处理
+                    // 如果当前设备是 landscape 之外的方向，则需要手动处理
+                    NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+                    [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+                    NSNumber *orientationTarget = [NSNumber numberWithInteger:UIInterfaceOrientationLandscapeRight];
                     [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
                 }
             } else {
+                NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+                [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
                 NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
                 [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
             }
@@ -92,7 +97,6 @@
         if ([orientation isEqualToString:@"landscape"]) {
             NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
             [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
-
             if (DeviceIsPad) {
                 NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationMaskAll];
                 [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
