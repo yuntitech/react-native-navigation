@@ -66,7 +66,28 @@
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    // Pad 端支持自动转屏
+    if (DeviceIsPad) return YES;
+    else {
+        if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
+            if ([self.options.layout.orientation count] == 1) {
+                NSString *orientation = [self.options.layout.orientation lastObject];
+                if ([orientation isEqualToString:@"landscape"]) {
+                    // iPhone 端，在 options 中只有 landscape 传入的情况下支持自动转屏
+                    return YES;
+                } else {
+                    // iPhone 端，在 options 中只有 portrait 传入的情况下不支持自动转屏
+                    return NO;
+                }
+            } else {
+                // iPhone 端，在 options 中 orientation 数组数量大于 1 的情况支持自动转屏
+                return YES;
+            }
+        } else {
+            // iPhone 端，在 options 中 orientation 数组为空的情况下，不支持自动转屏
+            return NO;
+        }
+    }
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
