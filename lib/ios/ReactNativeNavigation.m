@@ -13,7 +13,7 @@
 @end
 
 @implementation ReactNativeNavigation
-
+static UIDeviceOrientation _devicePhysicalOrientation = UIDeviceOrientationPortrait;
 # pragma mark - public API
 
 + (void)bootstrap:(NSURL *)jsCodeLocation launchOptions:(NSDictionary *)launchOptions {
@@ -44,6 +44,16 @@
 	[[ReactNativeNavigation sharedInstance].bridgeManager setJSCodeLocation:jsCodeLocation];
 }
 
++ (UIDeviceOrientation)getDeivcePhysicalOrientation
+{
+    return _devicePhysicalOrientation;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 # pragma mark - instance
 
 + (instancetype) sharedInstance {
@@ -56,6 +66,24 @@
 	});
 	
 	return instance;
+}
+
+- (instancetype)init
+{
+    if ((self = [super init])) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
+    return self;
+    
+}
+
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+        if (orientation != UIDeviceOrientationPortrait) {
+            _devicePhysicalOrientation = orientation;
+        }
+    });
 }
 
 - (void)bootstrap:(NSURL *)jsCodeLocation launchOptions:(NSDictionary *)launchOptions {

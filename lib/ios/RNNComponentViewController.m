@@ -1,6 +1,6 @@
 #import "RNNComponentViewController.h"
 #import "UIViewController+RNNOptions.h"
-
+#import <ReactNativeNavigation/ReactNativeNavigation.h>
 #define DeviceIsPad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 
 @implementation RNNComponentViewController
@@ -51,10 +51,17 @@
                         [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
                     }
                 } else {
-                    NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
-                    [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
-                    NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
-                    [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                    if ([ReactNativeNavigation getDeivcePhysicalOrientation] == UIDeviceOrientationLandscapeRight) {
+                        NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+                        [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+                        NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+                        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                    } else {
+                        NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+                        [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+                        NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+                        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                    }
                 }
             }
         } else {
@@ -298,5 +305,4 @@
         return NO;
     }
 }
-
 @end

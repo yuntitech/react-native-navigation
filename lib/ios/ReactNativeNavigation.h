@@ -3,7 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTUIManager.h>
 
-typedef UIViewController * (^RNNExternalViewCreator)(NSDictionary* props, RCTBridge* bridge);
+typedef UIViewController * (^RNNExternalViewCreator)(NSDictionary *props, RCTBridge *bridge);
 
 @interface ReactNativeNavigation : NSObject
 
@@ -20,5 +20,7 @@ typedef UIViewController * (^RNNExternalViewCreator)(NSDictionary* props, RCTBri
 + (void)setJSCodeLocation:(NSURL *)jsCodeLocation;
 
 + (RCTBridge *)getBridge;
+
++ (UIDeviceOrientation)getDeivcePhysicalOrientation;
 
 @end
