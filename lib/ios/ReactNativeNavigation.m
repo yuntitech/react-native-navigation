@@ -80,7 +80,7 @@ static UIDeviceOrientation _devicePhysicalOrientation = UIDeviceOrientationPortr
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-        if (orientation != UIDeviceOrientationPortrait) {
+        if (orientation != UIDeviceOrientationPortrait && orientation != UIDeviceOrientationFaceUp && orientation != UIDeviceOrientationFaceDown) {
             _devicePhysicalOrientation = orientation;
         }
     });
