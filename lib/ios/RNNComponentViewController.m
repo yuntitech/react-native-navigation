@@ -30,146 +30,164 @@
     [_presenter applyOptions:self.resolveOptions];
     [self.parentViewController onChildWillAppear];
     
-    // 判断 Options 中是否有横屏字段
-    if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
-        if ([self.options.layout.orientation count] == 1) {
-            NSString *orientation = [self.options.layout.orientation lastObject];
-            // orientation 只有 landscape 字段
-            if ([orientation isEqualToString:@"landscape"]) {
-                UIInterfaceOrientation currentOrientation = [RCTSharedApplication() statusBarOrientation];
-                if (DeviceIsPad) {
-                    // Pad 端特殊处理
-                    // 如果当前设备是 UIInterfaceOrientationLandscapeLeft ，即 homeButton/homeIndicator 在右侧，则不处理
-                    if (currentOrientation == UIInterfaceOrientationLandscapeLeft) {
-                        return;
+    
+    if (@available(iOS 13.0, *)) {
+        // 判断 Options 中是否有横屏字段
+        if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
+            if ([self.options.layout.orientation count] == 1) {
+                NSString *orientation = [self.options.layout.orientation lastObject];
+                // orientation 只有 landscape 字段
+                if ([orientation isEqualToString:@"landscape"]) {
+                    UIInterfaceOrientation currentOrientation = [RCTSharedApplication() statusBarOrientation];
+                    if (DeviceIsPad) {
+                        // Pad 端特殊处理
+                        // 如果当前设备是 UIInterfaceOrientationLandscapeLeft ，即 homeButton/homeIndicator 在右侧，则不处理
+                        if (currentOrientation == UIInterfaceOrientationLandscapeLeft) {
+                            return;
+                        } else {
+                            // 如果当前设备是 UIInterfaceOrientationLandscapeRight ，即 homeButton/homeIndicator 在左侧，则需要手动处理
+                            // 如果当前设备是 landscape 之外的方向，则需要手动处理
+                            NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+                            [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+                            NSNumber *orientationTarget = [NSNumber numberWithInteger:UIInterfaceOrientationLandscapeRight];
+                            [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                        }
                     } else {
-                        // 如果当前设备是 UIInterfaceOrientationLandscapeRight ，即 homeButton/homeIndicator 在左侧，则需要手动处理
-                        // 如果当前设备是 landscape 之外的方向，则需要手动处理
-                        NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
-                        [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
-                        NSNumber *orientationTarget = [NSNumber numberWithInteger:UIInterfaceOrientationLandscapeRight];
-                        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
-                    }
-                } else {
-                    if ([ReactNativeNavigation getDeivcePhysicalOrientation] == UIDeviceOrientationLandscapeRight) {
-                        NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
-                        [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
-                        NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
-                        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
-                    } else {
-                        NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
-                        [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
-                        NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
-                        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                        if ([ReactNativeNavigation getDeivcePhysicalOrientation] == UIDeviceOrientationLandscapeRight) {
+                            NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+                            [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+                            NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+                            [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                        } else {
+                            NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+                            [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+                            NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+                            [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                        }
                     }
                 }
+            } else {
+                // orientation 既有 landscape 字段 也有 portrait 字段
+                // 这种场景下说明 app 即支持横屏也支持竖屏，那么就不需要去强制横竖屏操作了
             }
-        } else {
-            // orientation 既有 landscape 字段 也有 portrait 字段
-            // 这种场景下说明 app 即支持横屏也支持竖屏，那么就不需要去强制横竖屏操作了
         }
     }
+
 }
 
 - (BOOL)shouldAutorotate
 {
-    // Pad 端支持自动转屏
-    if (DeviceIsPad) return YES;
-    else {
-        if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
-            if ([self.options.layout.orientation count] == 1) {
-                NSString *orientation = [self.options.layout.orientation lastObject];
-                if ([orientation isEqualToString:@"landscape"]) {
-                    // iPhone 端，在 options 中只有 landscape 传入的情况下支持自动转屏
-                    return YES;
+    if (@available(iOS 13.0, *)) {
+        // Pad 端支持自动转屏
+        if (DeviceIsPad) return YES;
+        else {
+            if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
+                if ([self.options.layout.orientation count] == 1) {
+                    NSString *orientation = [self.options.layout.orientation lastObject];
+                    if ([orientation isEqualToString:@"landscape"]) {
+                        // iPhone 端，在 options 中只有 landscape 传入的情况下支持自动转屏
+                        return YES;
+                    } else {
+                        // iPhone 端，在 options 中只有 portrait 传入的情况下不支持自动转屏
+                        return NO;
+                    }
                 } else {
-                    // iPhone 端，在 options 中只有 portrait 传入的情况下不支持自动转屏
-                    return NO;
+                    // iPhone 端，在 options 中 orientation 数组数量大于 1 的情况支持自动转屏
+                    return YES;
                 }
             } else {
-                // iPhone 端，在 options 中 orientation 数组数量大于 1 的情况支持自动转屏
-                return YES;
+                // iPhone 端，在 options 中 orientation 数组为空的情况下，不支持自动转屏
+                return NO;
             }
-        } else {
-            // iPhone 端，在 options 中 orientation 数组为空的情况下，不支持自动转屏
-            return NO;
         }
+    } else {
+        return [super shouldAutorotate];
     }
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
-        if ([self.options.layout.orientation count] == 1) {
-            NSString *orientation = [self.options.layout.orientation lastObject];
-            // orientation 只有 landscape 字段
-            if ([orientation isEqualToString:@"landscape"]) {
-                if (DeviceIsPad) {
-                    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+    if (@available(iOS 13.0, *)) {
+        if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
+            if ([self.options.layout.orientation count] == 1) {
+                NSString *orientation = [self.options.layout.orientation lastObject];
+                // orientation 只有 landscape 字段
+                if ([orientation isEqualToString:@"landscape"]) {
+                    if (DeviceIsPad) {
+                        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+                    } else {
+                        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+                    }
                 } else {
-                    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+                    if (DeviceIsPad) {
+                        return UIInterfaceOrientationMaskAll;
+                    } else {
+                        return UIInterfaceOrientationMaskPortrait;
+                    }
                 }
             } else {
+                // orientation 既有 landscape 字段 也有 portrait 字段
                 if (DeviceIsPad) {
                     return UIInterfaceOrientationMaskAll;
                 } else {
-                    return UIInterfaceOrientationMaskPortrait;
+                    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
                 }
             }
         } else {
-            // orientation 既有 landscape 字段 也有 portrait 字段
             if (DeviceIsPad) {
                 return UIInterfaceOrientationMaskAll;
             } else {
-                return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscape;
+                return UIInterfaceOrientationMaskPortrait;
             }
         }
-    } else {
-        if (DeviceIsPad) {
-            return UIInterfaceOrientationMaskAll;
-        } else {
-            return UIInterfaceOrientationMaskPortrait;
-        }
+    }
+    else {
+        return [super supportedInterfaceOrientations];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    // 判断 Options 中是否有横屏字段
-    if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
-        if ([self.options.layout.orientation count] == 1) {
-            NSString *orientation = [self.options.layout.orientation lastObject];
-            if ([orientation isEqualToString:@"landscape"]) {
-                // orientation 只有 landscape 字段
-                NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
-                [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+    [super viewWillDisappear:animated];
+    
+    if (@available(iOS 13.0, *)) {
+        // 判断 Options 中是否有横屏字段
+        if (self.options.layout.orientation && [self.options.layout.orientation isKindOfClass:[NSArray class]]) {
+            if ([self.options.layout.orientation count] == 1) {
+                NSString *orientation = [self.options.layout.orientation lastObject];
+                if ([orientation isEqualToString:@"landscape"]) {
+                    // orientation 只有 landscape 字段
+                    NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+                    [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+                    if (DeviceIsPad) {
+                        NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationMaskAll];
+                        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                    } else {
+                        NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+                        [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+                    }
+                }
+            } else {
+                // orientation 既有 landscape 字段 也有 portrait 字段
                 if (DeviceIsPad) {
                     NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationMaskAll];
                     [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
                 } else {
-                    NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+                    NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait | UIInterfaceOrientationMaskLandscape];
                     [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
                 }
             }
         } else {
-            // orientation 既有 landscape 字段 也有 portrait 字段
             if (DeviceIsPad) {
                 NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationMaskAll];
                 [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
             } else {
-                NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait | UIInterfaceOrientationMaskLandscape];
+                NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
                 [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
             }
         }
-    } else {
-        if (DeviceIsPad) {
-            NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationMaskAll];
-            [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
-        } else {
-            NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-            [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
-        }
     }
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
