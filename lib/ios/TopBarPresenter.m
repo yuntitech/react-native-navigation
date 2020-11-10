@@ -2,7 +2,7 @@
 #import "UIImage+tint.h"
 #import "RNNFontAttributesCreator.h"
 #import "UIColor+RNNUtils.h"
-
+#import "BackBarButtonItem.h"
 @implementation TopBarPresenter
 
 - (instancetype)initWithNavigationController:(UINavigationController *)boundNavigationController {
@@ -123,7 +123,14 @@
     
     NSArray* stackChildren = self.navigationController.viewControllers;
     UIViewController *lastViewControllerInStack = stackChildren.count > 1 ? stackChildren[stackChildren.count - 2] : self.navigationController.topViewController;
-    UIBarButtonItem *backItem = [UIBarButtonItem new];
+    UIBarButtonItem *backItem = nil;
+    
+    if (@available(iOS 14, *)) {
+        backItem = [BackBarButtonItem new];
+    } else {
+        backItem = [UIBarButtonItem new];
+    }
+    
     backItem.accessibilityIdentifier = testID;
 
     icon = color
