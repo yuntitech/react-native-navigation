@@ -14,6 +14,7 @@
 #import "UIViewController+Rotation.h"
 #import "RCTHelpers.h"
 #import "RCTConvert+UIBarButtonSystemItem.h"
+#import "BKLBarBackButtonItem.h"
 
 @implementation RCCNavigationController
 {
@@ -144,10 +145,19 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
     
     if (backButtonTitle)
     {
-      UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:backButtonTitle
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:nil
-                                                                  action:nil];
+      UIBarButtonItem *backItem;
+      if (@available(iOS 14.0, *)) {
+        BKLBarBackButtonItem *backItemWithoutLongPress = [[BKLBarBackButtonItem alloc] initWithTitle:backButtonTitle
+                                                                                               style:UIBarButtonItemStylePlain
+                                                                                              target:nil
+                                                                                              action:nil];
+        backItem = backItemWithoutLongPress;
+      } else {
+        backItem = [[UIBarButtonItem alloc] initWithTitle:backButtonTitle
+                                                    style:UIBarButtonItemStylePlain
+                                                   target:nil
+                                                   action:nil];
+      }
       
       self.topViewController.navigationItem.backBarButtonItem = backItem;
     }
