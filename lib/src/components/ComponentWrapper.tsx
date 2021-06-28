@@ -1,14 +1,19 @@
-import * as React from 'react';
-import { ComponentProvider,View } from 'react-native';
-import merge from 'lodash/merge'
-import { polyfill } from 'react-lifecycles-compat';
-import hoistNonReactStatics from 'hoist-non-react-statics';
+import * as React from "react";
+import { ComponentProvider, View } from "react-native";
+import merge from "lodash/merge";
+import { polyfill } from "react-lifecycles-compat";
+import hoistNonReactStatics from "hoist-non-react-statics";
 
-import { Store } from './Store';
-import { ComponentEventsObserver } from '../events/ComponentEventsObserver';
+import { Store } from "./Store";
+import { ComponentEventsObserver } from "../events/ComponentEventsObserver";
 
-interface HocState { componentId: string; allProps: {}; }
-interface HocProps { componentId: string; }
+interface HocState {
+  componentId: string;
+  allProps: {};
+}
+interface HocProps {
+  componentId: string;
+}
 
 export interface IWrappedComponent extends React.Component {
   setProps(newProps: Record<string, any>): void;
@@ -29,7 +34,11 @@ export class ComponentWrapper {
     class WrappedComponent extends React.Component<HocProps, HocState> {
       static getDerivedStateFromProps(nextProps: any, prevState: HocState) {
         return {
-          allProps: merge({}, nextProps, store.getPropsForId(prevState.componentId))
+          allProps: merge(
+            {},
+            nextProps,
+            store.getPropsForId(prevState.componentId)
+          ),
         };
       }
 
@@ -38,7 +47,7 @@ export class ComponentWrapper {
         this._assertComponentId();
         this.state = {
           componentId: props.componentId,
-          allProps: {}
+          allProps: {},
         };
         store.setComponentInstance(props.componentId, this);
       }
@@ -63,32 +72,48 @@ export class ComponentWrapper {
 
       private _assertComponentId() {
         if (!this.props.componentId) {
-          throw new Error(`Component ${componentName} does not have a componentId!`);
+          throw new Error(
+            `Component ${componentName} does not have a componentId!`
+          );
         }
       }
     }
 
     polyfill(WrappedComponent);
     hoistNonReactStatics(WrappedComponent, concreteComponentProvider());
-    return ReduxProvider ? this.wrapWithRedux(WrappedComponent, ReduxProvider, reduxStore, floatingView) : WrappedComponent;
+    return ReduxProvider
+      ? this.wrapWithRedux(
+          WrappedComponent,
+          ReduxProvider,
+          reduxStore,
+          componentName,
+          floatingView
+        )
+      : WrappedComponent;
   }
 
-  wrapWithRedux(WrappedComponent: React.ComponentClass<any>, ReduxProvider: any, reduxStore: any, floatingView?: any): React.ComponentClass<any> {
+  wrapWithRedux(
+    WrappedComponent: React.ComponentClass<any>,
+    ReduxProvider: any,
+    reduxStore: any,
+    componentName: string | number,
+    floatingView?: any
+  ): React.ComponentClass<any> {
     const AudioPlayFloatingView = floatingView ? floatingView() : null;
     class ReduxWrapper extends React.Component<any, any> {
       render() {
         return (
           <ReduxProvider store={reduxStore}>
             {floatingView ? (
-                <View style={{ flex: 1 }}>
-                  <WrappedComponent {...this.props} />
-                  <AudioPlayFloatingView
-                      {...this.props}
-                      screenID={this.props.componentId}
-                  />
-                </View>
-            ) : (
+              <View style={{ flex: 1 }}>
                 <WrappedComponent {...this.props} />
+                <AudioPlayFloatingView
+                  {...this.props}
+                  screenID={this.props.componentId}
+                />
+              </View>
+            ) : (
+              <WrappedComponent {...this.props} componentName={componentName} />
             )}
           </ReduxProvider>
         );

@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { EmitterSubscription } from 'react-native';
 import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
 import { CommandsObserver } from './CommandsObserver';
