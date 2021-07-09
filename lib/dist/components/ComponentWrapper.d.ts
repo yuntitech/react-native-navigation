@@ -7,5 +7,5 @@ export interface IWrappedComponent extends React.Component {
 }
 export declare class ComponentWrapper {
     wrap(componentName: string | number, OriginalComponentGenerator: ComponentProvider, store: Store, componentEventsObserver: ComponentEventsObserver, concreteComponentProvider?: ComponentProvider, ReduxProvider?: any, reduxStore?: any): React.ComponentClass<any>;
-    wrapWithRedux(WrappedComponent: React.ComponentClass<any>, ReduxProvider: any, reduxStore: any): React.ComponentClass<any>;
+    wrapWithRedux(WrappedComponent: React.ComponentClass<any>, ReduxProvider: any, reduxStore: any, componentName: string | number): React.ComponentClass<any>;
 }
