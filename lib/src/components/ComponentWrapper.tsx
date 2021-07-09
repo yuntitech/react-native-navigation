@@ -84,20 +84,21 @@ export class ComponentWrapper {
         : concreteComponentProvider()
     );
     return ReduxProvider
-      ? this.wrapWithRedux(WrappedComponent, ReduxProvider, reduxStore)
+      ? this.wrapWithRedux(WrappedComponent, ReduxProvider, reduxStore, componentName)
       : WrappedComponent;
   }
 
   wrapWithRedux(
     WrappedComponent: React.ComponentClass<any>,
     ReduxProvider: any,
-    reduxStore: any
+    reduxStore: any,
+    componentName: string | number
   ): React.ComponentClass<any> {
     class ReduxWrapper extends React.Component<any, any> {
       render() {
         return (
           <ReduxProvider store={reduxStore}>
-            <WrappedComponent {...this.props} />
+            <WrappedComponent {...this.props} componentName={componentName} />
           </ReduxProvider>
         );
       }
