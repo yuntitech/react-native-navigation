@@ -1,6 +1,7 @@
 #import "RNNComponentViewController.h"
 #import "UIViewController+RNNOptions.h"
 #import <ReactNativeNavigation/ReactNativeNavigation.h>
+#import "UIView+Utils.h"
 #define DeviceIsPad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 
 @implementation RNNComponentViewController
@@ -198,6 +199,9 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self componentDidDisappear];
+
+    // Fix's momentum scroll bug https://github.com/wix/react-native-navigation/issues/4325
+    [self.view stopMomentumScrollViews];
 }
 
 - (void)loadView {

@@ -1,6 +1,6 @@
 #import "RNNBottomTabsController.h"
 #import "UITabBarController+RNNUtils.h"
-
+#import "UIView+Utils.h"
 @interface RNNBottomTabsController ()
 @property (nonatomic, strong) BottomTabPresenter* bottomTabPresenter;
 @property (nonatomic, strong) RNNDotIndicatorPresenter* dotIndicatorPresenter;
@@ -107,6 +107,7 @@
     [self.eventEmitter sendBottomTabPressed:@(_index)];
     
     if([[viewController resolveOptions].bottomTab.selectTabOnPress getWithDefaultValue:YES]){
+        [self.view stopMomentumScrollViews];
         return YES;
     }
 

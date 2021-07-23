@@ -15,4 +15,6 @@ typedef NS_ENUM(NSInteger, ViewType) {
 
 - (void)layout:(CGFloat)p;
 
+- (void)stopMomentumScrollViews;
+
 @end

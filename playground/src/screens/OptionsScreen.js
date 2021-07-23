@@ -52,6 +52,21 @@ class Options extends Component {
           platform='ios'
           onPress={this.setPreferredScreenEdgesDeferringSystemGestures}
         />
+        <Button label='Change title' testID={CHANGE_TITLE_BTN} onPress={this.changeTitle} />
+        <Button label='Hide TopBar' testID={HIDE_TOP_BAR_BTN} onPress={this.hideTopBar} />
+        <Button label='Show TopBar' testID={SHOW_TOP_BAR_BTN} onPress={this.showTopBar} />
+        <Button label='Push' testID={PUSH_BTN} onPress={this.push} />
+        <Button label='Hide TopBar in DefaultOptions' testID={HIDE_TOPBAR_DEFAULT_OPTIONS} onPress={this.hideTopBarInDefaultOptions} />
+        <Button label='Set React Title View' testID={SET_REACT_TITLE_VIEW} onPress={this.setReactTitleView} />
+        <Button label='Show Yellow Box' testID={SHOW_YELLOW_BOX_BTN} onPress={() => console.warn('Yellow Box')} />
+        <Button label='StatusBar' onPress={this.statusBarScreen} />
+        <Button label='Buttons Screen' testID={GOTO_BUTTONS_SCREEN} onPress={this.pushButtonsScreen} />
+        <Button label='Toggle Navigation bar visibility' platform='android' onPress={this.toggleAndroidNavigationBar}/>
+        <Button
+          label='preferredScreenEdgesDeferringSystemGestures'
+          platform='ios'
+          onPress={this.setPreferredScreenEdgesDeferringSystemGestures}
+        />
       </Root>
     );
   }

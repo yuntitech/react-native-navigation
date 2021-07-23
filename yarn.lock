@@ -9462,10 +9462,10 @@ typedoc@0.x.x:
     shiki "^0.9.3"
     typedoc-default-themes "^0.12.10"
 
-typescript@3.2.2:
-  version "3.2.2"
-  resolved "https://registry.nlark.com/typescript/download/typescript-3.2.2.tgz#fe8101c46aa123f8353523ebdcf5730c2ae493e5"
-  integrity sha1-/oEBxGqhI/g1NSPr3PVzDCrkk+U=
+typescript@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.nlark.com/typescript/download/typescript-4.3.5.tgz?cache=0&sync_timestamp=1626938250985&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ftypescript%2Fdownload%2Ftypescript-4.3.5.tgz#4d1c37cc16e893973c45a06886b7113234f119f4"
+  integrity sha1-TRw3zBbok5c8RaBohrcRMjTxGfQ=
 
 ua-parser-js@^0.7.18:
   version "0.7.28"
