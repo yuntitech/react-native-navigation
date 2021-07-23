@@ -9,7 +9,7 @@
 #import "UIViewController+Utils.h"
 #import "UINavigationController+RNNCommands.h"
 #import "RNNAssert.h"
-
+#import "RNNUtils.h"
 static NSString* const setRoot	= @"setRoot";
 static NSString* const setStackRoot	= @"setStackRoot";
 static NSString* const push	= @"push";
@@ -116,6 +116,9 @@ static NSString* const setDefaultOptions	= @"setDefaultOptions";
 - (void)push:(NSString*)componentId commandId:(NSString*)commandId layout:(NSDictionary*)layout completion:(RNNTransitionCompletionBlock)completion rejection:(RCTPromiseRejectBlock)rejection {
 	[self assertReady];
     RNNAssertMainQueue();
+    
+    UIViewController *topViewController = [RNNUtils getTopViewController];
+    [RNNUtils stopDescendentScrollViews:topViewController.view];
 	
 	UIViewController *newVc = [_controllerFactory createLayout:layout];
 	UIViewController *fromVC = [RNNLayoutManager findComponentForId:componentId];
@@ -256,6 +259,8 @@ static NSString* const setDefaultOptions	= @"setDefaultOptions";
 - (void)showModal:(NSDictionary*)layout commandId:(NSString *)commandId completion:(RNNTransitionWithComponentIdCompletionBlock)completion {
 	[self assertReady];
     RNNAssertMainQueue();
+    UIViewController *topViewController = [RNNUtils getTopViewController];
+    [RNNUtils stopDescendentScrollViews:topViewController.view];
 	
 	UIViewController *newVc = [_controllerFactory createLayout:layout];
     __weak UIViewController* weakNewVC = newVc;
