@@ -140,7 +140,7 @@ static NSString* const BottomTabPressed         = @"RNN.BottomTabPressed";
 
 - (void)sendScreenPoppedEvent:(NSString *)componentId {
     [self send:ScreenPopped body:@{
-        @"componentId": componentId
+        @"componentId": componentId ? componentId : @""
     }];
 }
 
