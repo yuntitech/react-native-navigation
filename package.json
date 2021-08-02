@@ -139,15 +139,6 @@
       "html"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": "eslint --fix",
-    "*.{h,m,mm}": "node ./scripts/check-clang-format"
-  },
   "detox": {
     "test-runner": "jest",
     "specs": "",
