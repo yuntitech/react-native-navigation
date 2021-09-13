@@ -8,12 +8,21 @@
     RNNTitleViewHelper *_titleViewHelper;
 }
 
+- (NSString *)nullToString:(id)string {
+    if ([string isEqual:@"NULL"] || [string isKindOfClass:[NSNull class]] || [string isEqual:[NSNull null]] || [string isEqual:NULL] || [[string class] isSubclassOfClass:[NSNull class]] || string == nil || string == NULL || [string isKindOfClass:[NSNull class]] || [[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0 || [string isEqualToString:@"<null>"] || [string isEqualToString:@"(null)"]) {
+        return @"";
+    } else {
+        return (NSString *)string;
+    }
+}
+
 - (void)applyOptionsOnInit:(RNNTopBarOptions *)initialOptions {
     if (initialOptions.title.component.hasValue) {
         [self setCustomNavigationTitleView:initialOptions perform:nil];
     } else if (initialOptions.title.text.hasValue) {
         [self removeTitleComponents];
-        self.boundViewController.navigationItem.title = initialOptions.title.text.get;
+        NSString *transformedTitleString = [self nullToString:initialOptions.title.text.get];
+        self.boundViewController.navigationItem.title = transformedTitleString;
     }
 }
 
