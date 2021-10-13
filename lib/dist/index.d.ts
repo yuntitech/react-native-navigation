@@ -1,5 +1,6 @@
-import { NavigationRoot } from './Navigation';
-export declare const Navigation: NavigationRoot;
+import { NavigationDelegate } from './NavigationDelegate';
+export declare const Navigation: NavigationDelegate;
+export * from './components/Modal';
 export * from './events/EventsRegistry';
 export * from './adapters/Constants';
 export * from './interfaces/ComponentEvents';

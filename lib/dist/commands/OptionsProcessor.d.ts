@@ -19,6 +19,8 @@ export declare class OptionsProcessor {
     private processObject;
     private resolveObjectPath;
     private processColor;
+    private processColorIOS;
+    private processColorAndroid;
     private processWithRegisteredProcessor;
     private processImage;
     private processButtonsPassProps;
