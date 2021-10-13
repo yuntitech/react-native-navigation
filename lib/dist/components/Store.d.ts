@@ -7,7 +7,7 @@ export declare class Store {
     private componentsInstancesById;
     private wrappedComponents;
     private lazyRegistratorFn;
-    updateProps(componentId: string, props: any): void;
+    updateProps(componentId: string, props: any, callback?: () => void): void;
     getPropsForId(componentId: string): any;
     mergeNewPropsForId(componentId: string, newProps: any): void;
     clearComponent(componentId: string): void;
@@ -15,7 +15,7 @@ export declare class Store {
     getComponentClassForName(componentName: string | number): ComponentProvider | undefined;
     ensureClassForName(componentName: string | number): void;
     setComponentInstance(id: string, component: IWrappedComponent): void;
-    getComponentInstance(id: string): IWrappedComponent;
+    getComponentInstance(id: string): IWrappedComponent | undefined;
     setWrappedComponent(componentName: string | number, wrappedComponent: React.ComponentClass<any>): void;
     hasRegisteredWrappedComponent(componentName: string | number): boolean;
     getWrappedComponent(componentName: string | number): React.ComponentClass<any>;
