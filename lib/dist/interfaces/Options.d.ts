@@ -1,5 +1,5 @@
-import { ImageRequireSource, ImageSourcePropType, Insets } from 'react-native';
-declare type Color = string | symbol;
+import { ImageRequireSource, ImageSourcePropType, Insets, OpaqueColorValue } from 'react-native';
+export declare type Color = string | symbol | ThemeColor | OpaqueColorValue | null;
 declare type FontFamily = string;
 declare type FontStyle = 'normal' | 'italic';
 declare type FontWeightIOS = 'normal' | 'ultralight' | 'thin' | 'light' | 'regular' | 'medium' | 'semibold' | 'demibold' | 'extrabold' | 'ultrabold' | 'bold' | 'heavy' | 'black';
@@ -32,6 +32,10 @@ export declare type Interpolation = {
     allowsOverdamping?: boolean;
     initialVelocity?: number;
 };
+interface ThemeColor {
+    light?: string | symbol;
+    dark?: string | symbol;
+}
 export interface OptionsSplitView {
     /**
      * Master view display mode
@@ -280,6 +284,11 @@ export interface OptionsTopBarBackButton {
      */
     icon?: ImageResource;
     /**
+     * SF Symbol to show as the back button
+     * #### (iOS 13+ specific)
+     */
+    sfSymbol?: string;
+    /**
      * Weither the back button is visible or not
      * @default true
      */
@@ -520,6 +529,7 @@ export interface OptionsSearchBar {
     backgroundColor?: Color;
     tintColor?: Color;
     placeholder?: string;
+    cancelText?: string;
 }
 export interface OptionsTopBar {
     /**
@@ -920,6 +930,21 @@ export interface OptionsBottomTab {
      * instead it will emit a bottomTabPressedEvent
      */
     selectTabOnPress?: boolean;
+    /**
+     * Pop to root of stack by tapping on already selected tab
+     * #### (Android specific)
+     */
+    popToRoot?: boolean;
+    /**
+     * Set the SF symbol as icon (will be used primarily)
+     * #### (iOS 13+ specific)
+     */
+    sfSymbol?: string;
+    /**
+     * Set the SF symbol as selected icon (will be used primarily)
+     * #### (iOS 13+ specific)
+     */
+    sfSelectedSymbol?: string;
 }
 export interface SideMenuSide {
     /**

@@ -23,7 +23,7 @@ export declare class Commands {
     setRoot(simpleApi: LayoutRoot): Promise<any>;
     setDefaultOptions(options: Options): void;
     mergeOptions(componentId: string, options: Options): void;
-    updateProps(componentId: string, props: object): void;
+    updateProps(componentId: string, props: object, callback?: () => void): void;
     showModal(layout: Layout): Promise<any>;
     dismissModal(componentId: string, mergeOptions?: Options): Promise<any>;
     dismissAllModals(mergeOptions?: Options): Promise<any>;

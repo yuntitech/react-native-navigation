@@ -1,30 +1,35 @@
+import { NativeCommandsSender } from './adapters/NativeCommandsSender';
+import { NativeEventsReceiver } from './adapters/NativeEventsReceiver';
+import { Store } from './components/Store';
 import { EventsRegistry } from './events/EventsRegistry';
 import { ComponentProvider } from 'react-native';
 import { NavigationConstants } from './adapters/Constants';
 import { TouchablePreview } from './adapters/TouchablePreview';
 import { LayoutRoot, Layout } from './interfaces/Layout';
 import { Options } from './interfaces/Options';
+import { AppRegistryService } from './adapters/AppRegistryService';
 import { ProcessorSubscription } from './interfaces/ProcessorSubscription';
 import { CommandName } from './interfaces/CommandName';
 import { OptionsProcessor as OptionProcessor } from './interfaces/Processors';
 export declare class NavigationRoot {
+    private readonly nativeCommandsSender;
+    private readonly nativeEventsReceiver;
+    private readonly appRegistryService;
     readonly TouchablePreview: typeof TouchablePreview;
-    private readonly store;
+    readonly store: Store;
     private readonly optionProcessorsStore;
     private readonly layoutProcessorsStore;
-    private readonly nativeEventsReceiver;
     private readonly uniqueIdProvider;
     private readonly componentRegistry;
     private readonly layoutTreeParser;
     private readonly layoutTreeCrawler;
-    private readonly nativeCommandsSender;
     private readonly commands;
     private readonly eventsRegistry;
     private readonly commandsObserver;
     private readonly componentEventsObserver;
     private readonly componentWrapper;
     private readonly optionsCrawler;
-    constructor();
+    constructor(nativeCommandsSender: NativeCommandsSender, nativeEventsReceiver: NativeEventsReceiver, appRegistryService: AppRegistryService);
     /**
      * Every navigation component in your app must be registered with a unique name.
      * The component itself is a traditional React component extending React.Component.
@@ -60,7 +65,7 @@ export declare class NavigationRoot {
     /**
      * Update a mounted component's props
      */
-    updateProps(componentId: string, props: object): void;
+    updateProps(componentId: string, props: object, callback?: () => void): void;
     /**
      * Show a screen as a modal.
      */
@@ -117,4 +122,8 @@ export declare class NavigationRoot {
      * Constants coming from native
      */
     constants(): Promise<NavigationConstants>;
+    /**
+     * Constants coming from native (synchronized call)
+     */
+    constantsSync(): NavigationConstants;
 }
