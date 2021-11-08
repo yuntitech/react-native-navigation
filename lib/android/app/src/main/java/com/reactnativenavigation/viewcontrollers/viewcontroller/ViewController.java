@@ -27,6 +27,7 @@ import com.reactnativenavigation.viewcontrollers.viewcontroller.overlay.ViewCont
 import com.reactnativenavigation.views.BehaviourAdapter;
 import com.reactnativenavigation.views.component.Component;
 import com.reactnativenavigation.views.component.Renderable;
+import com.reactnativenavigation.react.NavigationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -280,17 +281,19 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
             onViewDisappear();
         }
         yellowBoxDelegate.destroy();
-        if (view instanceof Destroyable) {
-            ((Destroyable) view).destroy();
-        }
-        if (view != null) {
-            view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            view.setOnHierarchyChangeListener(null);
-            if (view.getParent() instanceof ViewGroup) {
-                ((ViewManager) view.getParent()).removeView(view);
+        if (!NavigationHelper.isSupportPictureForComponentName(this) || !NavigationHelper.isPictureInPicture) {
+            if (view instanceof Destroyable) {
+                ((Destroyable) view).destroy();
             }
-            view = null;
-            isDestroyed = true;
+            if (view != null) {
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                view.setOnHierarchyChangeListener(null);
+                if (view.getParent() instanceof ViewGroup) {
+                    ((ViewManager) view.getParent()).removeView(view);
+                }
+                view = null;
+                isDestroyed = true;
+            }
         }
     }
 

@@ -134,6 +134,7 @@ public class NavigationModule extends ReactContextBaseJavaModule {
         final LayoutNode layoutTree = LayoutNodeParser.parse(jsonParser.parse(rawLayoutTree));
         handle(() -> {
             final ViewController<?> viewController = layoutFactory.create(layoutTree);
+            NavigationHelper.willPush(viewController);
             navigator().push(onComponentId, viewController, new NativeCommandListener("push", commandId, promise, eventEmitter, now));
         });
     }
