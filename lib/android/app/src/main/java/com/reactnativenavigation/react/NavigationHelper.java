@@ -7,12 +7,25 @@ import com.reactnativenavigation.viewcontrollers.viewcontroller.ViewController;
 public class NavigationHelper {
 
     /**
+     * 需要退出画中画监听
+     */
+    public interface INeedExitPictureInPictureListener{
+        void needExitPictureInPicture() ;
+    }
+
+    /**
      * 播放页面controller
      */
     public static ViewController<?> saveController = null;
     public static boolean isPictureInPicture = false;
 
+    private static INeedExitPictureInPictureListener mListener ;
+
     public static String[] mSupportPictureInPictureComponent ={} ;
+
+    public static void setNeedExitPictureInPictureListener(INeedExitPictureInPictureListener listener){
+        mListener = listener ;
+    }
 
     /**
      * 初始化支持的画中画的页面
@@ -28,8 +41,12 @@ public class NavigationHelper {
      */
     public static void willPush(ViewController<?> viewController){
         if (isSupportPictureForComponentName(viewController)) {
+            if(mListener != null && isPictureInPicture){
+                mListener.needExitPictureInPicture();
+            }
             if(saveController != null){
                 saveController.destroy();
+                saveController = null ;
             }
             saveController = viewController ;
         }
