@@ -126,4 +126,5 @@ export declare class NavigationRoot {
      * Constants coming from native (synchronized call)
      */
     constantsSync(): NavigationConstants;
+    getComponentTopBarVisible(componentId: string): Promise<boolean>;
 }

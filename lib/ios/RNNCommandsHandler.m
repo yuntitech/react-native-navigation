@@ -492,6 +492,14 @@ static NSString *const setDefaultOptions = @"setDefaultOptions";
     [self->_eventEmitter sendOnNavigationCommandCompletion:dismissAllOverlays commandId:commandId];
 }
 
+- (BOOL)findViewControllerTopBarVisibleWithComponentId:(NSString *)componentId
+{
+  [self assertReady];
+  RNNAssertMainQueue();
+  
+  return [ReactNativeNavigation findViewControllerTopBarVisibleWithComponentId:componentId];
+}
+
 #pragma mark - private
 
 - (void)assertReady {

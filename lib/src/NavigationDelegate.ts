@@ -243,4 +243,8 @@ export class NavigationDelegate {
       store: this.concreteNavigation.store,
     };
   }
+
+  public getComponentTopBarVisible(componentId: string): Promise<boolean> {
+    return this.concreteNavigation.getComponentTopBarVisible(componentId);
+  }
 }

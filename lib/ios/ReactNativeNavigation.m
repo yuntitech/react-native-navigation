@@ -5,7 +5,7 @@
 #import "RNNBridgeManager.h"
 #import "RNNLayoutManager.h"
 #import "RNNSplashScreen.h"
-
+#import "RNNComponentViewController.h"
 @interface ReactNativeNavigation ()
 
 @property(nonatomic, strong) RNNBridgeManager *bridgeManager;
@@ -45,6 +45,12 @@
 
 + (UIViewController *)findViewController:(NSString *)componentId {
     return [[ReactNativeNavigation sharedInstance].bridgeManager findComponentForId:componentId];
+}
+
++ (BOOL)findViewControllerTopBarVisibleWithComponentId:(NSString *)componentId
+{
+  RNNComponentViewController *vc = (RNNComponentViewController *)[[ReactNativeNavigation sharedInstance].bridgeManager findComponentForId:componentId];
+  return vc.options.topBar.visible;
 }
 
 #pragma mark - instance

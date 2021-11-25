@@ -111,4 +111,5 @@ export declare class NavigationDelegate {
     get mock(): {
         store: import("./components/Store").Store;
     };
+    getComponentTopBarVisible(componentId: string): Promise<boolean>;
 }

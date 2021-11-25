@@ -300,4 +300,9 @@ export class NavigationRoot {
   public constantsSync(): NavigationConstants {
     return Constants.getSync();
   }
+
+  public getComponentTopBarVisible(componentId: string): Promise<boolean> {
+    // TODO: Android 待实现
+    return this.nativeCommandsSender.getComponentTopBarVisible(componentId);
+  }
 }
