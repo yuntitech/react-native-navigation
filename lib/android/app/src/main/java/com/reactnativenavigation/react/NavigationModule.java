@@ -21,12 +21,14 @@ import com.reactnativenavigation.options.parsers.JSONParser;
 import com.reactnativenavigation.options.parsers.LayoutNodeParser;
 import com.reactnativenavigation.options.parsers.TypefaceLoader;
 import com.reactnativenavigation.react.events.EventEmitter;
+import com.reactnativenavigation.utils.Functions;
 import com.reactnativenavigation.utils.LaunchArgsParser;
 import com.reactnativenavigation.utils.Now;
 import com.reactnativenavigation.utils.SystemUiUtils;
 import com.reactnativenavigation.utils.UiThread;
 import com.reactnativenavigation.utils.UiUtils;
 import com.reactnativenavigation.viewcontrollers.navigator.Navigator;
+import com.reactnativenavigation.viewcontrollers.stack.StackController;
 import com.reactnativenavigation.viewcontrollers.viewcontroller.ViewController;
 
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ import java.util.Objects;
 import static com.reactnativenavigation.utils.UiUtils.pxToDp;
 
 import android.app.Activity;
+import android.annotation.SuppressLint;
+import android.view.View;
 
 public class NavigationModule extends ReactContextBaseJavaModule {
     private static final String NAME = "RNNBridgeModule";
@@ -86,6 +90,22 @@ public class NavigationModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getLaunchArgs(String commandId, Promise promise) {
         promise.resolve(LaunchArgsParser.parse(activity()));
+    }
+
+    @SuppressLint("RestrictedApi")
+    @ReactMethod
+    public void getComponentTopBarVisible(String componentId,Promise promise){
+        ViewController controller = navigator().findController(componentId) ;
+        if(controller == null){
+            promise.resolve(false);
+        }
+        if(controller instanceof StackController){
+            StackController stackController = (StackController) controller;
+            promise.resolve(stackController.getTopBar().getVisibility() == View.VISIBLE);
+        }else{
+            Functions.Func1<StackController> task = stack-> promise.resolve(stack.getTopBar().getVisibility() == View.VISIBLE);
+            controller.performOnParentStack(task);
+        }
     }
 
     private WritableMap createNavigationConstantsMap() {
