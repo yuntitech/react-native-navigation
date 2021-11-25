@@ -84,4 +84,5 @@
 
 - (void)dismissAllOverlays:(NSString *)commandId;
 
+- (BOOL)findViewControllerTopBarVisibleWithComponentId:(NSString *)componentId;
 @end
