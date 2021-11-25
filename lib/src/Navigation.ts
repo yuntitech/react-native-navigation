@@ -301,8 +301,8 @@ export class NavigationRoot {
     return Constants.getSync();
   }
 
-  public getComponentTopBarVisible(componentId: string): Promise<boolean> {
+  public async getComponentTopBarVisible(componentId: string): Promise<boolean> {
     // TODO: Android 待实现
-    return this.nativeCommandsSender.getComponentTopBarVisible(componentId);
+    return await this.nativeCommandsSender.getComponentTopBarVisible(componentId);
   }
 }
