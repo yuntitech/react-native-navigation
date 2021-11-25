@@ -85,7 +85,7 @@ export class NativeCommandsSender {
     return this.nativeCommandsModule.getLaunchArgs(commandId);
   }
 
-  public getComponentTopBarVisible(componentId: string): Promise<boolean> {
-    return this.nativeCommandsModule.getComponentTopBarVisible(componentId);
+  async getComponentTopBarVisible(componentId: string): Promise<boolean> {
+    return await this.nativeCommandsModule.getComponentTopBarVisible(componentId);
   }
 }

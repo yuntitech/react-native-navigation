@@ -244,7 +244,7 @@ export class NavigationDelegate {
     };
   }
 
-  public getComponentTopBarVisible(componentId: string): Promise<boolean> {
-    return this.concreteNavigation.getComponentTopBarVisible(componentId);
+  public async getComponentTopBarVisible(componentId: string): Promise<boolean> {
+    return await this.concreteNavigation.getComponentTopBarVisible(componentId);
   }
 }
