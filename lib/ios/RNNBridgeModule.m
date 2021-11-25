@@ -253,7 +253,7 @@ RCT_EXPORT_METHOD(getComponentTopBarVisible
                   : (RCTPromiseResolveBlock)resolve rejecter
                   : (RCTPromiseRejectBlock)reject) {
     RCTExecuteOnMainQueue(^{
-      [self->_commandsHandler findViewControllerTopBarVisibleWithComponentId:componentId];
+      resolve(@([self->_commandsHandler findViewControllerTopBarVisibleWithComponentId:componentId]));
     });
 }
 
