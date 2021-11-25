@@ -302,7 +302,6 @@ export class NavigationRoot {
   }
 
   public async getComponentTopBarVisible(componentId: string): Promise<boolean> {
-    // TODO: Android 待实现
     return await this.nativeCommandsSender.getComponentTopBarVisible(componentId);
   }
 }
