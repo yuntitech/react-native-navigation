@@ -50,7 +50,7 @@
 + (BOOL)findViewControllerTopBarVisibleWithComponentId:(NSString *)componentId
 {
   RNNComponentViewController *vc = (RNNComponentViewController *)[[ReactNativeNavigation sharedInstance].bridgeManager findComponentForId:componentId];
-  return vc.options.topBar.visible;
+  return [vc.options.topBar.visible get];
 }
 
 #pragma mark - instance
