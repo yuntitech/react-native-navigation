@@ -21,4 +21,6 @@ typedef UIViewController * (^RNNExternalViewCreator)(NSDictionary *props, RCTBri
 
 + (RCTBridge *)getBridge;
 
++ (BOOL)findViewControllerTopBarVisibleWithComponentId:(NSString *)componentId;
+
 @end

@@ -248,4 +248,13 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getNavigationConstantsSync) {
     return [Constants getConstants];
 }
 
+RCT_EXPORT_METHOD(getComponentTopBarVisible
+                  : (NSString *)componentId
+                  : (RCTPromiseResolveBlock)resolve rejecter
+                  : (RCTPromiseRejectBlock)reject) {
+    RCTExecuteOnMainQueue(^{
+      [self->_commandsHandler findViewControllerTopBarVisibleWithComponentId:componentId];
+    });
+}
+
 @end

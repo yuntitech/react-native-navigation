@@ -16,6 +16,7 @@ interface NativeCommandsModule {
   dismissOverlay(commandId: string, componentId: string): Promise<any>;
   dismissAllOverlays(commandId: string): Promise<any>;
   getLaunchArgs(commandId: string): Promise<any>;
+  getComponentTopBarVisible(componentId: string): Promise<boolean>;
 }
 
 export class NativeCommandsSender {
@@ -82,5 +83,9 @@ export class NativeCommandsSender {
 
   getLaunchArgs(commandId: string) {
     return this.nativeCommandsModule.getLaunchArgs(commandId);
+  }
+
+  public getComponentTopBarVisible(componentId: string): Promise<boolean> {
+    return this.nativeCommandsModule.getComponentTopBarVisible(componentId);
   }
 }
