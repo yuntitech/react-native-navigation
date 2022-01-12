@@ -127,4 +127,5 @@ export declare class NavigationRoot {
      */
     constantsSync(): NavigationConstants;
     getComponentTopBarVisible(componentId: string): Promise<boolean>;
+    hasRegisteredComponent(componentName: string): boolean;
 }
