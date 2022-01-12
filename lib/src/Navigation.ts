@@ -304,4 +304,8 @@ export class NavigationRoot {
   public async getComponentTopBarVisible(componentId: string): Promise<boolean> {
     return await this.nativeCommandsSender.getComponentTopBarVisible(componentId);
   }
+
+  public hasRegisteredComponent(componentName: string): boolean {
+    return this.store.hasRegisteredWrappedComponent(componentName);
+  }
 }
