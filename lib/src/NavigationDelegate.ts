@@ -247,4 +247,8 @@ export class NavigationDelegate {
   public async getComponentTopBarVisible(componentId: string): Promise<boolean> {
     return await this.concreteNavigation.getComponentTopBarVisible(componentId);
   }
+
+  public hasRegisteredComponent(componentName: string): boolean {
+    return this.concreteNavigation.hasRegisteredComponent(componentName);
+  }
 }

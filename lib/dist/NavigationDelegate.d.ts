@@ -112,4 +112,5 @@ export declare class NavigationDelegate {
         store: import("./components/Store").Store;
     };
     getComponentTopBarVisible(componentId: string): Promise<boolean>;
+    hasRegisteredComponent(componentName: string): boolean;
 }
