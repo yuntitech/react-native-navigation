@@ -306,6 +306,6 @@ export class NavigationRoot {
   }
 
   public hasRegisteredComponent(componentName: string): boolean {
-    return this.store.hasRegisteredWrappedComponent(componentName);
+    return this.store.getComponentClassForName(componentName) !== undefined;
   }
 }
