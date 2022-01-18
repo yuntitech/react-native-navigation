@@ -66,7 +66,7 @@ export class Store {
   }
 
   hasRegisteredWrappedComponent(componentName: string | number): boolean {
-    return componentName in this.wrappedComponents;
+    return componentName in this.componentsByName;
   }
 
   getWrappedComponent(componentName: string | number): React.ComponentClass<any> {
