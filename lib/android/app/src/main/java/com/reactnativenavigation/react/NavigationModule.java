@@ -94,18 +94,25 @@ public class NavigationModule extends ReactContextBaseJavaModule {
 
     @SuppressLint("RestrictedApi")
     @ReactMethod
-    public void getComponentTopBarVisible(String componentId,Promise promise){
-        ViewController controller = navigator().findController(componentId) ;
-        if(controller == null){
-            promise.resolve(false);
-        }
-        if(controller instanceof StackController){
-            StackController stackController = (StackController) controller;
-            promise.resolve(stackController.getTopBar().getVisibility() == View.VISIBLE);
-        }else{
-            Functions.Func1<StackController> task = stack-> promise.resolve(stack.getTopBar().getVisibility() == View.VISIBLE);
-            controller.performOnParentStack(task);
-        }
+    public void getComponentTopBarVisible(String componentId, Promise promise) {
+        handle(() -> {
+            try {
+                ViewController controller = navigator().findController(componentId);
+                if (controller == null) {
+                    promise.resolve(false);
+                    return;
+                }
+                if (controller instanceof StackController) {
+                    StackController stackController = (StackController) controller;
+                    promise.resolve(stackController.getTopBar().getVisibility() == View.VISIBLE);
+                } else {
+                    Functions.Func1<StackController> task = stack -> promise.resolve(stack.getTopBar().getVisibility() == View.VISIBLE);
+                    controller.performOnParentStack(task);
+                }
+            } catch (Exception e) {
+                promise.resolve(false);
+            }
+        });
     }
 
     private WritableMap createNavigationConstantsMap() {
