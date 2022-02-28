@@ -1,4 +1,4 @@
-import { OptionsTopBarButton } from 'react-native-navigation/interfaces/Options';
+import { OptionsTopBarButton } from '../../src';
 import ParentNode from './ParentNode';
 export default class ComponentNode extends ParentNode {
     componentDidMountOnce: boolean;

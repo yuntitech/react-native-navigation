@@ -1,6 +1,5 @@
 import React from 'react';
-import { OptionsTopBarButton } from '../..';
-import { OptionsTopBar, OptionsTopBarBackButton } from '../../interfaces/Options';
+import { OptionsTopBar, OptionsTopBarBackButton, OptionsTopBarButton } from 'react-native-navigation';
 import ParentNode from '../Layouts/ParentNode';
 export interface TopBarProps {
     layoutNode: ParentNode;

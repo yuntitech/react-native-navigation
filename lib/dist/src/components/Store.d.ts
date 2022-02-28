@@ -4,10 +4,12 @@ import { IWrappedComponent } from './ComponentWrapper';
 export declare class Store {
     private componentsByName;
     private propsById;
+    private pendingPropsById;
     private componentsInstancesById;
     private wrappedComponents;
     private lazyRegistratorFn;
     updateProps(componentId: string, props: any, callback?: () => void): void;
+    setPendingProps(componentId: string, newProps: any): void;
     getPropsForId(componentId: string): any;
     mergeNewPropsForId(componentId: string, newProps: any): void;
     clearComponent(componentId: string): void;

@@ -133,6 +133,16 @@ export interface OptionsLayout {
      * #### (iOS specific)
      */
     autoHideHomeIndicator?: boolean;
+    /**
+     * Add insets to the top layout
+     */
+    insets?: Insets;
+    /**
+     * Resizes the layout when keyboard is visible
+     * @default true
+     * #### (Android specific)
+     */
+    adjustResize?: boolean;
 }
 export declare enum OptionsModalPresentationStyle {
     formSheet = "formSheet",
@@ -360,6 +370,10 @@ export interface HardwareBackButtonOptions {
      * @default true
      */
     popStackOnPress?: boolean;
+    /**
+     * Controls hardware back button bottom tab selection behaviour
+     */
+    bottomTabsOnPress?: 'exit' | 'first' | 'previous';
 }
 export interface OptionsTopBarScrollEdgeAppearanceBackground {
     /**
@@ -430,6 +444,11 @@ export interface OptionsTopBarButton {
      * Set the button icon
      */
     icon?: ImageResource;
+    /**
+     * Set the SF symbol as icon (will be used primarily)
+     * #### (iOS 13+ specific)
+     */
+    sfSymbol?: string;
     /**
      * Set the button icon insets
      */
@@ -831,6 +850,10 @@ export interface ImageSystemSource {
 }
 export declare type ImageResource = ImageSourcePropType | string | ImageSystemSource;
 export interface OptionsBottomTab {
+    /**
+     * Unique id in order to be found in the view hierarchy
+     */
+    id?: string;
     dotIndicator?: DotIndicatorOptions;
     /**
      * Set the text to display below the icon
@@ -843,7 +866,7 @@ export interface OptionsBottomTab {
     /**
      * Set the background color of the badge that is overlayed over the component
      */
-    badgeColor?: string;
+    badgeColor?: Color;
     /**
      * Show the badge with the animation.
      * #### (Android specific)
@@ -996,6 +1019,26 @@ export interface OverlayOptions {
      * Set this to true if your Overlay contains a TextInput.
      */
     handleKeyboardEvents?: boolean;
+    /**
+     * Attach overlay to anchor view in a certain layer of layout as a tooltip
+     */
+    attach?: {
+        /**
+         * layout id to look for to add as a layer
+         * which can be componentId or stackId or bottomTabsId.
+         */
+        layoutId: string;
+        anchor?: {
+            /**
+             * Anchor view id, TopBar Button, Title Component, BottomTab.
+             */
+            id: string;
+            /**
+             * The anchor view side that the tooltip will be displayed.
+             */
+            gravity: 'top' | 'left' | 'right' | 'bottom';
+        };
+    };
 }
 export interface ModalOptions {
     /**

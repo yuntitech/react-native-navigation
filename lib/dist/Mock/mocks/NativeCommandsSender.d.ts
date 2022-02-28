@@ -1,4 +1,4 @@
-import { LayoutNode } from 'react-native-navigation/commands/LayoutTreeCrawler';
+import { LayoutNode } from '../../src/commands/LayoutTreeCrawler';
 export declare class NativeCommandsSender {
     constructor();
     setRoot(_commandId: string, layout: {

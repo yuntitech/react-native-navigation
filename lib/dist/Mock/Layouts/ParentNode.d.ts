@@ -1,5 +1,5 @@
-import { OptionsTopBarButton } from '../../interfaces/Options';
-import { Options } from '../../index';
+import { OptionsTopBarButton } from '../../src/interfaces/Options';
+import { Options } from '../../src/index';
 import ComponentNode from './ComponentNode';
 import Node, { NodeType } from './Node';
 export default class ParentNode extends Node {

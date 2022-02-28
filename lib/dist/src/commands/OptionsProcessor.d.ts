@@ -14,7 +14,7 @@ export declare class OptionsProcessor {
     private assetService;
     private deprecations;
     constructor(store: Store, uniqueIdProvider: UniqueIdProvider, optionProcessorsRegistry: OptionProcessorsStore, colorService: ColorService, assetService: AssetService, deprecations: Deprecations);
-    processOptions(options: Options, commandName: CommandName, props?: any): void;
+    processOptions(commandName: CommandName, options?: Options, props?: any): void;
     processDefaultOptions(options: Options, commandName: CommandName): void;
     private processObject;
     private resolveObjectPath;

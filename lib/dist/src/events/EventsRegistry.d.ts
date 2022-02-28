@@ -1,3 +1,4 @@
+import type { Component } from 'react';
 import { EmitterSubscription } from 'react-native';
 import { NativeEventsReceiver } from '../adapters/NativeEventsReceiver';
 import { CommandsObserver } from './CommandsObserver';
@@ -26,7 +27,7 @@ export declare class EventsRegistry {
     registerSearchBarCancelPressedListener(callback: (event: SearchBarCancelPressedEvent) => void): EmitterSubscription;
     registerPreviewCompletedListener(callback: (event: PreviewCompletedEvent) => void): EmitterSubscription;
     registerCommandListener(callback: (name: string, params: any) => void): EventSubscription;
-    bindComponent(component: React.Component<any>, componentId?: string): EventSubscription;
+    bindComponent(component: Component<any>, componentId?: string): EventSubscription;
     registerComponentListener(listener: NavigationComponentListener, componentId: string): EventSubscription;
     registerScreenPoppedListener(callback: (event: ScreenPoppedEvent) => void): EmitterSubscription;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { OptionsTopBarButton } from '../../';
+import { OptionsTopBarButton } from 'react-native-navigation';
 interface ButtonProps {
     button: OptionsTopBarButton;
     componentId: string;
