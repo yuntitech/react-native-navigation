@@ -209,4 +209,24 @@
     return [self.presenter hidesBottomBarWhenPushed];
 }
 
+- (BOOL)shouldAutorotate
+{
+  // If iPad, true
+  // If iPhone, false
+  // Because in some cases, RN side call showOverlay method, the overlay is a new window attached to the screen.And if the overlay's orientation is landscape in iPhone, it will cause a crash below.
+  /**
+   #0 Thread
+
+   UIApplicationInvalidInterfaceOrientation
+
+   Supported orientations has no common orientation with the application, and [RNNBottomTabsController shouldAutorotate] is returning YES
+   */
+  // So the workaround maybe not elegant, but it does work.😓
+  if ([UIDevice.currentDevice userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 @end
