@@ -58,6 +58,18 @@
     [super viewWillAppear:animated];
     _viewWillAppearOnce = YES;
     [self loadChildren:self.pendingChildViewControllers];
+  
+  
+  // TODO: 暂时解决 iPadOS 上 bottomBar 文字被截断的问题 https://github.com/wix/react-native-navigation/issues/6533#issuecomment-1051369747
+  for (UIView *subView in self.tabBar.subviews) {
+    if (subView.subviews.count >= 2) {
+      UIView *targetView = subView.subviews[1];
+      if ([targetView isKindOfClass:[UILabel class]]) {
+        UILabel *label = (UILabel *)targetView;
+        label.lineBreakMode = NSLineBreakByClipping;
+      }
+    }
+  }
 }
 
 - (void)onChildAddToParent:(UIViewController *)child options:(RNNNavigationOptions *)options {
