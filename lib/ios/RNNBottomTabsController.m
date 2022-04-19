@@ -221,24 +221,25 @@
     return [self.presenter hidesBottomBarWhenPushed];
 }
 
-- (BOOL)shouldAutorotate
-{
-  // If iPad, true
-  // If iPhone, false
-  // Because in some cases, RN side call showOverlay method, the overlay is a new window attached to the screen.And if the overlay's orientation is landscape in iPhone, it will cause a crash below.
-  /**
-   #0 Thread
-
-   UIApplicationInvalidInterfaceOrientation
-
-   Supported orientations has no common orientation with the application, and [RNNBottomTabsController shouldAutorotate] is returning YES
-   */
-  // So the workaround maybe not elegant, but it does work.😓
-  if ([UIDevice.currentDevice userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// 暂时注释掉 shouldAutorotate，确保 iOS 手机端视屏可以横屏播放，overlay 在 iOS 手机上横屏展示貌似还无法手动触发，只有定期去 bugly 上查看是否还有新的 crash 上报
+//- (BOOL)shouldAutorotate
+//{
+//  // If iPad, true
+//  // If iPhone, false
+//  // Because in some cases, RN side call showOverlay method, the overlay is a new window attached to the screen.And if the overlay's orientation is landscape in iPhone, it will cause a crash below.
+//  /**
+//   #0 Thread
+//
+//   UIApplicationInvalidInterfaceOrientation
+//
+//   Supported orientations has no common orientation with the application, and [RNNBottomTabsController shouldAutorotate] is returning YES
+//   */
+//  // So the workaround maybe not elegant, but it does work.😓
+//  if ([UIDevice.currentDevice userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+//    return YES;
+//  } else {
+//    return NO;
+//  }
+//}
 
 @end
