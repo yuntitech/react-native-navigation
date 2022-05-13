@@ -66,7 +66,7 @@
       UIView *targetView = subView.subviews[1];
       if ([targetView isKindOfClass:[UILabel class]]) {
         UILabel *label = (UILabel *)targetView;
-        label.lineBreakMode = NSLineBreakByClipping;
+        label.lineBreakMode = NSLineBreakByCharWrapping;
       }
     }
   }
