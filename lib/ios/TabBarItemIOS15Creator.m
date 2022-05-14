@@ -12,24 +12,30 @@
 }
 
 - (void)setTitleAttributes:(UITabBarItem *)tabItem titleAttributes:(NSDictionary *)titleAttributes {
-    [super setTitleAttributes:tabItem titleAttributes:titleAttributes];
+  // https://stackoverflow.com/a/69457332/5159380
+  NSMutableDictionary *fixedTitleAttributes = titleAttributes.mutableCopy;
+  fixedTitleAttributes[NSParagraphStyleAttributeName] = [NSParagraphStyle defaultParagraphStyle];
+    [super setTitleAttributes:tabItem titleAttributes:fixedTitleAttributes];
     tabItem.scrollEdgeAppearance.stackedLayoutAppearance.normal.titleTextAttributes =
-        titleAttributes;
+  fixedTitleAttributes;
     tabItem.scrollEdgeAppearance.compactInlineLayoutAppearance.normal.titleTextAttributes =
-        titleAttributes;
+  fixedTitleAttributes;
     tabItem.scrollEdgeAppearance.inlineLayoutAppearance.normal.titleTextAttributes =
-        titleAttributes;
+  fixedTitleAttributes;
 }
 
 - (void)setSelectedTitleAttributes:(UITabBarItem *)tabItem
            selectedTitleAttributes:(NSDictionary *)selectedTitleAttributes {
-    [super setSelectedTitleAttributes:tabItem selectedTitleAttributes:selectedTitleAttributes];
+  // https://stackoverflow.com/a/69457332/5159380
+  NSMutableDictionary *fixedTitleAttributes = selectedTitleAttributes.mutableCopy;
+  fixedTitleAttributes[NSParagraphStyleAttributeName] = [NSParagraphStyle defaultParagraphStyle];
+    [super setSelectedTitleAttributes:tabItem selectedTitleAttributes:fixedTitleAttributes];
     tabItem.scrollEdgeAppearance.stackedLayoutAppearance.selected.titleTextAttributes =
-        selectedTitleAttributes;
+  fixedTitleAttributes;
     tabItem.scrollEdgeAppearance.compactInlineLayoutAppearance.selected.titleTextAttributes =
-        selectedTitleAttributes;
+  fixedTitleAttributes;
     tabItem.scrollEdgeAppearance.inlineLayoutAppearance.selected.titleTextAttributes =
-        selectedTitleAttributes;
+  fixedTitleAttributes;
 }
 
 #endif

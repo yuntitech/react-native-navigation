@@ -61,13 +61,31 @@
   
   
   // TODO: 暂时解决 iPadOS 上 bottomBar 文字被截断的问题 https://github.com/wix/react-native-navigation/issues/6533#issuecomment-1051369747
-  for (UIView *subView in self.tabBar.subviews) {
-    if (subView.subviews.count >= 2) {
-      UIView *targetView = subView.subviews[1];
-      if ([targetView isKindOfClass:[UILabel class]]) {
-        UILabel *label = (UILabel *)targetView;
-        label.lineBreakMode = NSLineBreakByCharWrapping;
-      }
+//  for (UIView *subView in self.tabBar.subviews) {
+//    if (subView.subviews.count >= 2) {
+//      UIView *targetView = subView.subviews[1];
+//      if ([targetView isKindOfClass:[UILabel class]]) {
+//        UILabel *label = (UILabel *)targetView;
+//        label.lineBreakMode = NSLineBreakByCharWrapping;
+//      }
+//    }
+//  }
+}
+
+- (void)viewWillLayoutSubviews
+{
+  [super viewWillLayoutSubviews];
+  
+  // fix: 修复 iPadOS 15 bottomBar 文字被截断的问题
+  // https://stackoverflow.com/a/61197199/5159380
+  if (@available(iOS 15.0, *)) {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+      [self.tabBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.subviews.count > 1 && [obj.subviews[1] isKindOfClass:[UILabel class]]) {
+          UILabel *label = obj.subviews[1];
+          label.textAlignment = NSTextAlignmentCenter;
+        }
+      }];
     }
   }
 }
