@@ -43,7 +43,10 @@ class OverlayManager {
     }
 
     fun destroy(overlaysContainer: ViewGroup) {
-        overlayRegistry.values.forEach { overlay -> destroyOverlay(overlaysContainer, overlay) }
+        val overlays: MutableList<ViewController<*>> = overlayRegistry.values.toMutableList()
+        for(overlay in overlays) {
+            destroyOverlay(overlaysContainer, overlay)
+        }
     }
 
     fun size() = overlayRegistry.size
