@@ -23,7 +23,7 @@ public abstract class NavigationApplication extends Application implements React
 	public void onCreate() {
 		super.onCreate();
         instance = this;
-        SoLoader.init(this, false);
+        // SoLoader.init(this, false);
         reactGateway = createReactGateway();
 	}
 
